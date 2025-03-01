@@ -25,3 +25,39 @@ BANK00::~BANK00()
 {
     delete[] memory;
 }
+
+void BANK00::MostraPrimeiros16()
+{
+    std::cout << "Primeiros 16 bytes da ROM" << std::endl;
+    
+    for(int i = 0; i < 16; i++)
+    {
+        printf("%02X ", memory[i]);
+    }
+
+    std::cout << std::endl << std::endl  << std::endl;
+}
+
+void BANK00::PrintaLogoNintendo()
+{
+    std::cout << "Logo da Nintendo" << std::endl;
+    
+    for(int i = 0x0104; i < 0x0134; i++)
+    {
+        printf("%02X ", memory[i]);
+    }
+
+    std::cout << std::endl << std::endl  << std::endl;
+}
+
+void BANK00::PrintaTituloJogo()
+{
+    std::cout << "Título do jogo" << std::endl;
+    
+    for(int i = 0x0134; i < 0x0145; i++)
+    {
+        std::cout << static_cast<char>(memory[i]);
+    }
+
+    std::cout << std::endl << std::endl  << std::endl;
+}

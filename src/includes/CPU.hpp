@@ -2,12 +2,14 @@
 
 class Memory;
 
+class ROMLoader;
+
 class CPU
 {
     public:
+        ROMLoader* romLoader;
         Memory* memory;
 
-    //public:
         CPU();
         ~CPU();
 };

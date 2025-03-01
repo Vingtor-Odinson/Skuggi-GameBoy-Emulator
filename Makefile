@@ -201,6 +201,30 @@ src/defs/Memoria/MemoryParts.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.s
 .PHONY : src/defs/Memoria/MemoryParts.cpp.s
 
+src/defs/ROM/ROMLoader.o: src/defs/ROM/ROMLoader.cpp.o
+.PHONY : src/defs/ROM/ROMLoader.o
+
+# target to build an object file
+src/defs/ROM/ROMLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o
+.PHONY : src/defs/ROM/ROMLoader.cpp.o
+
+src/defs/ROM/ROMLoader.i: src/defs/ROM/ROMLoader.cpp.i
+.PHONY : src/defs/ROM/ROMLoader.i
+
+# target to preprocess a source file
+src/defs/ROM/ROMLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.i
+.PHONY : src/defs/ROM/ROMLoader.cpp.i
+
+src/defs/ROM/ROMLoader.s: src/defs/ROM/ROMLoader.cpp.s
+.PHONY : src/defs/ROM/ROMLoader.s
+
+# target to generate assembly for a file
+src/defs/ROM/ROMLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.s
+.PHONY : src/defs/ROM/ROMLoader.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -243,6 +267,9 @@ help:
 	@echo "... src/defs/Memoria/MemoryParts.o"
 	@echo "... src/defs/Memoria/MemoryParts.i"
 	@echo "... src/defs/Memoria/MemoryParts.s"
+	@echo "... src/defs/ROM/ROMLoader.o"
+	@echo "... src/defs/ROM/ROMLoader.i"
+	@echo "... src/defs/ROM/ROMLoader.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

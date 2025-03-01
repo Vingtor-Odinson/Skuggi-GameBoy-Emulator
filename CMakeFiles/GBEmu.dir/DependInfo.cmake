@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/glauco/Desktop/random/GBEmu/src/defs/CPU.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o.d"
   "/home/glauco/Desktop/random/GBEmu/src/defs/Memoria/Memory.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o.d"
   "/home/glauco/Desktop/random/GBEmu/src/defs/Memoria/MemoryParts.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o.d"
+  "/home/glauco/Desktop/random/GBEmu/src/defs/ROM/ROMLoader.cpp" "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o.d"
   "/home/glauco/Desktop/random/GBEmu/src/main.cpp" "CMakeFiles/GBEmu.dir/src/main.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/main.cpp.o.d"
   )
 

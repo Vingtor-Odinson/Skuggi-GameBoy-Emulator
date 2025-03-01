@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o.d"
   "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o"
   "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o.d"
+  "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o"
+  "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o.d"
   "CMakeFiles/GBEmu.dir/src/main.cpp.o"
   "CMakeFiles/GBEmu.dir/src/main.cpp.o.d"
   "bin/Debug/GBEmu"
