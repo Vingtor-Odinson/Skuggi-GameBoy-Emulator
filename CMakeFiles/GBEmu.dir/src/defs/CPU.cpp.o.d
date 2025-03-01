@@ -2,7 +2,7 @@ CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o: \
  /home/glauco/Desktop/random/GBEmu/src/defs/CPU.cpp \
  /usr/include/stdc-predef.h \
  /home/glauco/Desktop/random/GBEmu/src/includes/CPU.hpp \
- /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp \
+ /home/glauco/Desktop/random/GBEmu/src/includes/Registers/Registers.hpp \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -19,6 +19,7 @@ CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+ /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp \
  /home/glauco/Desktop/random/GBEmu/src/includes/ROM/ROMLoader.hpp \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \

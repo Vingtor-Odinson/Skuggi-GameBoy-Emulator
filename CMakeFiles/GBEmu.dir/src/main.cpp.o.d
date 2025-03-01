@@ -161,6 +161,7 @@ CMakeFiles/GBEmu.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp \
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/MemoryParts.hpp \
+ /home/glauco/Desktop/random/GBEmu/src/includes/Registers/Registers.hpp \
  /usr/include/c++/13/filesystem /usr/include/c++/13/bits/fs_fwd.h \
  /usr/include/c++/13/cstdint /usr/include/c++/13/bits/chrono.h \
  /usr/include/c++/13/ratio /usr/include/c++/13/limits \

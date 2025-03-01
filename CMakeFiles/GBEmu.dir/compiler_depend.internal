@@ -6,6 +6,7 @@ CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o
  /home/glauco/Desktop/random/GBEmu/src/includes/CPU.hpp
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp
  /home/glauco/Desktop/random/GBEmu/src/includes/ROM/ROMLoader.hpp
+ /home/glauco/Desktop/random/GBEmu/src/includes/Registers/Registers.hpp
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h
@@ -582,6 +583,7 @@ CMakeFiles/GBEmu.dir/src/main.cpp.o
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/MemoryParts.hpp
  /home/glauco/Desktop/random/GBEmu/src/includes/ROM/ROMLoader.hpp
+ /home/glauco/Desktop/random/GBEmu/src/includes/Registers/Registers.hpp
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h

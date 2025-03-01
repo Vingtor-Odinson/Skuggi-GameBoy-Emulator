@@ -35,6 +35,6 @@ void ROMLoader::LoadBANK00()
 {
     for(int i = 0x0000; i < 0x4000; i++)
     {
-        cpu->memory->bank00->Write(i, (*ROMData)[i]);
+        (*cpu).memory->bank00->Write(i, (*ROMData)[i]);
     }
 }

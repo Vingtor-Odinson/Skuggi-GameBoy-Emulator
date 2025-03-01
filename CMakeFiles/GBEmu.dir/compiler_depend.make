@@ -5,6 +5,7 @@ CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o: src/defs/CPU.cpp \
   src/includes/CPU.hpp \
   src/includes/Memoria/Memory.hpp \
   src/includes/ROM/ROMLoader.hpp \
+  src/includes/Registers/Registers.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -577,6 +578,7 @@ CMakeFiles/GBEmu.dir/src/main.cpp.o: src/main.cpp \
   src/includes/Memoria/Memory.hpp \
   src/includes/Memoria/MemoryParts.hpp \
   src/includes/ROM/ROMLoader.hpp \
+  src/includes/Registers/Registers.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -947,10 +949,6 @@ src/defs/Memoria/MemoryParts.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
 
-/usr/include/c++/13/cstdint:
-
-/usr/include/c++/13/cstdlib:
-
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
 /usr/include/c++/13/cstddef:
@@ -993,16 +991,6 @@ src/defs/CPU.cpp:
 
 /usr/include/c++/13/bits/ostream_insert.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
-
-/usr/include/c++/13/bits/ptr_traits.h:
-
-/usr/include/alloca.h:
-
-/usr/include/c++/13/bits/stl_iterator_base_types.h:
-
 /usr/include/c++/13/bits/utility.h:
 
 /usr/include/c++/13/bits/stl_function.h:
@@ -1013,13 +1001,35 @@ src/defs/CPU.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
-/usr/include/c++/13/bits/basic_string.tcc:
-
-/usr/include/c++/13/bit:
-
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
 /usr/include/c++/13/type_traits:
+
+/usr/include/c++/13/bits/predefined_ops.h:
+
+/usr/include/c++/13/iosfwd:
+
+/usr/include/c++/13/cwchar:
+
+/usr/include/c++/13/bits/allocated_ptr.h:
+
+/usr/include/c++/13/clocale:
+
+/usr/include/c++/13/bits/fs_path.h:
+
+/usr/include/c++/13/fstream:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
+
+/usr/include/c++/13/cstdio:
+
+/usr/include/c++/13/bits/charconv.h:
+
+/usr/include/c++/13/bits/stl_pair.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/c++/13/bits/hash_bytes.h:
 
 /usr/include/c++/13/bits/stl_bvector.h:
 
@@ -1035,19 +1045,31 @@ src/includes/ROM/ROMLoader.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
-/usr/include/c++/13/bits/allocated_ptr.h:
-
-/usr/include/c++/13/clocale:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/c++/13/bits/hash_bytes.h:
+src/includes/Registers/Registers.hpp:
 
 /usr/include/c++/13/locale:
 
 /usr/include/c++/13/bits/stl_uninitialized.h:
 
+/usr/include/asm-generic/errno.h:
+
+/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
+
 src/includes/CPU.hpp:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/13/bit:
+
+/usr/include/c++/13/bits/basic_string.tcc:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
+
+/usr/include/c++/13/bits/ptr_traits.h:
+
+/usr/include/c++/13/bits/stl_iterator_base_types.h:
 
 /usr/include/c++/13/bits/vector.tcc:
 
@@ -1109,15 +1131,9 @@ src/includes/Memoria/Memory.hpp:
 
 /usr/include/c++/13/bits/invoke.h:
 
-/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
+/usr/include/c++/13/cstdint:
 
-/usr/include/asm-generic/errno.h:
-
-/usr/include/c++/13/cwchar:
-
-/usr/include/c++/13/bits/predefined_ops.h:
-
-/usr/include/c++/13/iosfwd:
+/usr/include/c++/13/cstdlib:
 
 /usr/include/c++/13/debug/assertions.h:
 
@@ -1270,15 +1286,3 @@ src/includes/Memoria/MemoryParts.hpp:
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/c++/13/bits/fs_path.h:
-
-/usr/include/c++/13/fstream:
-
-/usr/include/c++/13/cstdio:
-
-/usr/include/c++/13/bits/charconv.h:
-
-/usr/include/c++/13/bits/stl_pair.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
