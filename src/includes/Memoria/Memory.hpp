@@ -12,6 +12,9 @@ class Memory
         Memory();
         ~Memory();
 
+        static uint8_t GetMemoryCategory( uint16_t address );
+        uint8_t ReadMemory(uint16_t address);
+
         
 };
 

@@ -1,9 +1,9 @@
 #include <iostream>
-#include <CPU.hpp>
+#include <CPU/CPU.hpp>
 #include <ROM/ROMLoader.hpp>
 #include <Memoria/Memory.hpp>
 #include <Memoria/MemoryParts.hpp>
-#include <Registers/Registers.hpp>
+#include <CPU/Registers.hpp>
 
 #include <filesystem>
 #include <string.h>

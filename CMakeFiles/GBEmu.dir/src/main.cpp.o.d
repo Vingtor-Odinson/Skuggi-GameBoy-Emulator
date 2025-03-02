@@ -150,18 +150,26 @@ CMakeFiles/GBEmu.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
- /home/glauco/Desktop/random/GBEmu/src/includes/CPU.hpp \
+ /home/glauco/Desktop/random/GBEmu/src/includes/CPU/CPU.hpp \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+ /usr/include/c++/13/unordered_map \
+ /usr/include/c++/13/bits/unordered_map.h \
+ /usr/include/c++/13/bits/hashtable.h \
+ /usr/include/c++/13/bits/hashtable_policy.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/bits/enable_special_members.h \
+ /usr/include/c++/13/bits/node_handle.h \
+ /usr/include/c++/13/bits/erase_if.h \
  /home/glauco/Desktop/random/GBEmu/src/includes/ROM/ROMLoader.hpp \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_uninitialized.h \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp \
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/MemoryParts.hpp \
- /home/glauco/Desktop/random/GBEmu/src/includes/Registers/Registers.hpp \
+ /home/glauco/Desktop/random/GBEmu/src/includes/CPU/Registers.hpp \
  /usr/include/c++/13/filesystem /usr/include/c++/13/bits/fs_fwd.h \
  /usr/include/c++/13/cstdint /usr/include/c++/13/bits/chrono.h \
  /usr/include/c++/13/ratio /usr/include/c++/13/limits \
@@ -179,7 +187,6 @@ CMakeFiles/GBEmu.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/shared_ptr.h \
  /usr/include/c++/13/bits/shared_ptr_base.h \
  /usr/include/c++/13/bits/allocated_ptr.h \
- /usr/include/c++/13/bits/unique_ptr.h \
- /usr/include/c++/13/ext/aligned_buffer.h \
- /usr/include/c++/13/bits/fs_dir.h /usr/include/c++/13/bits/fs_ops.h \
- /usr/include/string.h /usr/include/strings.h
+ /usr/include/c++/13/bits/unique_ptr.h /usr/include/c++/13/bits/fs_dir.h \
+ /usr/include/c++/13/bits/fs_ops.h /usr/include/string.h \
+ /usr/include/strings.h

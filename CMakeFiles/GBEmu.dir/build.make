@@ -69,19 +69,19 @@ include CMakeFiles/GBEmu.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/GBEmu.dir/flags.make
 
-CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o: CMakeFiles/GBEmu.dir/flags.make
-CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o: src/defs/CPU.cpp
-CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o: CMakeFiles/GBEmu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/glauco/Desktop/random/GBEmu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o -MF CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o.d -o CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o -c /home/glauco/Desktop/random/GBEmu/src/defs/CPU.cpp
+CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o: CMakeFiles/GBEmu.dir/flags.make
+CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o: src/defs/CPU/CPU.cpp
+CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o: CMakeFiles/GBEmu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/glauco/Desktop/random/GBEmu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o -MF CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o.d -o CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o -c /home/glauco/Desktop/random/GBEmu/src/defs/CPU/CPU.cpp
 
-CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/glauco/Desktop/random/GBEmu/src/defs/CPU.cpp > CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.i
+CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/glauco/Desktop/random/GBEmu/src/defs/CPU/CPU.cpp > CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.i
 
-CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/glauco/Desktop/random/GBEmu/src/defs/CPU.cpp -o CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.s
+CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/glauco/Desktop/random/GBEmu/src/defs/CPU/CPU.cpp -o CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.s
 
 CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o: CMakeFiles/GBEmu.dir/flags.make
 CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o: src/defs/Memoria/Memory.cpp
@@ -141,7 +141,7 @@ CMakeFiles/GBEmu.dir/src/main.cpp.s: cmake_force
 
 # Object files for target GBEmu
 GBEmu_OBJECTS = \
-"CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o" \
+"CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o" \
 "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o" \
 "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o" \
 "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o" \
@@ -150,7 +150,7 @@ GBEmu_OBJECTS = \
 # External object files for target GBEmu
 GBEmu_EXTERNAL_OBJECTS =
 
-bin/Debug/GBEmu: CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o
+bin/Debug/GBEmu: CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o
 bin/Debug/GBEmu: CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o
 bin/Debug/GBEmu: CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o
 bin/Debug/GBEmu: CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o

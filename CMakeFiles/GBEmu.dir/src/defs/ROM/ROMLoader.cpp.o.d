@@ -121,7 +121,15 @@ CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/13/bits/charconv.h \
  /usr/include/c++/13/bits/basic_string.tcc \
- /home/glauco/Desktop/random/GBEmu/src/includes/CPU.hpp \
+ /home/glauco/Desktop/random/GBEmu/src/includes/CPU/CPU.hpp \
+ /usr/include/c++/13/unordered_map \
+ /usr/include/c++/13/bits/unordered_map.h \
+ /usr/include/c++/13/bits/hashtable.h \
+ /usr/include/c++/13/bits/hashtable_policy.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/bits/enable_special_members.h \
+ /usr/include/c++/13/bits/node_handle.h \
+ /usr/include/c++/13/bits/erase_if.h \
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp \
  /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/MemoryParts.hpp \
  /usr/include/c++/13/fstream /usr/include/c++/13/istream \

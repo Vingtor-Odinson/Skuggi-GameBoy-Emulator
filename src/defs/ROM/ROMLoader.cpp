@@ -1,5 +1,5 @@
 #include <ROM/ROMLoader.hpp>
-#include <CPU.hpp>
+#include <CPU/CPU.hpp>
 #include <Memoria/Memory.hpp>
 #include <Memoria/MemoryParts.hpp>
 #include "fstream"
