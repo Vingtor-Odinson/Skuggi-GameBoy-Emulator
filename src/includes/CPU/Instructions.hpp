@@ -11,16 +11,27 @@ class Operand
         std::string name; //Tlavez trocar pra regs*
         uint8_t bytes;
         bool immediate;
+        bool decrement = false;
 
     public:
 
         void SetName(std::string nome){name = nome;}
-        void SetNeededBytes(uint8_t bts){bytes = bts;}
-        void SetIsImmediate( bool imm ){ immediate = imm; }
+        void SetNeededBytes(uint8_t bts){bytes = bts;}   //trocar as entradas pra string e fazer cast
+        void SetIsImmediate(bool imm){ immediate = imm; }
+        void SetIsDecrement(bool imm){ decrement = imm; }
 
         std::string GetName(){return name;}
         uint8_t GetBytes(){ return bytes; }
         bool IsImmediate(){ return immediate; }
+        bool IsDecrement(){ return decrement; }
+};
+
+struct Flags
+{
+    std::string Z;
+    std::string N;
+    std::string H;
+    std::string C;
 };
 
 class Instruction
@@ -31,17 +42,26 @@ class Instruction
         uint8_t cicles;
         uint8_t operandsNumber = 0;
         Operand* operands;
+        bool immediate;
+        
 
     public:
         Instruction(){
             operands = new Operand[2];
         }
 
-        std::string GetMnemonic() {return mnemonic;}
+        Flags flags;
 
+        void SetMnemonic( std::string name ){ mnemonic = name; }
+        void SetNeededBytesQtd( uint8_t value ){ bytes = value; }
+        void SetCiclesNumber( uint8_t value ){ cicles = value; }
+        void SetImmediate(bool imm){ immediate = imm; }
+
+        std::string GetMnemonic() {return mnemonic;}
         uint8_t GetNeededBytesQtd() {return bytes;}
         uint8_t GetCiclesNumber() {return cicles;}
         uint8_t GetOperandsNumber() {return operandsNumber;}
+        bool IsImmediate(){return immediate;}
 
         void AddOperand( Operand operado )
         {
@@ -78,7 +98,7 @@ class InstructionLoader
 {
     private:
         CPU* cpu;
-        std::string fileLocation;
+        std::string fileLocation = "Data/Instructions.json";
 
     public:
         InstructionLoader(CPU* cpuPtr)

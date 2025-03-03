@@ -32,4 +32,6 @@ class CPU
 
         uint8_t getOpcode( uint16_t address );
         void operateByte();
+
+        friend class InstructionLoader;
 };

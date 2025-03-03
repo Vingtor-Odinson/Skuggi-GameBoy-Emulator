@@ -9,6 +9,8 @@ CPU::CPU(){
     romLoader = new ROMLoader( this );
     instLoader = new InstructionLoader( this );
     regs = new Registers();
+
+    instLoader->LoadInstructions();
 }
 
 CPU::~CPU(){
