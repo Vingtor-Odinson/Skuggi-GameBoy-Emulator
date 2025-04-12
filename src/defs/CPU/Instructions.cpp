@@ -7,6 +7,68 @@
 
 using json = nlohmann::json;
 
+namespace Instructions{
+
+    template <typename T>
+    void inc(T& reg, CPU*& cpu)
+    {   
+        T mask = 0x08;
+        
+        bool bitBeforeIsOne = (reg & mask) != 0; // 3o bit era 1 antes?
+        
+        reg++;
+        
+        bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
+        
+        if( bitBeforeIsOne && !bitAfterIsOne )
+        {
+            cpu->flags->H = "1";
+        }
+        if( reg == 0 )
+        {
+            cpu->flags->Z = "1";
+        }
+
+        cpu->flags->N = "0";
+    }
+
+    template <typename T>
+    void dec(T& reg, CPU*& cpu)
+    {   
+        if constexpr(std::is_same<T, uint16_t>::value)
+        {
+            reg --;
+        }
+        else if constexpr(std::is_same<T, uint8_t>::value)
+        {
+            cpu->flags->N = "1";
+
+            uint8_t lowerNibbleBefore = (reg & 0b00001111);
+
+            reg--;
+
+            uint8_t lowerNibbleAfter = (reg & 0b00001111);
+
+            if( lowerNibbleAfter > lowerNibbleBefore )
+            {
+                cpu->flags->H = "1";
+            }
+
+            if( reg == 0 )
+            {
+                cpu->flags->Z = "0";
+            }
+        }
+    }
+
+    //Explicit template declaration
+    template void inc<uint8_t>(uint8_t&, CPU*&);
+    template void inc<uint16_t>(uint16_t&, CPU*&);
+
+    template void dec<uint8_t>(uint8_t&, CPU*&);
+    template void dec<uint16_t>(uint16_t&, CPU*&);
+}
+
 void InstructionLoader::LoadInstructions()
 {
     std::ifstream file(fileLocation);

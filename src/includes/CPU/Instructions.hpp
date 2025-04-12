@@ -5,6 +5,16 @@
 
 class CPU;
 
+namespace Instructions{
+
+
+    template <typename T>
+    void inc(T& reg, CPU*& cpu);
+    
+    template <typename T>
+    void dec(T& reg, CPU*& cpu);
+}
+
 class Operand
 {
     private:

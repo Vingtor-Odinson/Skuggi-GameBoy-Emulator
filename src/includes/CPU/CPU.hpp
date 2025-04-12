@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <unordered_map>
 
+#include<CPU/Instructions.hpp>
+
 class Memory;
 
 class ROMLoader;
@@ -26,11 +28,13 @@ class CPU
         Memory* memory;
         Registers* regs;
         InstructionLoader* instLoader;
+        Flags* flags;
 
         CPU();
         ~CPU();
 
         uint8_t getOpcode( uint16_t address );
+        uint8_t fetchMemory( uint16_t address );
         void operateByte();
 
         friend class InstructionLoader;

@@ -1,8 +1,8 @@
 CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o: \
- /home/glauco/Desktop/random/GBEmu/src/defs/Memoria/Memory.cpp \
+ /home/glauco/Desktop/GBEmulador/src/defs/Memoria/Memory.cpp \
  /usr/include/stdc-predef.h \
- /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/Memory.hpp \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -17,5 +17,4 @@ CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
- /home/glauco/Desktop/random/GBEmu/src/includes/Memoria/MemoryParts.hpp
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp
