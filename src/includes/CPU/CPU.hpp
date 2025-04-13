@@ -4,6 +4,9 @@
 #include <unordered_map>
 
 #include<CPU/Instructions.hpp>
+#include<CPU/InstructionResolver.hpp>
+
+using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
 
 class Memory;
 
@@ -22,6 +25,7 @@ class CPU
 
     private:
         std::unordered_map<uint8_t, Instruction> Instructions;
+        std::unordered_map<std::string, InstructionHandler> InstructionMap;
 
     public:
         ROMLoader* romLoader;

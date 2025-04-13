@@ -153,6 +153,9 @@ namespace Instructions{
 
 void InstructionLoader::LoadInstructions()
 {
+
+    ////////////////////////////// Carrega a Lista de instruções do json ////////////////////////////
+
     std::ifstream file(fileLocation);
 
     if (!file.is_open()) {
@@ -221,4 +224,10 @@ void InstructionLoader::LoadInstructions()
     }
 
     file.close();
+
+    //////////////////////// Carrega as funções no mapa de funções /////////////////
+
+    cpu->InstructionMap["INC"] = Instructions::inc;
+    cpu->InstructionMap["DEC"] = Instructions::dec;
+    cpu->InstructionMap["LD"]  = Instructions::ld;
 }

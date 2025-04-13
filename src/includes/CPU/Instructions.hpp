@@ -13,11 +13,11 @@ namespace Instructions{
 
     uint16_t* get16BytesReg( std::string regString, CPU* cpu );
 
-    void inc( InstructionParameters param, CPU* cpu );
+    void inc( InstructionParameters param, CPU* cpu ); //TODO: testar
     
-    void dec( InstructionParameters param, CPU* cpu );
+    void dec( InstructionParameters param, CPU* cpu ); //TODO: testar
 
-    void LD( InstructionParameters param, CPU* cpu );
+    void ld( InstructionParameters param, CPU* cpu ); // TODO: implementar
 }
 
 class Operand
