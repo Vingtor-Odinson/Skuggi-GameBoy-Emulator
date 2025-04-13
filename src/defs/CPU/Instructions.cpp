@@ -1,5 +1,7 @@
 #include <CPU/CPU.hpp>
 #include <CPU/Instructions.hpp>
+#include <CPU/Registers.hpp>
+#include <CPU/InstructionResolver.hpp>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <fstream>
@@ -9,64 +11,144 @@ using json = nlohmann::json;
 
 namespace Instructions{
 
-    template <typename T>
-    void inc(T& reg, CPU*& cpu)
-    {   
-        T mask = 0x08;
-        
-        bool bitBeforeIsOne = (reg & mask) != 0; // 3o bit era 1 antes?
-        
-        reg++;
-        
-        bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
-        
-        if( bitBeforeIsOne && !bitAfterIsOne )
+    uint8_t* get8BytesReg( std::string regString, CPU* cpu )
+    {
+        if(regString == "A")
         {
-            cpu->flags->H = "1";
+            return &(cpu->regs->A);
         }
-        if( reg == 0 )
+        else if(regString == "B")
         {
-            cpu->flags->Z = "1";
+            return &(cpu->regs->B);
+        }
+        else if(regString == "C")
+        {
+            return &(cpu->regs->C);
+        }
+        else if(regString == "D")
+        {
+            return &(cpu->regs->D);
+        }
+        else if(regString == "E")
+        {
+            return &(cpu->regs->E);
+        }
+        else if(regString == "H")
+        {
+            return &(cpu->regs->H);
+        }
+        else if(regString == "L")
+        {
+            return &(cpu->regs->L);
         }
 
-        cpu->flags->N = "0";
+        return nullptr;
     }
 
-    template <typename T>
-    void dec(T& reg, CPU*& cpu)
-    {   
-        if constexpr(std::is_same<T, uint16_t>::value)
+    uint16_t* get16BytesReg( std::string regString, CPU* cpu )
+    {
+        if(regString == "AF")
         {
-            reg --;
+            return &(cpu->regs->AF);
         }
-        else if constexpr(std::is_same<T, uint8_t>::value)
+        else if(regString == "BC")
         {
+            return &(cpu->regs->BC);
+        }
+        else if(regString == "DE")
+        {
+            return &(cpu->regs->DE);
+        }
+        else if(regString == "HL")
+        {
+            return &(cpu->regs->HL);
+        }
+        else if(regString == "SP")
+        {
+            return &(cpu->regs->SP);
+        }
+
+        return nullptr;
+    }
+
+    void inc( InstructionParameters params, CPU* cpu )
+    {   
+        if( get8BytesReg( params.AimedReg, cpu ) != nullptr )
+        {
+            uint8_t* reg = get8BytesReg( params.AimedReg, cpu );
+            uint8_t mask = 0x08;
+        
+            bool bitBeforeIsOne = ( (*reg) & mask) != 0; // 3o bit era 1 antes?
+        
+            (*reg) += 1;
+            
+            bool bitAfterIsOne = ((*reg) & mask) != 0; // 3o bit é 1 depois?
+            
+            if( bitBeforeIsOne && !bitAfterIsOne )
+            {
+                cpu->flags->H = "1";
+            }
+            if( reg == 0 )
+            {
+                cpu->flags->Z = "1";
+            }
+
+            cpu->flags->N = "0";
+        }
+
+        if( get16BytesReg( params.AimedReg, cpu ) != nullptr )
+        {
+            uint16_t* reg = get16BytesReg( params.AimedReg, cpu );
+            uint16_t mask = 0x08;
+
+            bool bitBeforeIsOne = ( (*reg) & mask) != 0; // 3o bit era 1 antes?
+        
+            (*reg) += 1;
+            
+            bool bitAfterIsOne = ( (*reg) & mask) != 0; // 3o bit é 1 depois?
+            
+            if( bitBeforeIsOne && !bitAfterIsOne )
+            {
+                cpu->flags->H = "1";
+            }
+            if( reg == 0 )
+            {
+                cpu->flags->Z = "1";
+            }
+        
+        }
+    }
+
+    void dec( InstructionParameters params, CPU* cpu )
+    {   
+        if ( get16BytesReg( params.AimedReg, cpu ) != nullptr )
+        {   
+            uint16_t* reg = get16BytesReg( params.AimedReg, cpu );
+            (*reg) -= 1;
+        }
+        else if ( get8BytesReg( params.AimedReg, cpu ) != nullptr )
+        {   
+            uint8_t* reg = get8BytesReg( params.AimedReg, cpu );
+
             cpu->flags->N = "1";
 
-            uint8_t lowerNibbleBefore = (reg & 0b00001111);
+            uint8_t lowerNibbleBefore = ( (*reg) & 0b00001111);
 
-            reg--;
+            (*reg) -= 1;
 
-            uint8_t lowerNibbleAfter = (reg & 0b00001111);
+            uint8_t lowerNibbleAfter = ((*reg) & 0b00001111);
 
             if( lowerNibbleAfter > lowerNibbleBefore )
             {
                 cpu->flags->H = "1";
             }
 
-            if( reg == 0 )
+            if( (*reg) == 0 )
             {
                 cpu->flags->Z = "0";
             }
         }
     }
-
-    //Explicit template declaration
-    template void inc<uint8_t>(uint8_t&, CPU*&);
-    template void inc<uint16_t>(uint16_t&, CPU*&);
-
-    template void dec<uint8_t>(uint8_t&, CPU*&);
-    template void dec<uint16_t>(uint16_t&, CPU*&);
 }
 
 void InstructionLoader::LoadInstructions()

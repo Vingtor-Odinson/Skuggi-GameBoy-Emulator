@@ -5,14 +5,19 @@
 
 class CPU;
 
+class InstructionParameters;
+
 namespace Instructions{
 
+    uint8_t* get8BytesReg( std::string regString, CPU* cpu );
 
-    template <typename T>
-    void inc(T& reg, CPU*& cpu);
+    uint16_t* get16BytesReg( std::string regString, CPU* cpu );
+
+    void inc( InstructionParameters param, CPU* cpu );
     
-    template <typename T>
-    void dec(T& reg, CPU*& cpu);
+    void dec( InstructionParameters param, CPU* cpu );
+
+    void LD( InstructionParameters param, CPU* cpu );
 }
 
 class Operand
