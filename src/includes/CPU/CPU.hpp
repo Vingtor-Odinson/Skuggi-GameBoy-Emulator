@@ -2,9 +2,7 @@
 
 #include <stdint.h>
 #include <unordered_map>
-
 #include<CPU/Instructions.hpp>
-#include<CPU/InstructionResolver.hpp>
 
 using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
 
@@ -20,6 +18,8 @@ class Instruction;
 
 class Operand;
 
+class InstructionResolver;
+
 class CPU
 {   
 
@@ -32,6 +32,7 @@ class CPU
         Memory* memory;
         Registers* regs;
         InstructionLoader* instLoader;
+        InstructionResolver* instResolver;
         Flags* flags;
 
         CPU();
@@ -40,6 +41,8 @@ class CPU
         uint8_t getOpcode( uint16_t address );
         uint8_t fetchMemory( uint16_t address );
         void operateByte();
+        void instructionLoop();
+        void executeInstruction( Instruction Inst );
 
-        friend class InstructionLoader;
+        friend class InstructionLoader; //Para que a classe possa alterar o mapa Instructions
 };

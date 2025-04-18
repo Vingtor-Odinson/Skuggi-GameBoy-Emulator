@@ -28,8 +28,6 @@ class InstructionParameters
 
 class InstructionResolver
 {
-
     public:
-
-        void ConfigParams(Instruction* inst, InstructionParameters param);
+        void ConfigParams(Instruction* inst, InstructionParameters& param);
 };

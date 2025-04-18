@@ -2,7 +2,7 @@
 #include "CPU/Registers.hpp"
 #include "CPU/CPU.hpp"
 
-void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters param)
+void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters& param)
 {
     param.ArgumentNumber = 0;
 
