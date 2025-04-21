@@ -47,6 +47,11 @@ void CPU::executeInstruction( Instruction Inst )
     delete param;
 }
 
+void CPU::setupCPU()
+{
+    this->regs->PC = 0x00;
+}
+
 void CPU::instructionLoop()
 {
     uint8_t opCode = fetchMemory( this->regs->PC );

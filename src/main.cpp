@@ -11,7 +11,7 @@
 int main()
 {
     //std::string ROMPath = "ROM/PokemonYellow.gbc";
-    std::string ROMPath = "ROM/Zelda.gb";
+    std::string ROMPath = "ROM/testNOP.gb";
     CPU cpu = CPU();
     cpu.romLoader->SetROM(ROMPath); //Escolhe a rom
     cpu.romLoader->LoadROM(); //Carrega a ROM

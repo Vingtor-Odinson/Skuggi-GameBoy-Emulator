@@ -43,6 +43,7 @@ class CPU
         void operateByte();
         void instructionLoop();
         void executeInstruction( Instruction Inst );
+        void setupCPU();
 
         friend class InstructionLoader; //Para que a classe possa alterar o mapa Instructions
 };

@@ -13,6 +13,8 @@ namespace Instructions{
 
     uint16_t* get16BytesReg( std::string regString, CPU* cpu );
 
+    void nop( InstructionParameters param, CPU* cpu ){}
+
     void inc( InstructionParameters param, CPU* cpu ); //TODO: testar
     
     void dec( InstructionParameters param, CPU* cpu ); //TODO: testar

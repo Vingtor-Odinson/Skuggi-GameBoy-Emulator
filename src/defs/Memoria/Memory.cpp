@@ -33,3 +33,13 @@ uint8_t Memory::ReadMemory(uint16_t address)
 
     return 0x0;
 }
+
+void Memory::WriteMemory( uint16_t address, uint8_t value )
+{
+    switch (Memory::GetMemoryCategory(address))
+    {
+    case 1:
+        return this->bank00->Write(address, value);
+        break;
+    }
+}

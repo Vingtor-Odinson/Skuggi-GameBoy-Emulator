@@ -1,3 +1,4 @@
 -acertar o loop de instruções x
+-implementar a inc e dec HL
 -testar as inst inc e dec
 -implementar ld e add no mapa de funções

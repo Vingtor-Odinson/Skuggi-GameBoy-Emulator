@@ -1,4 +1,5 @@
 #include <CPU/CPU.hpp>
+#include <Memoria/Memory.hpp>
 #include <CPU/Instructions.hpp>
 #include <CPU/Registers.hpp>
 #include <CPU/InstructionResolver.hpp>
@@ -72,7 +73,7 @@ namespace Instructions{
     }
 
     void inc( InstructionParameters params, CPU* cpu )
-    {   
+    {  
         if( get8BytesReg( params.AimedReg, cpu ) != nullptr )
         {
             uint8_t* reg = get8BytesReg( params.AimedReg, cpu );
@@ -98,14 +99,19 @@ namespace Instructions{
 
         if( get16BytesReg( params.AimedReg, cpu ) != nullptr )
         {
-            uint16_t* reg = get16BytesReg( params.AimedReg, cpu );
-            uint16_t mask = 0x08;
+            uint16_t* add = get16BytesReg( params.AimedReg, cpu );
 
-            bool bitBeforeIsOne = ( (*reg) & mask) != 0; // 3o bit era 1 antes?
+            uint8_t reg = cpu->memory->ReadMemory( (*add) );
+
+            uint8_t mask = 0x08;
         
-            (*reg) += 1;
+            bool bitBeforeIsOne = ( reg & mask) != 0; // 3o bit era 1 antes?
+        
+            reg += 1;
             
-            bool bitAfterIsOne = ( (*reg) & mask) != 0; // 3o bit é 1 depois?
+            cpu->memory->WriteMemory( (*add), reg );
+
+            bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
             
             if( bitBeforeIsOne && !bitAfterIsOne )
             {
@@ -115,6 +121,8 @@ namespace Instructions{
             {
                 cpu->flags->Z = "1";
             }
+
+            cpu->flags->N = "0";
         
         }
     }
@@ -148,6 +156,11 @@ namespace Instructions{
                 cpu->flags->Z = "0";
             }
         }
+    }
+
+    void ld( InstructionParameters params, CPU* cpu )
+    {
+        
     }
 }
 
@@ -227,7 +240,9 @@ void InstructionLoader::LoadInstructions()
 
     //////////////////////// Carrega as funções no mapa de funções /////////////////
 
+    cpu->InstructionMap["NOP"] = Instructions::nop;
     cpu->InstructionMap["INC"] = Instructions::inc;
     cpu->InstructionMap["DEC"] = Instructions::dec;
     cpu->InstructionMap["LD"]  = Instructions::ld;
+    
 }
