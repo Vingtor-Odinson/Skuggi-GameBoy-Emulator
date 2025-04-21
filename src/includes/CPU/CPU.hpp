@@ -2,7 +2,10 @@
 
 #include <stdint.h>
 #include <unordered_map>
+#include <functional>
+
 #include<CPU/Instructions.hpp>
+
 
 using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
 

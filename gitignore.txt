@@ -1,5 +1,6 @@
 CMakeLists.txt.user
 CMakeFiles
+CMakeCache.txt
 CMakeScripts
 Testing
 Makefile
@@ -15,4 +16,5 @@ CMakeUserPresets.json
 *.exe
 *.out
 *.elf
+*.rnote
 GBEmu

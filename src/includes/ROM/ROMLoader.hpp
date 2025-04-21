@@ -6,6 +6,10 @@
 
 class CPU;
 
+class BANK00;
+
+class BANKNN;
+
 class ROMLoader
 {   
     private:
@@ -17,11 +21,15 @@ class ROMLoader
         ROMLoader( CPU* cpuRef );
         
         void SetROM( std::string Path );
-        
+
         void LoadROM();
 
         void LoadBANK00();
         
         void LoadBANkNN(unsigned int bankNumber);
 
+        uint8_t ReadROM( uint16_t address );
+
+        friend class BANK00;
+        friend class BANKNN;
 };

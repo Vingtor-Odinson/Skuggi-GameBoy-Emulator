@@ -1,0 +1,3 @@
+/home/glauco/Desktop/GBEmulador/CMakeFiles/GBEmu.dir
+/home/glauco/Desktop/GBEmulador/CMakeFiles/edit_cache.dir
+/home/glauco/Desktop/GBEmulador/CMakeFiles/rebuild_cache.dir

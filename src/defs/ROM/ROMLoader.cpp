@@ -38,3 +38,8 @@ void ROMLoader::LoadBANK00()
         (*cpu).memory->bank00->Write(i, (*ROMData)[i]);
     }
 }
+
+uint8_t ROMLoader::ReadROM( uint16_t add )
+{
+    return (*ROMData)[add];
+}

@@ -2,10 +2,9 @@
 
 #include <string>
 #include <stdint.h>
+#include <CPU/InstructionsParameters.hpp>
 
 class CPU;
-
-class InstructionParameters;
 
 namespace Instructions{
 
@@ -13,7 +12,7 @@ namespace Instructions{
 
     uint16_t* get16BytesReg( std::string regString, CPU* cpu );
 
-    void nop( InstructionParameters param, CPU* cpu ){}
+    void nop( InstructionParameters param, CPU* cpu );
 
     void inc( InstructionParameters param, CPU* cpu ); //TODO: testar
     

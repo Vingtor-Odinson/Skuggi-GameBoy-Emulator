@@ -1,9 +1,10 @@
 #include<Memoria/Memory.hpp>
 #include<Memoria/MemoryParts.hpp>
 
-Memory::Memory()
+Memory::Memory( CPU* pCPU )
+: cpu(pCPU)
 {
-    bank00 = new BANK00();
+    bank00 = new BANK00( pCPU );
 }
 
 Memory::~Memory()

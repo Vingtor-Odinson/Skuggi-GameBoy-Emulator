@@ -1,5 +1,7 @@
 #include<iostream>
-#include <Memoria/MemoryParts.hpp>
+#include<CPU/CPU.hpp>
+#include<ROM/ROMLoader.hpp>
+#include<Memoria/MemoryParts.hpp>
 
 void MemoryPart::Write( uint16_t address, uint8_t value )
 {   
@@ -11,19 +13,17 @@ uint8_t MemoryPart::Read( uint16_t address )
     return memory[address];
 }
 
-BANK00::BANK00()
+BANK00::BANK00( CPU* pCpu )
 {   
-    memoryOffset = 0x0000;
-    memory = new uint8_t[0x4000];
-    for(int i = 0x0000; i < 0x4000; i++)
-    {
-        memory[i] = 0x0;
-    }
+    cpu = pCpu;
+    romLoader = cpu->romLoader;
 }
 
-BANK00::~BANK00()
-{
-    delete[] memory;
+void BANK00::Write( uint16_t address, uint8_t value ){}
+
+uint8_t BANK00::Read( uint16_t address )
+{   
+    return romLoader->ReadROM(address);
 }
 
 void BANK00::MostraPrimeiros16()
@@ -32,7 +32,7 @@ void BANK00::MostraPrimeiros16()
     
     for(int i = 0; i < 16; i++)
     {
-        printf("%02X ", memory[i]);
+        printf("%02X ", Read(i));
     }
 
     std::cout << std::endl << std::endl  << std::endl;
@@ -44,7 +44,7 @@ void BANK00::PrintaLogoNintendo()
     
     for(int i = 0x0104; i < 0x0134; i++)
     {
-        printf("%02X ", memory[i]);
+        printf("%02X ", Read(i));
     }
 
     std::cout << std::endl << std::endl  << std::endl;
@@ -56,7 +56,7 @@ void BANK00::PrintaTituloJogo()
     
     for(int i = 0x0134; i < 0x0145; i++)
     {
-        std::cout << static_cast<char>(memory[i]);
+        std::cout << static_cast<char>(Read(i));
     }
 
     std::cout << std::endl << std::endl  << std::endl;
