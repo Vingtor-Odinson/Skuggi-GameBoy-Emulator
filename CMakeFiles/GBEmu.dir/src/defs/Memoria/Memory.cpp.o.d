@@ -17,4 +17,5 @@ CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp

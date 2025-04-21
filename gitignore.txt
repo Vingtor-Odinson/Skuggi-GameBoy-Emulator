@@ -12,9 +12,12 @@ _deps
 CMakeUserPresets.json
 *.o
 *.o.d
+*.cpp.o
 *.obj
 *.exe
 *.out
 *.elf
 *.rnote
+*.cmake
+*.log
 GBEmu

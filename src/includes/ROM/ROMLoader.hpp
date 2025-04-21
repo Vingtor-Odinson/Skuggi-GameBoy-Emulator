@@ -24,10 +24,6 @@ class ROMLoader
 
         void LoadROM();
 
-        void LoadBANK00();
-        
-        void LoadBANkNN(unsigned int bankNumber);
-
         uint8_t ReadROM( uint16_t address );
 
         friend class BANK00;

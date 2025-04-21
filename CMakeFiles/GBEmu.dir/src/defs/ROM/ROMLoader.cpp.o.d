@@ -153,6 +153,7 @@ CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o: \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionsParameters.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
  /usr/include/c++/11/fstream /usr/include/c++/11/istream \
  /usr/include/c++/11/ios /usr/include/c++/11/exception \

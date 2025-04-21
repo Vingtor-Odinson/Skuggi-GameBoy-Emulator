@@ -1,4 +1,5 @@
 #include<Memoria/Memory.hpp>
+#include<Memoria/BANK00.hpp>
 #include<Memoria/MemoryParts.hpp>
 
 Memory::Memory( CPU* pCPU )

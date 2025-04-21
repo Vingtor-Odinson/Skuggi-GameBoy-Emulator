@@ -152,6 +152,8 @@ CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o: \
  /usr/include/c++/11/bits/basic_string.tcc \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionsParameters.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/Registers.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionResolver.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/nlohmann/json.hpp \

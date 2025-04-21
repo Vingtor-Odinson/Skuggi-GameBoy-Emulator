@@ -81,12 +81,12 @@ clean: CMakeFiles/GBEmu.dir/clean
 CMakeFiles/GBEmu.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/glauco/Desktop/GBEmulador/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target GBEmu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/glauco/Desktop/GBEmulador/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target GBEmu"
 .PHONY : CMakeFiles/GBEmu.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/GBEmu.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/glauco/Desktop/GBEmulador/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/glauco/Desktop/GBEmulador/CMakeFiles 9
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/GBEmu.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/glauco/Desktop/GBEmulador/CMakeFiles 0
 .PHONY : CMakeFiles/GBEmu.dir/rule

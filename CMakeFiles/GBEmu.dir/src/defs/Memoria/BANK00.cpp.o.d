@@ -1,6 +1,6 @@
-CMakeFiles/GBEmu.dir/src/main.cpp.o: \
- /home/glauco/Desktop/GBEmulador/src/main.cpp /usr/include/stdc-predef.h \
- /usr/include/c++/11/iostream \
+CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o: \
+ /home/glauco/Desktop/GBEmulador/src/defs/Memoria/BANK00.cpp \
+ /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -171,27 +171,5 @@ CMakeFiles/GBEmu.dir/src/main.cpp.o: \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionsParameters.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/ROM/ROMLoader.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/Registers.hpp \
- /usr/include/c++/11/filesystem /usr/include/c++/11/bits/fs_fwd.h \
- /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
- /usr/include/c++/11/limits /usr/include/c++/11/ctime \
- /usr/include/c++/11/bits/parse_numbers.h \
- /usr/include/c++/11/bits/fs_path.h /usr/include/c++/11/locale \
- /usr/include/c++/11/bits/locale_facets_nonio.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
- /usr/include/c++/11/bits/locale_facets_nonio.tcc \
- /usr/include/c++/11/bits/locale_conv.h \
- /usr/include/c++/11/bits/unique_ptr.h /usr/include/c++/11/iomanip \
- /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/sstream \
- /usr/include/c++/11/bits/sstream.tcc /usr/include/c++/11/codecvt \
- /usr/include/c++/11/ext/concurrence.h \
- /usr/include/c++/11/bits/shared_ptr.h \
- /usr/include/c++/11/bits/shared_ptr_base.h \
- /usr/include/c++/11/bits/allocated_ptr.h \
- /usr/include/c++/11/bits/fs_dir.h /usr/include/c++/11/bits/fs_ops.h \
- /usr/include/string.h /usr/include/strings.h
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp

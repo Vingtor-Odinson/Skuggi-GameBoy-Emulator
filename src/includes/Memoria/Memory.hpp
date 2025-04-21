@@ -1,8 +1,8 @@
 #pragma once
 
 #include <stdint.h>
+#include <Memoria/BANK00.hpp>
 
-class BANK00; //A memória será um compêndio de módulos, cada um com sua função específica
 class CPU;
 
 class Memory
@@ -18,7 +18,5 @@ class Memory
         static uint8_t GetMemoryCategory( uint16_t address );
         uint8_t ReadMemory(uint16_t address);
         void WriteMemory( uint16_t address, uint8_t value );
-
-        
 };
 

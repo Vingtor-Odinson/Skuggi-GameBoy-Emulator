@@ -154,4 +154,6 @@ CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o: \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionResolver.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/Registers.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/ROM/ROMLoader.hpp

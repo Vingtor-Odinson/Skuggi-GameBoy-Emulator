@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/glauco/Desktop/GBEmulador/src/defs/CPU/CPU.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/CPU/InstructionResolver.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/CPU/Instructions.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o.d"
+  "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/BANK00.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/Memory.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/MemoryParts.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/ROM/ROMLoader.cpp" "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o.d"
