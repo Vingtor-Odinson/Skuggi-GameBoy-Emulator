@@ -23,7 +23,7 @@ void BANK00::Write( uint16_t address, uint8_t value ){}
 
 uint8_t BANK00::Read( uint16_t address )
 {   
-    return romLoader->ReadROM(address);
+    return cpu->romLoader->ReadROM(address);
 }
 
 void BANK00::MostraPrimeiros16()

@@ -2,3 +2,4 @@
 -implementar ld e add no mapa de funções
 -implementar o resto da memória
 -fazer os bancos apontarem corretamente para os dados da rom (não carregar novamente)
+ (feito para o banco 0)
