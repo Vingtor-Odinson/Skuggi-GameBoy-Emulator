@@ -1,5 +1,5 @@
 #include <ROM/ROMLoader.hpp>
-#include <CPU.hpp>
+#include <CPU/CPU.hpp>
 #include <Memoria/Memory.hpp>
 #include <Memoria/MemoryParts.hpp>
 #include "fstream"
@@ -33,8 +33,8 @@ void ROMLoader::LoadROM()
 
 void ROMLoader::LoadBANK00()
 {
-    for(int i = 0x0000; i < 0x4000; i++)
+    for(int i = 0x0000; i < 0x4000; i++) //tenho que acertar pra poder testar arquivos menores
     {
-        cpu->memory->bank00->Write(i, (*ROMData)[i]);
+        (*cpu).memory->bank00->Write(i, (*ROMData)[i]);
     }
 }

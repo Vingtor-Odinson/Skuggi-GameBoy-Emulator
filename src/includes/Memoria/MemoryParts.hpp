@@ -18,9 +18,8 @@ class BANK00 : public MemoryPart //Implementação da primeira parte da memória
         BANK00();
         ~BANK00();
 
-    
-    void MostraPrimeiros16();
-    void PrintaLogoNintendo();
-    void PrintaTituloJogo();
+        void MostraPrimeiros16();
+        void PrintaLogoNintendo();
+        void PrintaTituloJogo();
 
 };

@@ -129,29 +129,53 @@ GBEmu/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/build
 .PHONY : GBEmu/fast
 
-src/defs/CPU.o: src/defs/CPU.cpp.o
-.PHONY : src/defs/CPU.o
+src/defs/CPU/CPU.o: src/defs/CPU/CPU.cpp.o
+.PHONY : src/defs/CPU/CPU.o
 
 # target to build an object file
-src/defs/CPU.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.o
-.PHONY : src/defs/CPU.cpp.o
+src/defs/CPU/CPU.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o
+.PHONY : src/defs/CPU/CPU.cpp.o
 
-src/defs/CPU.i: src/defs/CPU.cpp.i
-.PHONY : src/defs/CPU.i
+src/defs/CPU/CPU.i: src/defs/CPU/CPU.cpp.i
+.PHONY : src/defs/CPU/CPU.i
 
 # target to preprocess a source file
-src/defs/CPU.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.i
-.PHONY : src/defs/CPU.cpp.i
+src/defs/CPU/CPU.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.i
+.PHONY : src/defs/CPU/CPU.cpp.i
 
-src/defs/CPU.s: src/defs/CPU.cpp.s
-.PHONY : src/defs/CPU.s
+src/defs/CPU/CPU.s: src/defs/CPU/CPU.cpp.s
+.PHONY : src/defs/CPU/CPU.s
 
 # target to generate assembly for a file
-src/defs/CPU.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU.cpp.s
-.PHONY : src/defs/CPU.cpp.s
+src/defs/CPU/CPU.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.s
+.PHONY : src/defs/CPU/CPU.cpp.s
+
+src/defs/CPU/Instructions.o: src/defs/CPU/Instructions.cpp.o
+.PHONY : src/defs/CPU/Instructions.o
+
+# target to build an object file
+src/defs/CPU/Instructions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o
+.PHONY : src/defs/CPU/Instructions.cpp.o
+
+src/defs/CPU/Instructions.i: src/defs/CPU/Instructions.cpp.i
+.PHONY : src/defs/CPU/Instructions.i
+
+# target to preprocess a source file
+src/defs/CPU/Instructions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.i
+.PHONY : src/defs/CPU/Instructions.cpp.i
+
+src/defs/CPU/Instructions.s: src/defs/CPU/Instructions.cpp.s
+.PHONY : src/defs/CPU/Instructions.s
+
+# target to generate assembly for a file
+src/defs/CPU/Instructions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.s
+.PHONY : src/defs/CPU/Instructions.cpp.s
 
 src/defs/Memoria/Memory.o: src/defs/Memoria/Memory.cpp.o
 .PHONY : src/defs/Memoria/Memory.o
@@ -258,9 +282,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... GBEmu"
-	@echo "... src/defs/CPU.o"
-	@echo "... src/defs/CPU.i"
-	@echo "... src/defs/CPU.s"
+	@echo "... src/defs/CPU/CPU.o"
+	@echo "... src/defs/CPU/CPU.i"
+	@echo "... src/defs/CPU/CPU.s"
+	@echo "... src/defs/CPU/Instructions.o"
+	@echo "... src/defs/CPU/Instructions.i"
+	@echo "... src/defs/CPU/Instructions.s"
 	@echo "... src/defs/Memoria/Memory.o"
 	@echo "... src/defs/Memoria/Memory.i"
 	@echo "... src/defs/Memoria/Memory.s"
