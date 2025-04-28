@@ -1,5 +1,9 @@
 -testar as inst inc e dec
 -implementar ld e add no mapa de funções
+
+
 -implementar o resto da memória
--fazer os bancos apontarem corretamente para os dados da rom (não carregar novamente)
- (feito para o banco 0)
+    - implementar mbc
+    -fazer os bancos apontarem corretamente para os dados da rom (não carregar novamente)
+    (falta fazer para o banco nn -- falta implementar o mbc)
+
