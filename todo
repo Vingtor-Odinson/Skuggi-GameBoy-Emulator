@@ -1,9 +1,11 @@
 -testar as inst inc e dec
 -implementar ld e add no mapa de funções
 
-
 -implementar o resto da memória
     - implementar mbc
     -fazer os bancos apontarem corretamente para os dados da rom (não carregar novamente)
     (falta fazer para o banco nn -- falta implementar o mbc)
 
+-melhorar a separação das funções, evitar headers com declarações de coisas diferentes
+
+adicionar testes Catch2 (já instalado)
