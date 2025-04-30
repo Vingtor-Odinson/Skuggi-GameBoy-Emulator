@@ -153,6 +153,30 @@ src/defs/CPU/CPU.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.s
 .PHONY : src/defs/CPU/CPU.cpp.s
 
+src/defs/CPU/InstructionResolver.o: src/defs/CPU/InstructionResolver.cpp.o
+.PHONY : src/defs/CPU/InstructionResolver.o
+
+# target to build an object file
+src/defs/CPU/InstructionResolver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.o
+.PHONY : src/defs/CPU/InstructionResolver.cpp.o
+
+src/defs/CPU/InstructionResolver.i: src/defs/CPU/InstructionResolver.cpp.i
+.PHONY : src/defs/CPU/InstructionResolver.i
+
+# target to preprocess a source file
+src/defs/CPU/InstructionResolver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.i
+.PHONY : src/defs/CPU/InstructionResolver.cpp.i
+
+src/defs/CPU/InstructionResolver.s: src/defs/CPU/InstructionResolver.cpp.s
+.PHONY : src/defs/CPU/InstructionResolver.s
+
+# target to generate assembly for a file
+src/defs/CPU/InstructionResolver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.s
+.PHONY : src/defs/CPU/InstructionResolver.cpp.s
+
 src/defs/CPU/Instructions.o: src/defs/CPU/Instructions.cpp.o
 .PHONY : src/defs/CPU/Instructions.o
 
@@ -176,6 +200,30 @@ src/defs/CPU/Instructions.s: src/defs/CPU/Instructions.cpp.s
 src/defs/CPU/Instructions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.s
 .PHONY : src/defs/CPU/Instructions.cpp.s
+
+src/defs/Memoria/BANK00.o: src/defs/Memoria/BANK00.cpp.o
+.PHONY : src/defs/Memoria/BANK00.o
+
+# target to build an object file
+src/defs/Memoria/BANK00.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o
+.PHONY : src/defs/Memoria/BANK00.cpp.o
+
+src/defs/Memoria/BANK00.i: src/defs/Memoria/BANK00.cpp.i
+.PHONY : src/defs/Memoria/BANK00.i
+
+# target to preprocess a source file
+src/defs/Memoria/BANK00.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.i
+.PHONY : src/defs/Memoria/BANK00.cpp.i
+
+src/defs/Memoria/BANK00.s: src/defs/Memoria/BANK00.cpp.s
+.PHONY : src/defs/Memoria/BANK00.s
+
+# target to generate assembly for a file
+src/defs/Memoria/BANK00.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.s
+.PHONY : src/defs/Memoria/BANK00.cpp.s
 
 src/defs/Memoria/Memory.o: src/defs/Memoria/Memory.cpp.o
 .PHONY : src/defs/Memoria/Memory.o
@@ -285,9 +333,15 @@ help:
 	@echo "... src/defs/CPU/CPU.o"
 	@echo "... src/defs/CPU/CPU.i"
 	@echo "... src/defs/CPU/CPU.s"
+	@echo "... src/defs/CPU/InstructionResolver.o"
+	@echo "... src/defs/CPU/InstructionResolver.i"
+	@echo "... src/defs/CPU/InstructionResolver.s"
 	@echo "... src/defs/CPU/Instructions.o"
 	@echo "... src/defs/CPU/Instructions.i"
 	@echo "... src/defs/CPU/Instructions.s"
+	@echo "... src/defs/Memoria/BANK00.o"
+	@echo "... src/defs/Memoria/BANK00.i"
+	@echo "... src/defs/Memoria/BANK00.s"
 	@echo "... src/defs/Memoria/Memory.o"
 	@echo "... src/defs/Memoria/Memory.i"
 	@echo "... src/defs/Memoria/Memory.s"

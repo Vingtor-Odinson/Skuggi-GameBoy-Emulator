@@ -5,7 +5,7 @@
 #include<ROM/ROMLoader.hpp>
 
 CPU::CPU(){
-    memory = new Memory();
+    memory = new Memory( this );
     romLoader = new ROMLoader( this );
     instLoader = new InstructionLoader( this );
     instResolver = new InstructionResolver();
