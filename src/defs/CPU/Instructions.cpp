@@ -72,6 +72,8 @@ namespace Instructions{
         return nullptr;
     }
 
+    void nop( InstructionParameters params, CPU* cpu ){}
+
     void inc( InstructionParameters params, CPU* cpu )
     {  
         if( get8BytesReg( params.AimedReg, cpu ) != nullptr )

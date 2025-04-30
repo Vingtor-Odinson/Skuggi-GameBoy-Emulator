@@ -31,10 +31,7 @@ void ROMLoader::LoadROM()
     ROM.read(reinterpret_cast<char*>(ROMData->data()), size);
 }
 
-void ROMLoader::LoadBANK00()
+uint8_t ROMLoader::ReadROM( uint16_t add )
 {
-    for(int i = 0x0000; i < 0x4000; i++) //tenho que acertar pra poder testar arquivos menores
-    {
-        (*cpu).memory->bank00->Write(i, (*ROMData)[i]);
-    }
+    return (*ROMData)[add];
 }
