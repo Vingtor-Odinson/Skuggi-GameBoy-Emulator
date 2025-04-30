@@ -1,4 +1,4 @@
-#include "CPU/InstructionResolver.hpp"
+#include "CPU/Instructions/InstructionResolver.hpp"
 #include "CPU/Registers.hpp"
 #include "CPU/CPU.hpp"
 

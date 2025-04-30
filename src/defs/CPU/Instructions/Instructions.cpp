@@ -1,8 +1,8 @@
 #include <CPU/CPU.hpp>
 #include <Memoria/Memory.hpp>
-#include <CPU/Instructions.hpp>
+#include <CPU/Instructions/Instructions.hpp>
 #include <CPU/Registers.hpp>
-#include <CPU/InstructionResolver.hpp>
+#include <CPU/Instructions/InstructionResolver.hpp>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <fstream>
