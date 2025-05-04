@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <functional>
 
-#include<CPU/Instructions.hpp>
+#include<CPU/Instructions/Instructions.hpp>
 
 
 using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;

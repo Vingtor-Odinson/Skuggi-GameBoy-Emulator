@@ -1,6 +1,6 @@
 #pragma once    
 
-#include <CPU/Instructions.hpp>
+#include <CPU/Instructions/Instructions.hpp>
 
 class InstructionResolver
 {

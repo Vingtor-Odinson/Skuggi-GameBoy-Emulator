@@ -1,5 +1,5 @@
 #include<CPU/CPU.hpp>
-#include<CPU/InstructionResolver.hpp>
+#include<CPU/Instructions/InstructionResolver.hpp>
 #include<CPU/Registers.hpp>
 #include<Memoria/Memory.hpp>
 #include<ROM/ROMLoader.hpp>
