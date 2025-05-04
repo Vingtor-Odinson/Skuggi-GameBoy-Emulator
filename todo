@@ -1,11 +1,33 @@
+****************************** Feito ***********************
+
+-Estrutura para o ciclo de instruções
+-Inc, Dec e NOP
+
+-Estrutura básica da memória
+-BANK00 e BANKNN (Read parcialmente implementado, falta ver o Write)
+
+
+
+
+****************************** A fazer *********************
+
+*Testes
+
+-adicionar testes Catch2 (já instalado)
 -testar as inst inc e dec
+
+
+*CPU
+
 -implementar ld e add no mapa de funções
+-melhorar a separação das funções, evitar headers com declarações de coisas diferentes
+
+*Memória
 
 -implementar o resto da memória
     - implementar mbc
     -fazer os bancos apontarem corretamente para os dados da rom (não carregar novamente)
     (falta fazer para o banco nn -- falta implementar o mbc)
 
--melhorar a separação das funções, evitar headers com declarações de coisas diferentes
 
-adicionar testes Catch2 (já instalado)
+
