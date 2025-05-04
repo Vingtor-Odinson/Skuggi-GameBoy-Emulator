@@ -14,6 +14,8 @@ file(GLOB_RECURSE SOURCES
     ${CMAKE_SOURCE_DIR}/src/*.cpp
 )
 
+list(FILTER SOURCES EXCLUDE REGEX ".*/testes/.*")
+
 # Adicionar o executável a ser gerado
 add_executable(GBEmu ${SOURCES})
 
@@ -45,3 +47,28 @@ endif()
 # Example:
 # target_link_libraries(GBEmu <library_name>)
 
+
+
+#Catch2 tests
+
+find_package(Catch2 3 REQUIRED)
+# These tests can use the Catch2-provided main
+
+file(GLOB_RECURSE TEST_SOURCES
+    ${CMAKE_SOURCE_DIR}/src/testes/*.cpp
+)
+
+add_executable(GBEmuTests ${TEST_SOURCES})
+
+target_link_libraries(GBEmuTests PRIVATE 
+    Catch2::Catch2WithMain
+)
+
+target_include_directories(GBEmuTests PRIVATE
+    ${CMAKE_SOURCE_DIR}/src/includes
+    ${CMAKE_SOURCE_DIR}/src/testes
+)
+
+set_target_properties(GBEmuTests PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/Tests"
+)

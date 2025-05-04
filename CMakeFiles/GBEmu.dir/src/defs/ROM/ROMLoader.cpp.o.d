@@ -150,11 +150,13 @@ CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o: \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/uniform_int_dist.h \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionsParameters.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/Instructions.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/InstructionsParameters.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANKNN.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/VRAM.hpp \
  /usr/include/c++/11/fstream /usr/include/c++/11/istream \
  /usr/include/c++/11/ios /usr/include/c++/11/exception \
  /usr/include/c++/11/bits/exception_ptr.h \

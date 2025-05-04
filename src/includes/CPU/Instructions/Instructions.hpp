@@ -2,7 +2,7 @@
 
 #include <string>
 #include <stdint.h>
-#include <CPU/Istructions/InstructionsParameters.hpp>
+#include <CPU/Instructions/InstructionsParameters.hpp>
 
 class CPU;
 

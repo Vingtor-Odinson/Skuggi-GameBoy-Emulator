@@ -9,11 +9,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/glauco/Desktop/GBEmulador/src/defs/CPU/CPU.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o.d"
-  "/home/glauco/Desktop/GBEmulador/src/defs/CPU/InstructionResolver.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.o.d"
-  "/home/glauco/Desktop/GBEmulador/src/defs/CPU/Instructions.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o.d"
+  "/home/glauco/Desktop/GBEmulador/src/defs/CPU/Instructions/InstructionResolver.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o.d"
+  "/home/glauco/Desktop/GBEmulador/src/defs/CPU/Instructions/Instructions.cpp" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/BANK00.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o.d"
+  "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/BANKNN.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/Memory.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/MemoryParts.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o.d"
+  "/home/glauco/Desktop/GBEmulador/src/defs/Memoria/VRAM.cpp" "CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/defs/ROM/ROMLoader.cpp" "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o.d"
   "/home/glauco/Desktop/GBEmulador/src/main.cpp" "CMakeFiles/GBEmu.dir/src/main.cpp.o" "gcc" "CMakeFiles/GBEmu.dir/src/main.cpp.o.d"
   )

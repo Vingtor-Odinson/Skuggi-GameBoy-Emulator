@@ -1,7 +1,8 @@
-CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o: \
- /home/glauco/Desktop/GBEmulador/src/defs/Memoria/Memory.cpp \
+CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.o: \
+ /home/glauco/Desktop/GBEmulador/src/defs/Memoria/VRAM.cpp \
  /usr/include/stdc-predef.h \
- /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/VRAM.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -16,8 +17,4 @@ CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/time64.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANKNN.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/Memoria/VRAM.hpp
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h

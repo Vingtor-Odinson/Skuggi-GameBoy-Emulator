@@ -102,7 +102,7 @@ CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o: \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/uniform_int_dist.h \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/Instructions.hpp \
  /usr/include/c++/11/string /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/char_traits.h \
  /usr/include/c++/11/bits/postypes.h /usr/include/c++/11/cwchar \
@@ -150,5 +150,5 @@ CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionsParameters.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/InstructionsParameters.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp

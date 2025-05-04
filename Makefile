@@ -129,6 +129,19 @@ GBEmu/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/build
 .PHONY : GBEmu/fast
 
+#=============================================================================
+# Target rules for targets named GBEmuTests
+
+# Build rule for target.
+GBEmuTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GBEmuTests
+.PHONY : GBEmuTests
+
+# fast build rule for target.
+GBEmuTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmuTests.dir/build.make CMakeFiles/GBEmuTests.dir/build
+.PHONY : GBEmuTests/fast
+
 src/defs/CPU/CPU.o: src/defs/CPU/CPU.cpp.o
 .PHONY : src/defs/CPU/CPU.o
 
@@ -153,53 +166,53 @@ src/defs/CPU/CPU.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.s
 .PHONY : src/defs/CPU/CPU.cpp.s
 
-src/defs/CPU/InstructionResolver.o: src/defs/CPU/InstructionResolver.cpp.o
-.PHONY : src/defs/CPU/InstructionResolver.o
+src/defs/CPU/Instructions/InstructionResolver.o: src/defs/CPU/Instructions/InstructionResolver.cpp.o
+.PHONY : src/defs/CPU/Instructions/InstructionResolver.o
 
 # target to build an object file
-src/defs/CPU/InstructionResolver.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.o
-.PHONY : src/defs/CPU/InstructionResolver.cpp.o
+src/defs/CPU/Instructions/InstructionResolver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o
+.PHONY : src/defs/CPU/Instructions/InstructionResolver.cpp.o
 
-src/defs/CPU/InstructionResolver.i: src/defs/CPU/InstructionResolver.cpp.i
-.PHONY : src/defs/CPU/InstructionResolver.i
+src/defs/CPU/Instructions/InstructionResolver.i: src/defs/CPU/Instructions/InstructionResolver.cpp.i
+.PHONY : src/defs/CPU/Instructions/InstructionResolver.i
 
 # target to preprocess a source file
-src/defs/CPU/InstructionResolver.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.i
-.PHONY : src/defs/CPU/InstructionResolver.cpp.i
+src/defs/CPU/Instructions/InstructionResolver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.i
+.PHONY : src/defs/CPU/Instructions/InstructionResolver.cpp.i
 
-src/defs/CPU/InstructionResolver.s: src/defs/CPU/InstructionResolver.cpp.s
-.PHONY : src/defs/CPU/InstructionResolver.s
+src/defs/CPU/Instructions/InstructionResolver.s: src/defs/CPU/Instructions/InstructionResolver.cpp.s
+.PHONY : src/defs/CPU/Instructions/InstructionResolver.s
 
 # target to generate assembly for a file
-src/defs/CPU/InstructionResolver.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/InstructionResolver.cpp.s
-.PHONY : src/defs/CPU/InstructionResolver.cpp.s
+src/defs/CPU/Instructions/InstructionResolver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.s
+.PHONY : src/defs/CPU/Instructions/InstructionResolver.cpp.s
 
-src/defs/CPU/Instructions.o: src/defs/CPU/Instructions.cpp.o
-.PHONY : src/defs/CPU/Instructions.o
+src/defs/CPU/Instructions/Instructions.o: src/defs/CPU/Instructions/Instructions.cpp.o
+.PHONY : src/defs/CPU/Instructions/Instructions.o
 
 # target to build an object file
-src/defs/CPU/Instructions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o
-.PHONY : src/defs/CPU/Instructions.cpp.o
+src/defs/CPU/Instructions/Instructions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.o
+.PHONY : src/defs/CPU/Instructions/Instructions.cpp.o
 
-src/defs/CPU/Instructions.i: src/defs/CPU/Instructions.cpp.i
-.PHONY : src/defs/CPU/Instructions.i
+src/defs/CPU/Instructions/Instructions.i: src/defs/CPU/Instructions/Instructions.cpp.i
+.PHONY : src/defs/CPU/Instructions/Instructions.i
 
 # target to preprocess a source file
-src/defs/CPU/Instructions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.i
-.PHONY : src/defs/CPU/Instructions.cpp.i
+src/defs/CPU/Instructions/Instructions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.i
+.PHONY : src/defs/CPU/Instructions/Instructions.cpp.i
 
-src/defs/CPU/Instructions.s: src/defs/CPU/Instructions.cpp.s
-.PHONY : src/defs/CPU/Instructions.s
+src/defs/CPU/Instructions/Instructions.s: src/defs/CPU/Instructions/Instructions.cpp.s
+.PHONY : src/defs/CPU/Instructions/Instructions.s
 
 # target to generate assembly for a file
-src/defs/CPU/Instructions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.s
-.PHONY : src/defs/CPU/Instructions.cpp.s
+src/defs/CPU/Instructions/Instructions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.s
+.PHONY : src/defs/CPU/Instructions/Instructions.cpp.s
 
 src/defs/Memoria/BANK00.o: src/defs/Memoria/BANK00.cpp.o
 .PHONY : src/defs/Memoria/BANK00.o
@@ -224,6 +237,30 @@ src/defs/Memoria/BANK00.s: src/defs/Memoria/BANK00.cpp.s
 src/defs/Memoria/BANK00.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.s
 .PHONY : src/defs/Memoria/BANK00.cpp.s
+
+src/defs/Memoria/BANKNN.o: src/defs/Memoria/BANKNN.cpp.o
+.PHONY : src/defs/Memoria/BANKNN.o
+
+# target to build an object file
+src/defs/Memoria/BANKNN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.o
+.PHONY : src/defs/Memoria/BANKNN.cpp.o
+
+src/defs/Memoria/BANKNN.i: src/defs/Memoria/BANKNN.cpp.i
+.PHONY : src/defs/Memoria/BANKNN.i
+
+# target to preprocess a source file
+src/defs/Memoria/BANKNN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.i
+.PHONY : src/defs/Memoria/BANKNN.cpp.i
+
+src/defs/Memoria/BANKNN.s: src/defs/Memoria/BANKNN.cpp.s
+.PHONY : src/defs/Memoria/BANKNN.s
+
+# target to generate assembly for a file
+src/defs/Memoria/BANKNN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.s
+.PHONY : src/defs/Memoria/BANKNN.cpp.s
 
 src/defs/Memoria/Memory.o: src/defs/Memoria/Memory.cpp.o
 .PHONY : src/defs/Memoria/Memory.o
@@ -273,6 +310,30 @@ src/defs/Memoria/MemoryParts.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.s
 .PHONY : src/defs/Memoria/MemoryParts.cpp.s
 
+src/defs/Memoria/VRAM.o: src/defs/Memoria/VRAM.cpp.o
+.PHONY : src/defs/Memoria/VRAM.o
+
+# target to build an object file
+src/defs/Memoria/VRAM.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.o
+.PHONY : src/defs/Memoria/VRAM.cpp.o
+
+src/defs/Memoria/VRAM.i: src/defs/Memoria/VRAM.cpp.i
+.PHONY : src/defs/Memoria/VRAM.i
+
+# target to preprocess a source file
+src/defs/Memoria/VRAM.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.i
+.PHONY : src/defs/Memoria/VRAM.cpp.i
+
+src/defs/Memoria/VRAM.s: src/defs/Memoria/VRAM.cpp.s
+.PHONY : src/defs/Memoria/VRAM.s
+
+# target to generate assembly for a file
+src/defs/Memoria/VRAM.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.s
+.PHONY : src/defs/Memoria/VRAM.cpp.s
+
 src/defs/ROM/ROMLoader.o: src/defs/ROM/ROMLoader.cpp.o
 .PHONY : src/defs/ROM/ROMLoader.o
 
@@ -321,6 +382,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmu.dir/build.make CMakeFiles/GBEmu.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/testes/tests.o: src/testes/tests.cpp.o
+.PHONY : src/testes/tests.o
+
+# target to build an object file
+src/testes/tests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmuTests.dir/build.make CMakeFiles/GBEmuTests.dir/src/testes/tests.cpp.o
+.PHONY : src/testes/tests.cpp.o
+
+src/testes/tests.i: src/testes/tests.cpp.i
+.PHONY : src/testes/tests.i
+
+# target to preprocess a source file
+src/testes/tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmuTests.dir/build.make CMakeFiles/GBEmuTests.dir/src/testes/tests.cpp.i
+.PHONY : src/testes/tests.cpp.i
+
+src/testes/tests.s: src/testes/tests.cpp.s
+.PHONY : src/testes/tests.s
+
+# target to generate assembly for a file
+src/testes/tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GBEmuTests.dir/build.make CMakeFiles/GBEmuTests.dir/src/testes/tests.cpp.s
+.PHONY : src/testes/tests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -330,30 +415,40 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... GBEmu"
+	@echo "... GBEmuTests"
 	@echo "... src/defs/CPU/CPU.o"
 	@echo "... src/defs/CPU/CPU.i"
 	@echo "... src/defs/CPU/CPU.s"
-	@echo "... src/defs/CPU/InstructionResolver.o"
-	@echo "... src/defs/CPU/InstructionResolver.i"
-	@echo "... src/defs/CPU/InstructionResolver.s"
-	@echo "... src/defs/CPU/Instructions.o"
-	@echo "... src/defs/CPU/Instructions.i"
-	@echo "... src/defs/CPU/Instructions.s"
+	@echo "... src/defs/CPU/Instructions/InstructionResolver.o"
+	@echo "... src/defs/CPU/Instructions/InstructionResolver.i"
+	@echo "... src/defs/CPU/Instructions/InstructionResolver.s"
+	@echo "... src/defs/CPU/Instructions/Instructions.o"
+	@echo "... src/defs/CPU/Instructions/Instructions.i"
+	@echo "... src/defs/CPU/Instructions/Instructions.s"
 	@echo "... src/defs/Memoria/BANK00.o"
 	@echo "... src/defs/Memoria/BANK00.i"
 	@echo "... src/defs/Memoria/BANK00.s"
+	@echo "... src/defs/Memoria/BANKNN.o"
+	@echo "... src/defs/Memoria/BANKNN.i"
+	@echo "... src/defs/Memoria/BANKNN.s"
 	@echo "... src/defs/Memoria/Memory.o"
 	@echo "... src/defs/Memoria/Memory.i"
 	@echo "... src/defs/Memoria/Memory.s"
 	@echo "... src/defs/Memoria/MemoryParts.o"
 	@echo "... src/defs/Memoria/MemoryParts.i"
 	@echo "... src/defs/Memoria/MemoryParts.s"
+	@echo "... src/defs/Memoria/VRAM.o"
+	@echo "... src/defs/Memoria/VRAM.i"
+	@echo "... src/defs/Memoria/VRAM.s"
 	@echo "... src/defs/ROM/ROMLoader.o"
 	@echo "... src/defs/ROM/ROMLoader.i"
 	@echo "... src/defs/ROM/ROMLoader.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/testes/tests.o"
+	@echo "... src/testes/tests.i"
+	@echo "... src/testes/tests.s"
 .PHONY : help
 
 

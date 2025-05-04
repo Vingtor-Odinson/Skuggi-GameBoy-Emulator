@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -O0 CMakeFiles/GBEmuTests.dir/src/testes/tests.cpp.o -o bin/Tests/GBEmuTests  /usr/local/lib/libCatch2Main.a /usr/local/lib/libCatch2.a 

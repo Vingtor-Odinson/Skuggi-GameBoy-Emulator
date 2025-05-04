@@ -168,12 +168,14 @@ CMakeFiles/GBEmu.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/uniform_int_dist.h \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionsParameters.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/Instructions.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/InstructionsParameters.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/ROM/ROMLoader.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANKNN.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/VRAM.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/Registers.hpp \
  /usr/include/c++/11/filesystem /usr/include/c++/11/bits/fs_fwd.h \
  /usr/include/c++/11/chrono /usr/include/c++/11/ratio \

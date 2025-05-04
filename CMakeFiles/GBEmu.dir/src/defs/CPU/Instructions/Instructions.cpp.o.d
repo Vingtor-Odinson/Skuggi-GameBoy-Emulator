@@ -1,5 +1,5 @@
-CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o: \
- /home/glauco/Desktop/GBEmulador/src/defs/CPU/Instructions.cpp \
+CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.o: \
+ /home/glauco/Desktop/GBEmulador/src/defs/CPU/Instructions/Instructions.cpp \
  /usr/include/stdc-predef.h \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/CPU.hpp \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
@@ -102,7 +102,7 @@ CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o: \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/uniform_int_dist.h \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/Instructions.hpp \
  /usr/include/c++/11/string /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/char_traits.h \
  /usr/include/c++/11/bits/postypes.h /usr/include/c++/11/cwchar \
@@ -150,12 +150,14 @@ CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionsParameters.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/InstructionsParameters.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/Memory.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANK00.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/Memoria/MemoryParts.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/BANKNN.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/Memoria/VRAM.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/CPU/Registers.hpp \
- /home/glauco/Desktop/GBEmulador/src/includes/CPU/InstructionResolver.hpp \
+ /home/glauco/Desktop/GBEmulador/src/includes/CPU/Instructions/InstructionResolver.hpp \
  /home/glauco/Desktop/GBEmulador/src/includes/nlohmann/json.hpp \
  /usr/include/c++/11/algorithm \
  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
