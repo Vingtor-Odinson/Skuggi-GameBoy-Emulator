@@ -117,7 +117,7 @@ class InstructionLoader
         std::string fileLocation = "Data/Instructions.json";
 
     public:
-        InstructionLoader(CPU* cpuPtr)
+        explicit InstructionLoader(CPU* cpuPtr)
         : cpu(cpuPtr){}
 
         void LoadInstructions();

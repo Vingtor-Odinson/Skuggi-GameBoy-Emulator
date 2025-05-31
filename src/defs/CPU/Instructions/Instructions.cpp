@@ -171,7 +171,9 @@ void InstructionLoader::LoadInstructions()
 
     ////////////////////////////// Carrega a Lista de instruções do json ////////////////////////////
 
-    std::ifstream file(fileLocation);
+    std::ifstream file;
+
+    file.open(fileLocation);
 
     if (!file.is_open()) {
         throw std::runtime_error("Não foi possível abrir o arquivo de instruções");
