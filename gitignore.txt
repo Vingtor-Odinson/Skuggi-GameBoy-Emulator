@@ -20,13 +20,13 @@ CMakeUserPresets.json
 *.rnote
 *.cmake
 *.log
-.cmake/
-.idea/
+.cmake/*
+.idea/*
 .ninja_deps
 .ninja_log
 CMakeCache.txt
-CMakeFiles/
-Testing/
+CMakeFiles/*
+Testing/*
 build.ninja
 cmake_install.cmake
 GBEmu

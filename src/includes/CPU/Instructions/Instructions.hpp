@@ -63,7 +63,7 @@ class Instruction
 
     public:
         Instruction(){
-            operands = new Operand[2];
+            operands = new Operand[10];
         }
 
         Flags flags;
@@ -82,6 +82,7 @@ class Instruction
         void AddOperand( Operand operado )
         {
             operands[operandsNumber] = operado;
+            operandsNumber++;
         }
 
         Operand GetFirstOperand()

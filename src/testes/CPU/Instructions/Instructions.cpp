@@ -16,7 +16,6 @@ TEST_CASE("INC B instruction working properly", "[inc]")
     
     cpu->executeInstruction( incB );
 
-
     REQUIRE(cpu->regs->B == 0x01); // Simple one, the third bit doesn't change
     REQUIRE( cpu->flags->N == "0" );
 

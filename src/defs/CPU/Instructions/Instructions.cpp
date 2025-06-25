@@ -199,36 +199,34 @@ void InstructionLoader::LoadInstructions()
         {
             instruction.SetCiclesNumber( value["cycles"][0] );
         }
-        
+
         if(value.contains("immediate") && value["immediate"].is_boolean())
         {
             instruction.SetImmediate( value["immediate"] );
         }
 
-        for(const auto& op : value["operands"])
+        if( value.contains("operands") && value["operands"].is_array() && !value["operands"].empty() )
         {
-            Operand operand;
+            for (const auto &op: value["operands"]) {
+                Operand operand;
 
-            if( op.contains("name") && value["name"].is_string() )
-            {
-                operand.SetName( op["name"] );
+                if (op.contains("name")) {
+                    operand.SetName(op["name"]);
+                }
+
+                if (op.contains("bytes") && value["bytes"].is_number_integer()) {
+                    operand.SetNeededBytes(op["bytes"]);
+                }
+
+                if (op.contains("immediate") && value["immediate"].is_boolean()) {
+                    operand.SetIsImmediate(op["immediate"]);
+                }
+
+                if (op.contains("decrement") && value["decrement"].is_boolean()) {
+                    operand.SetIsDecrement(op["decrement"]);
+                }
+                instruction.AddOperand(operand);
             }
-            
-            if( op.contains("bytes") && value["bytes"].is_number_integer() )
-            {
-                operand.SetNeededBytes( op["bytes"] );
-            }
-            
-            if( op.contains("immediate") && value["immediate"].is_boolean() )
-            {
-                operand.SetIsImmediate( op["immediate"] );
-            }
-            
-            if( op.contains("decrement") && value["decrement"].is_boolean() )
-            {
-                operand.SetIsDecrement( op["decrement"] );
-            }
-            
         }
 
         instruction.flags.Z = value["flags"].value("Z", std::string("-"));

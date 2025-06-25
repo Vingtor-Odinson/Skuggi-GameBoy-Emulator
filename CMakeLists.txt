@@ -43,14 +43,8 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")  # High optimization, no debug symbols
 endif()
 
-# Se você estiver usando bibliotecas externas, você poderia adicionar as configurações de link aqui
-# Example:
-# target_link_libraries(GBEmu <library_name>)
 
-
-
-#Catch2 tests
-
+###########################################3Catch2 tests
 find_package(Catch2 3 REQUIRED)
 # These tests can use the Catch2-provided main
 
@@ -61,7 +55,7 @@ file(GLOB_RECURSE TEST_SOURCES ${CMAKE_SOURCE_DIR}/src/testes/*.cpp)
 
 add_executable(GBEmuTests ${TEST_SOURCES} ${CORE_SOURCES})
 
-target_link_libraries(GBEmuTests PRIVATE 
+target_link_libraries(GBEmuTests PRIVATE
     Catch2::Catch2WithMain
 )
 
