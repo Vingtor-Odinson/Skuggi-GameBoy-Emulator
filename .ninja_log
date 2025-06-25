@@ -78,3 +78,13 @@
 1771	2975	1750885497701269066	CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o	a78dc4935f44b60d
 7	8160	1750885495937035788	CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o	ff003e67d15ccfbd
 8160	9665	1750885504090102554	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+5	1224	1750888837327508019	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
+1225	2154	1750888838547425412	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+5	1254	1750888919461369603	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
+1254	2227	1750888920710423086	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+5	1324	1750889168910245060	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
+1325	2260	1750889170230229272	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+6	1214	1750889373223005929	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
+1214	2165	1750889374431059659	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+6	1438	1750892292554141143	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
+1438	2420	1750892293986189535	bin/Tests/GBEmuTests	8d69cf7dc09aa750
