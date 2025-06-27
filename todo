@@ -6,21 +6,21 @@
 -Estrutura básica da memória
 -BANK00 e BANKNN (Read parcialmente implementado, falta ver o Write)
 
-
+-Estrutura básica de testes
 
 
 ****************************** A fazer *********************
 
 *Testes
 
--adicionar testes Catch2 (já instalado)
--testar as inst inc e dec
+-testar as inst dec
 
 
 *CPU
 
 -implementar ld e add no mapa de funções
 -melhorar a separação das funções, evitar headers com declarações de coisas diferentes
+
 
 *Memória
 
@@ -29,5 +29,6 @@
     -fazer os bancos apontarem corretamente para os dados da rom (não carregar novamente)
     (falta fazer para o banco nn -- falta implementar o mbc)
 
+-testar Read e Write dos pedaços da memória (tanto isoladamente como por meio da interface Memory)
 
 
