@@ -91,10 +91,6 @@ namespace Instructions{
             {
                 cpu->flags->H = "1";
             }
-            if( reg == 0 )
-            {
-                cpu->flags->Z = "1";
-            }
 
             cpu->flags->N = "0";
         }

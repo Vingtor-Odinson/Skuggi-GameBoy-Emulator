@@ -21,6 +21,12 @@ TEST_CASE("INC B instruction working properly", "[inc]")
     REQUIRE(cpu->regs->B == 0x01); // Simple one, the third bit doesn't change
     REQUIRE( cpu->flags->N == "0" );
 
+    cpu->regs->B = 0b01111;
+    cpu->executeInstruction( incB );
+
+    REQUIRE( cpu->regs->B == 0b10000 );
+    REQUIRE( cpu->flags->H == "1" );
+
     delete cpu;
 }
 
@@ -43,6 +49,14 @@ TEST_CASE("INC BC instruction working properly", "[inc]")
     REQUIRE(cpu->memory->ReadMemory(address) == 0x01); // Simple one, the third bit doesn't change
     REQUIRE( cpu->flags->N == "0" );
 
+    cpu->flags->H == "1";
+
+    cpu->memory->WriteMemory(address, 0b1111);
+
+    cpu->executeInstruction( incBC );
+
+    REQUIRE(cpu->memory->ReadMemory(address) == 0b10000); // Simple one, the third bit doesn't change
+    REQUIRE( cpu->flags->H == "1" );
+
     delete cpu;
 }
-
