@@ -59,3 +59,7 @@ void CPU::instructionLoop()
     executeInstruction( inst );
 }
 
+Instruction CPU::getInstruction(uint8_t opcode) {
+    return Instructions[opcode];
+}
+

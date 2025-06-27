@@ -2,7 +2,7 @@
 
 #include <string>
 #include <stdint.h>
-#include <CPU/Istructions/InstructionsParameters.hpp>
+#include <CPU/Instructions/InstructionsParameters.hpp>
 
 class CPU;
 
@@ -63,7 +63,7 @@ class Instruction
 
     public:
         Instruction(){
-            operands = new Operand[2];
+            operands = new Operand[10];
         }
 
         Flags flags;
@@ -82,6 +82,7 @@ class Instruction
         void AddOperand( Operand operado )
         {
             operands[operandsNumber] = operado;
+            operandsNumber++;
         }
 
         Operand GetFirstOperand()
@@ -117,7 +118,7 @@ class InstructionLoader
         std::string fileLocation = "Data/Instructions.json";
 
     public:
-        InstructionLoader(CPU* cpuPtr)
+        explicit InstructionLoader(CPU* cpuPtr)
         : cpu(cpuPtr){}
 
         void LoadInstructions();

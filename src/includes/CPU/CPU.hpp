@@ -17,8 +17,6 @@ class InstructionLoader;
 
 class Registers;
 
-class Instruction;
-
 class Operand;
 
 class InstructionResolver;
@@ -43,6 +41,7 @@ class CPU
 
         uint8_t getOpcode( uint16_t address );
         uint8_t fetchMemory( uint16_t address );
+        Instruction getInstruction( uint8_t opcode );
         void operateByte();
         void instructionLoop();
         void executeInstruction( Instruction Inst );
