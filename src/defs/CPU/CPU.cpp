@@ -24,7 +24,7 @@ CPU::~CPU(){
     delete flags;
 }
 
-uint8_t CPU::fetchMemory( uint16_t address )
+uint8_t CPU::fetchMemory( uint16_t& address ) const
 {
     uint8_t value = this->memory->ReadMemory(address);
     address++;

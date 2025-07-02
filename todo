@@ -11,6 +11,12 @@
 
 ****************************** A fazer *********************
 
+*Ciclo de instruções
+
+-Trocar a referência aos regs de string pra um Enum
+-Trocar o tipo das flags pra bool
+
+
 *Testes
 
 -testar as inst dec
@@ -18,9 +24,9 @@
 
 *CPU
 
--implementar ld e add no mapa de funções
+-Separar a implementação do InstructionLoader da CPU... Fazer o método devolver o mapa e chamar pra criar o mapa dentro da CPU.
+-implementar e add no mapa de funções
 -melhorar a separação das funções, evitar headers com declarações de coisas diferentes
-
 
 *Memória
 

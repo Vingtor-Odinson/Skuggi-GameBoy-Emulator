@@ -60,3 +60,41 @@ TEST_CASE("INC BC instruction working properly", "[inc]")
 
     delete cpu;
 }
+
+TEST_CASE("LD r8, r8 instruction working", "[ld]") {
+    uint8_t opcode = 0x4F; //opcode for the LD
+
+    CPU* cpu = new CPU();
+
+
+    cpu->regs->A = 0x04;
+    cpu->regs->C = 0x00;
+
+    Instruction incLD_CA = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction( incLD_CA );
+
+    REQUIRE(cpu->regs->C == 0x04);
+    REQUIRE(cpu->regs->A == 0x04);
+
+    delete cpu;
+}
+
+TEST_CASE("LD r8, n8 instruction working", "[ld]") {
+
+    uint8_t opcode = 0x3E; //opcode for the LD
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = 0x01;
+    cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    cpu->memory->WriteMemory(cpu->regs->PC, 0x05);
+
+    Instruction incLD_An8 = cpu->getInstruction(opcode); //Vai colocar o A = 0x05 e aumentar o PC em 1
+
+    cpu->executeInstruction(incLD_An8);
+
+    REQUIRE(cpu->regs->A == 0x05);
+    REQUIRE(cpu->regs->PC == 0x8501);
+}

@@ -158,7 +158,29 @@ namespace Instructions{
 
     void ld( InstructionParameters params, CPU* cpu )
     {
-        
+        if( get8BytesReg(params.AimedReg, cpu) != nullptr ) { //Se entrada for de 8 bits
+            if( get8BytesReg(params.OriginReg, cpu) != nullptr ) { // Se o objetivo for de 8 bits
+
+                uint8_t* orReg = get8BytesReg(params.OriginReg, cpu);
+                uint8_t* destReg = get8BytesReg(params.AimedReg, cpu);
+
+                *destReg = *orReg;
+            }
+            else if( params.OriginIsNextByte ) { //Caso o origin sejam os próximos 8 bits
+
+                uint8_t orValue = cpu->fetchMemory(cpu->regs->PC);
+                uint8_t* destReg = get8BytesReg(params.AimedReg, cpu);
+
+                *destReg = orValue;
+            }
+        }
+
+        else if( get16BytesReg(params.OriginReg, cpu) != nullptr ) { //Se entrada for de 16 bits
+            if( get16BytesReg(params.AimedReg, cpu) != nullptr ) { // Se o objetivo for de 16 bits
+
+
+            }
+        }
     }
 }
 
