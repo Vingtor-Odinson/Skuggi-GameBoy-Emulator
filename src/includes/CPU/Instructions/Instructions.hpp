@@ -68,6 +68,10 @@ class Instruction
             operands = new Operand[10];
         }
 
+        ~Instruction(){
+            delete[] operands;
+        }
+
         Flags flags;
 
         void SetMnemonic( std::string name ){ mnemonic = name; }
@@ -111,20 +115,4 @@ class Instruction
             }
             return operands[1];
         }
-};
-
-class InstructionLoader
-{
-    private:
-        CPU* cpu;
-        std::string fileLocation = "Data/Instructions.json";
-        static std::unordered_map <std::string, RegistersEnum> registerNameEnumMap;
-        static RegistersEnum getRegisterEnum(const std::string& name);
-
-    public:
-        explicit InstructionLoader(CPU* cpuPtr)
-        : cpu(cpuPtr){}
-
-        void LoadInstructions();
-
 };

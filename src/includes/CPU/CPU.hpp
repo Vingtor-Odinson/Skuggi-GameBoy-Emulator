@@ -13,8 +13,6 @@ class Memory;
 
 class ROMLoader;
 
-class InstructionLoader;
-
 class Registers;
 
 class Operand;
@@ -32,7 +30,6 @@ class CPU
         ROMLoader* romLoader;
         Memory* memory;
         Registers* regs;
-        InstructionLoader* instLoader;
         InstructionResolver* instResolver;
         Flags* flags;
 
@@ -46,6 +43,5 @@ class CPU
         void instructionLoop();
         void executeInstruction( Instruction Inst );
         void setupCPU();
-
-        friend class InstructionLoader; //Para que a classe possa alterar o mapa Instructions
+        void loadInstructions();
 };

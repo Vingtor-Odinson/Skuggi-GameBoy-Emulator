@@ -1,5 +1,6 @@
 #include<CPU/CPU.hpp>
 #include<CPU/Instructions/InstructionResolver.hpp>
+#include "CPU/Instructions/InstructionLoader.hpp"
 #include<CPU/Registers.hpp>
 #include<Memoria/Memory.hpp>
 #include<ROM/ROMLoader.hpp>
@@ -7,18 +8,17 @@
 CPU::CPU(){
     memory = new Memory( this );
     romLoader = new ROMLoader( this );
-    instLoader = new InstructionLoader( this );
     instResolver = new InstructionResolver();
     regs = new Registers();
     flags = new Flags();
 
-    instLoader->LoadInstructions();
+    Instructions = InstructionLoader::LoadInstructions();
+    loadInstructions();
 }
 
 CPU::~CPU(){
     delete memory;
     delete romLoader;
-    delete instLoader;
     delete instResolver;
     delete regs;
     delete flags;
@@ -61,5 +61,12 @@ void CPU::instructionLoop()
 
 Instruction CPU::getInstruction(uint8_t opcode) {
     return Instructions[opcode];
+}
+
+void CPU::loadInstructions() {
+    InstructionMap["NOP"] = Instructions::nop;
+    InstructionMap["INC"] = Instructions::inc;
+    InstructionMap["DEC"] = Instructions::dec;
+    InstructionMap["LD"]  = Instructions::ld;
 }
 
