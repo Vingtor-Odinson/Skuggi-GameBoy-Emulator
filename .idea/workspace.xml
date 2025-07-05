@@ -25,37 +25,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65f2cb38-e78d-40eb-9b87-926b40958919" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.cmake/api/v1/reply/cache-v2-05b46c1fda8918bdd94a.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cmake/api/v1/reply/cmakeFiles-v1-248ea487e15c2b31b064.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cmake/api/v1/reply/index-2025-05-31T12-20-08-0914.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/includes/enum/RegistersEnum.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.31.6/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/3.31.6/CMakeSystem.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/main.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/clion-environment.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Tests/GBEmuTests" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Tests/GBEmuTests" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionResolver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionResolver.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/includes/CPU/CPU.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/CPU.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/includes/CPU/Instructions/InstructionsParameters.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/Instructions/InstructionsParameters.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todo" beforeDir="false" afterPath="$PROJECT_DIR$/todo" afterDir="false" />
     </list>
@@ -93,7 +80,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Catch.GBEmuTests.executor": "Debug",
+    "Catch.GBEmuTests.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -137,7 +124,8 @@
       <updated>1751161451495</updated>
       <workItem from="1751161453298" duration="7451000" />
       <workItem from="1751400906342" duration="2883000" />
-      <workItem from="1751416041362" duration="4991000" />
+      <workItem from="1751416041362" duration="5922000" />
+      <workItem from="1751686217114" duration="5305000" />
     </task>
     <servers />
   </component>
@@ -148,5 +136,16 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

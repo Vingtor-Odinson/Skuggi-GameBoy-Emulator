@@ -7,38 +7,39 @@
 #include <unordered_map>
 #include <fstream>
 #include <iostream>
+#include "enum/RegistersEnum.hpp"
 
 using json = nlohmann::json;
 
 namespace Instructions{
 
-    uint8_t* get8BytesReg( std::string regString, CPU* cpu )
+    uint8_t* get8BytesReg( RegistersEnum reg, CPU* cpu )
     {
-        if(regString == "A")
+        if(reg == RegistersEnum::A)
         {
             return &(cpu->regs->A);
         }
-        else if(regString == "B")
+        else if(reg == RegistersEnum::B)
         {
             return &(cpu->regs->B);
         }
-        else if(regString == "C")
+        else if(reg == RegistersEnum::C)
         {
             return &(cpu->regs->C);
         }
-        else if(regString == "D")
+        else if(reg == RegistersEnum::D)
         {
             return &(cpu->regs->D);
         }
-        else if(regString == "E")
+        else if(reg == RegistersEnum::E)
         {
             return &(cpu->regs->E);
         }
-        else if(regString == "H")
+        else if(reg == RegistersEnum::H)
         {
             return &(cpu->regs->H);
         }
-        else if(regString == "L")
+        else if(reg == RegistersEnum::L)
         {
             return &(cpu->regs->L);
         }
@@ -46,25 +47,25 @@ namespace Instructions{
         return nullptr;
     }
 
-    uint16_t* get16BytesReg( std::string regString, CPU* cpu )
+    uint16_t* get16BytesReg( RegistersEnum reg, CPU* cpu )
     {
-        if(regString == "AF")
+        if(reg == RegistersEnum::AF)
         {
             return &(cpu->regs->AF);
         }
-        else if(regString == "BC")
+        else if(reg == RegistersEnum::BC)
         {
             return &(cpu->regs->BC);
         }
-        else if(regString == "DE")
+        else if(reg == RegistersEnum::DE)
         {
             return &(cpu->regs->DE);
         }
-        else if(regString == "HL")
+        else if(reg == RegistersEnum::HL)
         {
             return &(cpu->regs->HL);
         }
-        else if(regString == "SP")
+        else if(reg == RegistersEnum::SP)
         {
             return &(cpu->regs->SP);
         }
@@ -229,7 +230,7 @@ void InstructionLoader::LoadInstructions()
                 Operand operand;
 
                 if (op.contains("name")) {
-                    operand.SetName(op["name"]);
+                    operand.SetName(GetNameFromString(op["name"]));
                 }
 
                 if (op.contains("bytes") && value["bytes"].is_number_integer()) {
@@ -265,4 +266,24 @@ void InstructionLoader::LoadInstructions()
     cpu->InstructionMap["DEC"] = Instructions::dec;
     cpu->InstructionMap["LD"]  = Instructions::ld;
     
+}
+
+RegistersEnum InstructionLoader::GetNameFromString(std::string nome) {
+    if(nome == "A") { return RegistersEnum::A; }
+    else if(nome == "B") { return RegistersEnum::B; }
+    else if(nome == "C") { return RegistersEnum::C; }
+    else if(nome == "D") { return RegistersEnum::D; }
+    else if(nome == "E") { return RegistersEnum::E; }
+    else if(nome == "F") { return RegistersEnum::F; }
+    else if(nome == "H") { return RegistersEnum::H; }
+    else if(nome == "L") { return RegistersEnum::L; }
+    else if(nome == "n8") { return RegistersEnum::n8; }
+    else if(nome == "n16") { return RegistersEnum::n16; }
+    else if(nome == "AF") { return RegistersEnum::AF; }
+    else if(nome == "BC") { return RegistersEnum::BC; }
+    else if(nome == "DE") { return RegistersEnum::DE; }
+    else if(nome == "HL") { return RegistersEnum::HL; }
+    else if(nome == "SP") { return RegistersEnum::SP; }
+    else if(nome == "PC") { return RegistersEnum::PC; }
+    else { return RegistersEnum::INVALID;}
 }

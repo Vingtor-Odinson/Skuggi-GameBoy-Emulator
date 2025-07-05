@@ -14,11 +14,11 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
 
         Operand firstOperand = (*inst).GetFirstOperand();
         
-        if(firstOperand.GetName() == "n8") //alvo são os próximos 8 bytes
+        if(firstOperand.GetName() == RegistersEnum::n8) //alvo são os próximos 8 bytes
         {
             param.AimIsNextByte = true;
         }
-        else if(firstOperand.GetName() == "n16") //alvo são os próximos 16 bytes
+        else if(firstOperand.GetName() == RegistersEnum::n16) //alvo são os próximos 16 bytes
         {
             param.AimIsNextByte = true;
         }
@@ -39,11 +39,11 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
             
             Operand sndOperand = (*inst).GetSecondOperand();
         
-            if(sndOperand.GetName() == "n8") //alvo são os próximos 8 bytes
+            if(sndOperand.GetName() == RegistersEnum::n8) //alvo são os próximos 8 bytes
             {
                 param.OriginIsNextByte = true;
             }
-            else if(sndOperand.GetName() == "n16") //alvo são os próximos 16 bytes
+            else if(sndOperand.GetName() == RegistersEnum::n16) //alvo são os próximos 16 bytes
             {
                 param.OriginIsNextBytes = true;
             }

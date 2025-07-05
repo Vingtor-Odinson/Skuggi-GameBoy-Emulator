@@ -65,3 +65,14 @@
 837	1459	1751419697391952773	CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o	a78dc4935f44b60d
 59	3581	1751419696613968915	CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o	ff003e67d15ccfbd
 3581	4309	1751419700135895617	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+168	2790	1751725693764142527	CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o	6b3ad10cd26ab23c
+168	2791	1751725693764142527	CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o	442c4ce9aaf17018
+166	2802	1751725693762142878	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
+167	2818	1751725693763142702	CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o	73e4524a6137b6bb
+167	5222	1751725693763142702	CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o	ff003e67d15ccfbd
+2	474	1751725727421359728	CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o	baa40b92734418b7
+3	535	1751725727422359560	CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o	18029f3645762ff9
+3	647	1751725727422359560	CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o	a78dc4935f44b60d
+647	1948	1751725728066251113	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+3	766	1751726030099351600	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
+766	1235	1751726030861568397	bin/Tests/GBEmuTests	8d69cf7dc09aa750

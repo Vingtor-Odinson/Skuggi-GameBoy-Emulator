@@ -3,6 +3,7 @@
 #include <string>
 #include <stdint.h>
 #include <CPU/Instructions/InstructionsParameters.hpp>
+#include "enum/RegistersEnum.hpp"
 
 class CPU;
 
@@ -24,19 +25,19 @@ namespace Instructions{
 class Operand
 {
     private:
-        std::string name; //Tlavez trocar pra regs*
+        RegistersEnum name; //Tlavez trocar pra regs*
         uint8_t bytes;
         bool immediate;
         bool decrement = false;
 
     public:
 
-        void SetName(std::string nome){name = nome;}
+        void SetName(RegistersEnum nome){name = nome;}
         void SetNeededBytes(uint8_t bts){bytes = bts;}   //trocar as entradas pra string e fazer cast
         void SetIsImmediate(bool imm){ immediate = imm; }
         void SetIsDecrement(bool imm){ decrement = imm; }
 
-        std::string GetName(){return name;}
+        RegistersEnum GetName(){return name;}
         uint8_t GetBytes(){ return bytes; }
         bool IsImmediate(){ return immediate; }
         bool IsDecrement(){ return decrement; }
@@ -89,9 +90,9 @@ class Instruction
         {
             if(operandsNumber < 1)
             {   Operand op = Operand();
-                op.SetName("0");
+                op.SetName(RegistersEnum::INVALID);
                 op.SetNeededBytes(0);
-                op.SetIsImmediate(0);
+                op.SetIsImmediate(false);
                 return op;
             }
             return operands[0];
@@ -102,9 +103,9 @@ class Instruction
             if(operandsNumber < 2)
             {
                 Operand op = Operand();
-                op.SetName("0");
+                op.SetName(RegistersEnum::INVALID);
                 op.SetNeededBytes(0);
-                op.SetIsImmediate(0);
+                op.SetIsImmediate(false);
                 return op;
             }
             return operands[1];
@@ -122,4 +123,6 @@ class InstructionLoader
         : cpu(cpuPtr){}
 
         void LoadInstructions();
+
+        RegistersEnum GetNameFromString(std::string nome);
 };

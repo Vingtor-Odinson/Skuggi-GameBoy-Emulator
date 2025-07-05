@@ -1,3 +1,7 @@
+*Criei o RegistersEnum
+*Alterei o tipo no InstructionLoader e no Instruction
+*Criei a função que passa de String pra RegisterEnum no Loader
+
 ****************************** Feito ***********************
 
 -Estrutura para o ciclo de instruções
@@ -14,6 +18,7 @@
 *Ciclo de instruções
 
 -Trocar a referência aos regs de string pra um Enum
+-Trocar o mnemonico das instruções de string pra enum
 -Trocar o tipo das flags pra bool
 
 

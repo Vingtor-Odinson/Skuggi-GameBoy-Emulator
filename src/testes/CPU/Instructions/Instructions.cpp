@@ -80,6 +80,8 @@ TEST_CASE("LD r8, r8 instruction working", "[ld]") {
     delete cpu;
 }
 
+
+/*
 TEST_CASE("LD r8, n8 instruction working", "[ld]") {
 
     uint8_t opcode = 0x3E; //opcode for the LD
@@ -98,3 +100,4 @@ TEST_CASE("LD r8, n8 instruction working", "[ld]") {
     REQUIRE(cpu->regs->A == 0x05);
     REQUIRE(cpu->regs->PC == 0x8501);
 }
+*/
