@@ -142,6 +142,30 @@ namespace Instructions{
     }
 }
 
+std::unordered_map <std::string, RegistersEnum> InstructionLoader::registerNameEnumMap = {
+        {"A", RegistersEnum::A},
+        {"B", RegistersEnum::B},
+        {"C", RegistersEnum::C},
+        {"D", RegistersEnum::D},
+        {"E", RegistersEnum::E},
+        {"F", RegistersEnum::F},
+        {"H", RegistersEnum::H},
+        {"L", RegistersEnum::L},
+        {"n8", RegistersEnum::n8},
+        {"n16", RegistersEnum::n16},
+        {"AF", RegistersEnum::AF},
+        {"BC", RegistersEnum::BC},
+        {"DE", RegistersEnum::DE},
+        {"HL", RegistersEnum::HL},
+        {"SP", RegistersEnum::SP},
+        {"PC", RegistersEnum::PC}
+};
+
+RegistersEnum InstructionLoader::getRegisterEnum(const std::string& name) {
+    auto iterator = registerNameEnumMap.find(name);
+    return (iterator != registerNameEnumMap.end()) ? iterator->second : RegistersEnum::INVALID; //checa se o iterator achou algo, se sim devolve o reg, se não devolve invalid
+};
+
 void InstructionLoader::LoadInstructions()
 {
 
@@ -187,7 +211,7 @@ void InstructionLoader::LoadInstructions()
                 Operand operand;
 
                 if (op.contains("name")) {
-                    operand.SetName(GetNameFromString(op["name"]));
+                    operand.SetName(getRegisterEnum(op["name"]));
                 }
 
                 if (op.contains("bytes") && value["bytes"].is_number_integer()) {
@@ -223,24 +247,4 @@ void InstructionLoader::LoadInstructions()
     cpu->InstructionMap["DEC"] = Instructions::dec;
     cpu->InstructionMap["LD"]  = Instructions::ld;
     
-}
-
-RegistersEnum InstructionLoader::GetNameFromString(std::string nome) {
-    if(nome == "A") { return RegistersEnum::A; }
-    else if(nome == "B") { return RegistersEnum::B; }
-    else if(nome == "C") { return RegistersEnum::C; }
-    else if(nome == "D") { return RegistersEnum::D; }
-    else if(nome == "E") { return RegistersEnum::E; }
-    else if(nome == "F") { return RegistersEnum::F; }
-    else if(nome == "H") { return RegistersEnum::H; }
-    else if(nome == "L") { return RegistersEnum::L; }
-    else if(nome == "n8") { return RegistersEnum::n8; }
-    else if(nome == "n16") { return RegistersEnum::n16; }
-    else if(nome == "AF") { return RegistersEnum::AF; }
-    else if(nome == "BC") { return RegistersEnum::BC; }
-    else if(nome == "DE") { return RegistersEnum::DE; }
-    else if(nome == "HL") { return RegistersEnum::HL; }
-    else if(nome == "SP") { return RegistersEnum::SP; }
-    else if(nome == "PC") { return RegistersEnum::PC; }
-    else { return RegistersEnum::INVALID;}
 }

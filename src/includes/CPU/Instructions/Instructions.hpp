@@ -2,6 +2,7 @@
 
 #include <string>
 #include <stdint.h>
+#include <unordered_map>
 #include <CPU/Instructions/InstructionsParameters.hpp>
 #include "enum/RegistersEnum.hpp"
 
@@ -15,7 +16,7 @@ namespace Instructions{
 
     void nop( InstructionParameters param, CPU* cpu );
 
-    void inc( InstructionParameters param, CPU* cpu ); //TODO: testar
+    void inc( InstructionParameters param, CPU* cpu ); //TODO: arrumar o teste
     
     void dec( InstructionParameters param, CPU* cpu ); //TODO: testar
 
@@ -117,6 +118,8 @@ class InstructionLoader
     private:
         CPU* cpu;
         std::string fileLocation = "Data/Instructions.json";
+        static std::unordered_map <std::string, RegistersEnum> registerNameEnumMap;
+        static RegistersEnum getRegisterEnum(const std::string& name);
 
     public:
         explicit InstructionLoader(CPU* cpuPtr)
@@ -124,5 +127,4 @@ class InstructionLoader
 
         void LoadInstructions();
 
-        RegistersEnum GetNameFromString(std::string nome);
 };
