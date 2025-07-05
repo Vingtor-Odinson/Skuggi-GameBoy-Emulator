@@ -28,19 +28,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Tests/GBEmuTests" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Tests/GBEmuTests" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/includes/CPU/CPU.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/CPU.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +69,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Catch.GBEmuTests.executor": "Debug",
+    "Catch.GBEmuTests.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -128,7 +120,7 @@
       <workItem from="1751161453298" duration="7451000" />
       <workItem from="1751400906342" duration="2883000" />
       <workItem from="1751416041362" duration="5922000" />
-      <workItem from="1751686217114" duration="13330000" />
+      <workItem from="1751686217114" duration="15118000" />
     </task>
     <servers />
   </component>
@@ -150,21 +142,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp</url>
-          <line>86</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionResolver.cpp</url>
-          <line>6</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

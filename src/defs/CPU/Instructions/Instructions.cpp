@@ -133,10 +133,17 @@ namespace Instructions{
             }
         }
 
-        else if(get16BitsReg(params.OriginReg, cpu) != nullptr ) { //Se entrada for de 16 bits
+        else if(uint16_t* dest16Reg = get16BitsReg(params.AimedReg, cpu)) { //Se entrada for de 16 bits
+
+            if( params.OriginIsNextBytes ) {
+                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
+                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
+
+                uint16_t orValue = (msb << 8) | lsb;
+
+                *dest16Reg = orValue;
+            }
             if(get16BitsReg(params.AimedReg, cpu) != nullptr ) { // Se o objetivo for de 16 bits
-
-
             }
         }
     }

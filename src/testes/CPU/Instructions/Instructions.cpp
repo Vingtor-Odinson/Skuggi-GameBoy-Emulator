@@ -100,3 +100,23 @@ TEST_CASE("LD r8, n8 instruction working", "[ld]") {
     REQUIRE(cpu->regs->A == 0x05);
     REQUIRE(cpu->regs->PC == 0x8501);
 }
+
+TEST_CASE("LD r16, n16 instruction working", "[ld]") {
+
+    uint8_t opcode = 0x01; //opcode for the LD BC, n16
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->BC = 0x0000;
+    cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    cpu->memory->WriteMemory(cpu->regs->PC, 0x34);
+    cpu->memory->WriteMemory(cpu->regs->PC + 1, 0x12);
+
+    Instruction incLD_r16n16 = cpu->getInstruction(opcode); //Vai colocar o A = 0x05 e aumentar o PC em 1
+
+    cpu->executeInstruction(incLD_r16n16);
+
+    REQUIRE(cpu->regs->BC == 0x1234);
+    REQUIRE(cpu->regs->PC == 0x8502);
+}
