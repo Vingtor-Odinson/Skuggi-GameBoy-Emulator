@@ -13,7 +13,7 @@ CPU::CPU(){
     flags = new Flags();
 
     Instructions = InstructionLoader::LoadInstructions();
-    loadInstructions();
+    loadOpcodeTable();
 }
 
 CPU::~CPU(){
@@ -42,7 +42,7 @@ void CPU::executeInstruction( Instruction Inst )
     InstructionParameters* param = new InstructionParameters();
 
     instResolver->ConfigParams( &Inst, *param );
-    InstructionMap[mnemonic]( *param, this);
+    opcodeTable[mnemonic](*param, this);
 
     delete param;
 }
@@ -63,10 +63,10 @@ Instruction CPU::getInstruction(uint8_t opcode) {
     return Instructions[opcode];
 }
 
-void CPU::loadInstructions() {
-    InstructionMap["NOP"] = Instructions::nop;
-    InstructionMap["INC"] = Instructions::inc;
-    InstructionMap["DEC"] = Instructions::dec;
-    InstructionMap["LD"]  = Instructions::ld;
+void CPU::loadOpcodeTable() {
+    opcodeTable["NOP"] = Instructions::nop;
+    opcodeTable["INC"] = Instructions::inc;
+    opcodeTable["DEC"] = Instructions::dec;
+    opcodeTable["LD"]  = Instructions::ld;
 }
 

@@ -24,7 +24,7 @@ class CPU
 
     private:
         std::unordered_map<uint8_t, Instruction> Instructions;
-        std::unordered_map<std::string, InstructionHandler> InstructionMap;
+        std::unordered_map<std::string, InstructionHandler> opcodeTable;
 
     public:
         ROMLoader* romLoader;
@@ -43,5 +43,5 @@ class CPU
         void instructionLoop();
         void executeInstruction( Instruction Inst );
         void setupCPU();
-        void loadInstructions();
+        void loadOpcodeTable();
 };

@@ -22,9 +22,9 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
         {
             param.AimIsNextByte = true;
         }
-        else{
-            param.AimedReg = firstOperand.GetName();
-        }
+
+
+        param.AimedReg = firstOperand.GetName();
 
         if( firstOperand.IsImmediate() ) // Deve tratar o alvo como endereço
         {
@@ -47,9 +47,8 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
             {
                 param.OriginIsNextBytes = true;
             }
-            else{
-                param.OriginReg = sndOperand.GetName();
-            }
+
+            param.OriginReg = sndOperand.GetName();
 
             if( sndOperand.IsImmediate() ) // Deve tratar o alvo como endereço
             {

@@ -13,7 +13,7 @@ using json = nlohmann::json;
 
 namespace Instructions{
 
-    uint8_t* get8BytesReg( RegistersEnum reg, CPU* cpu )
+    uint8_t* get8BitsReg(RegistersEnum reg, CPU* cpu )
     {
         switch (reg) {
             case RegistersEnum::A: return &(cpu->regs->A);
@@ -28,7 +28,7 @@ namespace Instructions{
         }
     }
 
-    uint16_t* get16BytesReg( RegistersEnum reg, CPU* cpu )
+    uint16_t* get16BitsReg( RegistersEnum reg, CPU* cpu )
     {
         switch (reg) {
             case RegistersEnum::AF: return &(cpu->regs->AF);
@@ -45,7 +45,7 @@ namespace Instructions{
 
     void inc( InstructionParameters params, CPU* cpu )
     {  
-        if( uint8_t* reg = get8BytesReg( params.AimedReg, cpu ) )
+        if( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
         {
             uint8_t mask = 0x08;
         
@@ -63,7 +63,7 @@ namespace Instructions{
             cpu->flags->N = "0";
         }
 
-        if( uint16_t* add = get16BytesReg( params.AimedReg, cpu ) )
+        if( uint16_t* add = get16BitsReg(params.AimedReg, cpu ) )
         {
             uint8_t reg = cpu->memory->ReadMemory( (*add) );
 
@@ -93,11 +93,11 @@ namespace Instructions{
 
     void dec( InstructionParameters params, CPU* cpu )
     {   
-        if ( uint16_t* reg16 = get16BytesReg( params.AimedReg, cpu ) )
+        if ( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
         {
             (*reg16) -= 1;
         }
-        else if ( uint8_t* reg = get8BytesReg( params.AimedReg, cpu ) )
+        else if ( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
         {
             cpu->flags->N = "1";
 
@@ -121,9 +121,9 @@ namespace Instructions{
 
     void ld( InstructionParameters params, CPU* cpu )
     {
-        if( uint8_t* destReg = get8BytesReg(params.AimedReg, cpu) ) { //Se entrada for de 8 bits
+        if( uint8_t* destReg = get8BitsReg(params.AimedReg, cpu) ) { //Se entrada for de 8 bits
 
-            if( uint8_t* orReg = get8BytesReg(params.OriginReg, cpu) ) { // Se o objetivo for de 8 bits
+            if( uint8_t* orReg = get8BitsReg(params.OriginReg, cpu) ) { // Se o objetivo for de 8 bits
                 *destReg = *orReg;
             }
 
@@ -133,8 +133,8 @@ namespace Instructions{
             }
         }
 
-        else if( get16BytesReg(params.OriginReg, cpu) != nullptr ) { //Se entrada for de 16 bits
-            if( get16BytesReg(params.AimedReg, cpu) != nullptr ) { // Se o objetivo for de 16 bits
+        else if(get16BitsReg(params.OriginReg, cpu) != nullptr ) { //Se entrada for de 16 bits
+            if(get16BitsReg(params.AimedReg, cpu) != nullptr ) { // Se o objetivo for de 16 bits
 
 
             }

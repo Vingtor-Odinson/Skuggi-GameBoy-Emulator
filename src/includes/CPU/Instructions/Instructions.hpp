@@ -10,9 +10,9 @@ class CPU;
 
 namespace Instructions{
 
-    uint8_t* get8BytesReg( std::string regString, CPU* cpu );
+    uint8_t* get8BitsReg(RegistersEnum reg, CPU* cpu );
 
-    uint16_t* get16BytesReg( std::string regString, CPU* cpu );
+    uint16_t* get16BitsReg(RegistersEnum reg, CPU* cpu );
 
     void nop( InstructionParameters param, CPU* cpu );
 
@@ -66,10 +66,6 @@ class Instruction
     public:
         Instruction(){
             operands = new Operand[10];
-        }
-
-        ~Instruction(){
-            delete[] operands;
         }
 
         Flags flags;
