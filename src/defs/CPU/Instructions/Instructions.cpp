@@ -15,71 +15,38 @@ namespace Instructions{
 
     uint8_t* get8BytesReg( RegistersEnum reg, CPU* cpu )
     {
-        if(reg == RegistersEnum::A)
-        {
-            return &(cpu->regs->A);
+        switch (reg) {
+            case RegistersEnum::A: return &(cpu->regs->A);
+            case RegistersEnum::B: return &(cpu->regs->B);
+            case RegistersEnum::C: return &(cpu->regs->C);
+            case RegistersEnum::D: return &(cpu->regs->D);
+            case RegistersEnum::E: return &(cpu->regs->E);
+            case RegistersEnum::F: return &(cpu->regs->F);
+            case RegistersEnum::H: return &(cpu->regs->H);
+            case RegistersEnum::L: return &(cpu->regs->L);
+            default: return nullptr;
         }
-        else if(reg == RegistersEnum::B)
-        {
-            return &(cpu->regs->B);
-        }
-        else if(reg == RegistersEnum::C)
-        {
-            return &(cpu->regs->C);
-        }
-        else if(reg == RegistersEnum::D)
-        {
-            return &(cpu->regs->D);
-        }
-        else if(reg == RegistersEnum::E)
-        {
-            return &(cpu->regs->E);
-        }
-        else if(reg == RegistersEnum::H)
-        {
-            return &(cpu->regs->H);
-        }
-        else if(reg == RegistersEnum::L)
-        {
-            return &(cpu->regs->L);
-        }
-
-        return nullptr;
     }
 
     uint16_t* get16BytesReg( RegistersEnum reg, CPU* cpu )
     {
-        if(reg == RegistersEnum::AF)
-        {
-            return &(cpu->regs->AF);
+        switch (reg) {
+            case RegistersEnum::AF: return &(cpu->regs->AF);
+            case RegistersEnum::BC: return &(cpu->regs->BC);
+            case RegistersEnum::DE: return &(cpu->regs->DE);
+            case RegistersEnum::HL: return &(cpu->regs->HL);
+            case RegistersEnum::PC: return &(cpu->regs->PC);
+            case RegistersEnum::SP: return &(cpu->regs->SP);
+            default: return nullptr;
         }
-        else if(reg == RegistersEnum::BC)
-        {
-            return &(cpu->regs->BC);
-        }
-        else if(reg == RegistersEnum::DE)
-        {
-            return &(cpu->regs->DE);
-        }
-        else if(reg == RegistersEnum::HL)
-        {
-            return &(cpu->regs->HL);
-        }
-        else if(reg == RegistersEnum::SP)
-        {
-            return &(cpu->regs->SP);
-        }
-
-        return nullptr;
     }
 
     void nop( InstructionParameters params, CPU* cpu ){}
 
     void inc( InstructionParameters params, CPU* cpu )
     {  
-        if( get8BytesReg( params.AimedReg, cpu ) != nullptr )
+        if( uint8_t* reg = get8BytesReg( params.AimedReg, cpu ) )
         {
-            uint8_t* reg = get8BytesReg( params.AimedReg, cpu );
             uint8_t mask = 0x08;
         
             bool bitBeforeIsOne = ( (*reg) & mask) != 0; // 3o bit era 1 antes?
@@ -96,10 +63,8 @@ namespace Instructions{
             cpu->flags->N = "0";
         }
 
-        if( get16BytesReg( params.AimedReg, cpu ) != nullptr )
+        if( uint16_t* add = get16BytesReg( params.AimedReg, cpu ) )
         {
-            uint16_t* add = get16BytesReg( params.AimedReg, cpu );
-
             uint8_t reg = cpu->memory->ReadMemory( (*add) );
 
             uint8_t mask = 0x08;
@@ -128,15 +93,12 @@ namespace Instructions{
 
     void dec( InstructionParameters params, CPU* cpu )
     {   
-        if ( get16BytesReg( params.AimedReg, cpu ) != nullptr )
-        {   
-            uint16_t* reg = get16BytesReg( params.AimedReg, cpu );
-            (*reg) -= 1;
+        if ( uint16_t* reg16 = get16BytesReg( params.AimedReg, cpu ) )
+        {
+            (*reg16) -= 1;
         }
-        else if ( get8BytesReg( params.AimedReg, cpu ) != nullptr )
-        {   
-            uint8_t* reg = get8BytesReg( params.AimedReg, cpu );
-
+        else if ( uint8_t* reg = get8BytesReg( params.AimedReg, cpu ) )
+        {
             cpu->flags->N = "1";
 
             uint8_t lowerNibbleBefore = ( (*reg) & 0b00001111);
@@ -159,19 +121,14 @@ namespace Instructions{
 
     void ld( InstructionParameters params, CPU* cpu )
     {
-        if( get8BytesReg(params.AimedReg, cpu) != nullptr ) { //Se entrada for de 8 bits
-            if( get8BytesReg(params.OriginReg, cpu) != nullptr ) { // Se o objetivo for de 8 bits
+        if( uint8_t* destReg = get8BytesReg(params.AimedReg, cpu) ) { //Se entrada for de 8 bits
 
-                uint8_t* orReg = get8BytesReg(params.OriginReg, cpu);
-                uint8_t* destReg = get8BytesReg(params.AimedReg, cpu);
-
+            if( uint8_t* orReg = get8BytesReg(params.OriginReg, cpu) ) { // Se o objetivo for de 8 bits
                 *destReg = *orReg;
             }
+
             else if( params.OriginIsNextByte ) { //Caso o origin sejam os próximos 8 bits
-
                 uint8_t orValue = cpu->fetchMemory(cpu->regs->PC);
-                uint8_t* destReg = get8BytesReg(params.AimedReg, cpu);
-
                 *destReg = orValue;
             }
         }

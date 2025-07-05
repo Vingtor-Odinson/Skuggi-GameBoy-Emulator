@@ -76,3 +76,9 @@
 647	1948	1751725728066251113	bin/Tests/GBEmuTests	8d69cf7dc09aa750
 3	766	1751726030099351600	CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o	2d01c1ac32562ef8
 766	1235	1751726030861568397	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+2	3349	1751726834646031262	CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o	ff003e67d15ccfbd
+3349	3867	1751726837993245826	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+3	3058	1751726925694560267	CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o	ff003e67d15ccfbd
+3058	3516	1751726928750316197	bin/Tests/GBEmuTests	8d69cf7dc09aa750
+4	3389	1751727249365762818	CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o	ff003e67d15ccfbd
+3389	3972	1751727252750149002	bin/Tests/GBEmuTests	8d69cf7dc09aa750
