@@ -99,6 +99,28 @@ TEST_CASE("LD r8, n8 instruction working", "[ld]") {
 
     REQUIRE(cpu->regs->A == 0x05);
     REQUIRE(cpu->regs->PC == 0x8501);
+
+    delete cpu;
+}
+
+TEST_CASE("LD [HL], r8 instruction working", "[ld]") {
+
+    uint8_t opcode = 0x70;
+    CPU* cpu = new CPU();
+
+    cpu->regs->B = 0x10;
+
+    cpu->regs->HL = 0x8500;
+
+    cpu->memory->WriteMemory(cpu->regs->HL, 0x00);
+
+    Instruction incLDhl_r8 = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction(incLDhl_r8);
+
+    REQUIRE(cpu->memory->ReadMemory(cpu->regs->HL) == 0x10);
+
+    delete cpu;
 }
 
 TEST_CASE("LD r16, n16 instruction working", "[ld]") {
@@ -119,4 +141,6 @@ TEST_CASE("LD r16, n16 instruction working", "[ld]") {
 
     REQUIRE(cpu->regs->BC == 0x1234);
     REQUIRE(cpu->regs->PC == 0x8502);
+
+    delete cpu;
 }

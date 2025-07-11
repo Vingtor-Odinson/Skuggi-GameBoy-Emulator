@@ -26,7 +26,7 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
 
         param.AimedReg = firstOperand.GetName();
 
-        if( firstOperand.IsImmediate() ) // Deve tratar o alvo como endereço
+        if( !firstOperand.IsImmediate() ) // Deve tratar o alvo como endereço
         {
             param.AimedIsAddress = true;
         }
@@ -50,7 +50,7 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
 
             param.OriginReg = sndOperand.GetName();
 
-            if( sndOperand.IsImmediate() ) // Deve tratar o alvo como endereço
+            if( !sndOperand.IsImmediate() ) // Deve tratar o alvo como endereço
             {
                 param.OriginIsAddress = true;
             }

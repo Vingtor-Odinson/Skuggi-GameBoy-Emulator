@@ -143,7 +143,13 @@ namespace Instructions{
 
                 *dest16Reg = orValue;
             }
-            if(get16BitsReg(params.AimedReg, cpu) != nullptr ) { // Se o objetivo for de 16 bits
+
+            else if(uint8_t* or8Reg = get8BitsReg(params.OriginReg, cpu)) { // Se o registro de origem for de 8 bits
+
+                if(params.AimedIsAddress) { // Se deve tratar o "aimed" como endereço
+                    cpu->memory->WriteMemory(*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
+                }
+
             }
         }
     }
