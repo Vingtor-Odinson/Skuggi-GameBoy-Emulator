@@ -103,6 +103,26 @@ TEST_CASE("LD r8, n8 instruction working", "[ld]") {
     delete cpu;
 }
 
+TEST_CASE("LD r8, HL instruction working", "[ld]") {
+
+    uint8_t opcode = 0x4E; //opcode for the LD
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->C = 0x00;
+    cpu->regs->HL = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    cpu->memory->WriteMemory(cpu->regs->HL, 0x05);
+
+    Instruction incLD_AHL = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction(incLD_AHL);
+
+    REQUIRE(cpu->regs->C == 0x05);
+
+    delete cpu;
+}
+
 TEST_CASE("LD [HL], r8 instruction working", "[ld]") {
 
     uint8_t opcode = 0x70;
@@ -119,6 +139,47 @@ TEST_CASE("LD [HL], r8 instruction working", "[ld]") {
     cpu->executeInstruction(incLDhl_r8);
 
     REQUIRE(cpu->memory->ReadMemory(cpu->regs->HL) == 0x10);
+
+    delete cpu;
+}
+
+TEST_CASE("LD [r16], A instruction working", "[ld]") {
+
+    uint8_t opcode = 0x02;
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = 0x10;
+
+    cpu->regs->BC = 0x8500;
+
+    cpu->memory->WriteMemory(cpu->regs->HL, 0x00);
+
+    Instruction incLDr16_A = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction(incLDr16_A);
+
+    REQUIRE(cpu->memory->ReadMemory(cpu->regs->BC) == 0x10);
+
+    delete cpu;
+}
+
+TEST_CASE("LD [n16], A instruction working", "[ld]") {
+
+    uint8_t opcode = 0xEA; //opcode for the LD [n16], A
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = 0x10;
+    cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    cpu->memory->WriteMemory(cpu->regs->PC, 0x00);
+    cpu->memory->WriteMemory(cpu->regs->PC + 1, 0x85);
+
+    Instruction incLD_n16A = cpu->getInstruction(opcode); //Vai copiar o A em 0x8520
+
+    cpu->executeInstruction(incLD_n16A);
+
+    REQUIRE(cpu->memory->ReadMemory(0x8500) == 0x10);
 
     delete cpu;
 }

@@ -37,6 +37,7 @@ class CPU
         ~CPU();
 
         uint8_t getOpcode( uint16_t address );
+        uint8_t fetchMemory() const;
         uint8_t fetchMemory( uint16_t& address ) const;
         Instruction getInstruction( uint8_t opcode );
         void operateByte();

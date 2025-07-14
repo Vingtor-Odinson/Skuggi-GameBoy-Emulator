@@ -28,14 +28,22 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Tests/GBEmuTests" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Tests/GBEmuTests" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionLoader.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionResolver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionResolver.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/includes/CPU/CPU.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/CPU.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/includes/enum/RegistersEnum.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/enum/RegistersEnum.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +80,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Catch.GBEmuTests.executor": "Debug",
+    "Catch.GBEmuTests.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -124,7 +132,7 @@
       <workItem from="1751400906342" duration="2883000" />
       <workItem from="1751416041362" duration="5922000" />
       <workItem from="1751686217114" duration="18894000" />
-      <workItem from="1751927456627" duration="17789000" />
+      <workItem from="1751927456627" duration="22673000" />
     </task>
     <servers />
   </component>

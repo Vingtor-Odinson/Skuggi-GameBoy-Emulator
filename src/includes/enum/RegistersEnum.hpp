@@ -18,6 +18,7 @@ enum class RegistersEnum {
     PC,
     n8,
     n16,
+    a16,
     INVALID
 };
 

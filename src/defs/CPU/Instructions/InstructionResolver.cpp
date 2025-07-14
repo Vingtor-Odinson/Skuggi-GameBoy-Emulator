@@ -22,6 +22,11 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
         {
             param.AimIsNextByte = true;
         }
+        else if(firstOperand.GetName() == RegistersEnum::a16) //alvo são os próximos 16 bytes
+        {
+            param.AimIsNextBytes = true;
+            param.AimedIsAddress = true;
+        }
 
 
         param.AimedReg = firstOperand.GetName();
@@ -46,6 +51,11 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
             else if(sndOperand.GetName() == RegistersEnum::n16) //alvo são os próximos 16 bytes
             {
                 param.OriginIsNextBytes = true;
+            }
+            else if(sndOperand.GetName() == RegistersEnum::a16) //alvo são os próximos 16 bytes
+            {
+                param.OriginIsNextBytes = true;
+                param.OriginIsAddress = true;
             }
 
             param.OriginReg = sndOperand.GetName();

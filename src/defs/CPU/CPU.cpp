@@ -24,6 +24,12 @@ CPU::~CPU(){
     delete flags;
 }
 
+uint8_t CPU::fetchMemory() const {
+    uint8_t value = this->memory->ReadMemory(this->regs->PC);
+    this->regs->PC++;
+    return value;
+}
+
 uint8_t CPU::fetchMemory( uint16_t& address ) const
 {
     uint8_t value = this->memory->ReadMemory(address);

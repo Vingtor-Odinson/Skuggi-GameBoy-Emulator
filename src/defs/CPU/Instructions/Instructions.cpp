@@ -127,10 +127,17 @@ namespace Instructions{
                 *destReg = *orReg;
             }
 
+            else if( uint16_t* orReg = get16BitsReg(params.OriginReg, cpu) ) {
+                if( params.OriginIsAddress ) {
+                    *destReg = cpu->memory->ReadMemory(*orReg);
+                }
+            }
+
             else if( params.OriginIsNextByte ) { //Caso o origin sejam os próximos 8 bits
                 uint8_t orValue = cpu->fetchMemory(cpu->regs->PC);
                 *destReg = orValue;
             }
+
         }
 
         else if(uint16_t* dest16Reg = get16BitsReg(params.AimedReg, cpu)) { //Se entrada for de 16 bits
@@ -151,6 +158,18 @@ namespace Instructions{
                 }
 
             }
+        }
+
+        else if( params.AimIsNextBytes && params.AimedIsAddress ) {
+            uint8_t lsb = cpu->fetchMemory(); //least sugnificant byte
+            uint8_t msb = cpu->fetchMemory(); //most significant byte
+
+            uint16_t destAdd = (msb << 8) | lsb;
+
+            if(uint8_t* orReg = get8BitsReg(params.OriginReg, cpu)) {
+                cpu->memory->WriteMemory(destAdd, *orReg);
+            }
+
         }
     }
 }
