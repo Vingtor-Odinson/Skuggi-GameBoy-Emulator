@@ -65,3 +65,5 @@ target_include_directories(GBEmuTests PRIVATE ${CMAKE_SOURCE_DIR}/src/testes)
 set_target_properties(GBEmuTests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/Tests"
 )
+
+set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=address -g -O0")
