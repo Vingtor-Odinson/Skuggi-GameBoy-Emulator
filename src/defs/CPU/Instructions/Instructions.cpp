@@ -61,33 +61,35 @@ namespace Instructions{
             }
 
             cpu->flags->N = "0";
+
+            cpu->flags->Z = ( (*reg) == 0x0 ) ? "1" : "0";
         }
 
-        if( uint16_t* add = get16BitsReg(params.AimedReg, cpu ) )
+        if( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
         {
-            uint8_t reg = cpu->memory->ReadMemory( (*add) );
+            if(!params.AimedIsAddress) { (*reg16) += 1; }
+            else {
+                uint8_t reg = cpu->memory->ReadMemory( (*reg16) );
 
-            uint8_t mask = 0x08;
-        
-            bool bitBeforeIsOne = ( reg & mask) != 0; // 3o bit era 1 antes?
-        
-            reg += 1;
-            
-            cpu->memory->WriteMemory( (*add), reg );
+                uint8_t mask = 0x08;
 
-            bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
-            
-            if( bitBeforeIsOne && !bitAfterIsOne )
-            {
-                cpu->flags->H = "1";
+                bool bitBeforeIsOne = ( reg & mask) != 0; // 3o bit era 1 antes?
+
+                reg += 1;
+
+                cpu->memory->WriteMemory( (*reg16), reg );
+
+                bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
+
+                if( bitBeforeIsOne && !bitAfterIsOne )
+                {
+                    cpu->flags->H = "1";
+                }
+
+                cpu->flags->Z = (reg == 0) ? "1" : "0";
+                cpu->flags->N = "0";
+
             }
-            if( reg == 0 )
-            {
-                cpu->flags->Z = "1";
-            }
-
-            cpu->flags->N = "0";
-        
         }
     }
 

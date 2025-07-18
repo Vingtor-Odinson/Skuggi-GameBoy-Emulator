@@ -6,14 +6,14 @@
 #include<ROM/ROMLoader.hpp>
 
 CPU::CPU(){
+    Instructions = InstructionLoader::LoadInstructions();
+    loadOpcodeTable();
+
     memory = new Memory( this );
     romLoader = new ROMLoader( this );
     instResolver = new InstructionResolver();
     regs = new Registers();
     flags = new Flags();
-
-    Instructions = InstructionLoader::LoadInstructions();
-    loadOpcodeTable();
 }
 
 CPU::~CPU(){
