@@ -184,6 +184,8 @@ TEST_CASE("LD [r16], A instruction working", "[ld]") {
 
 TEST_CASE("LD [n16], A instruction working", "[ld]") {
 
+    //todo: Add the case when the address is between $FF00 and $FFFF
+
     uint8_t opcode = 0xEA; //opcode for the LD [n16], A
 
     CPU* cpu = new CPU();

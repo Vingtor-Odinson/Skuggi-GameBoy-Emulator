@@ -66,4 +66,4 @@ set_target_properties(GBEmuTests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/Tests"
 )
 
-set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=address -g -O0")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
