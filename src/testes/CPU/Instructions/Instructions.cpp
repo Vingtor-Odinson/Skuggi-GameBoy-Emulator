@@ -226,3 +226,24 @@ TEST_CASE("LD r16, n16 instruction working", "[ld]") {
 
     delete cpu;
 }
+
+TEST_CASE("LD A, [r16] instruction working", "[ld]") {
+
+    uint8_t opcode = 0x1A;
+    uint16_t address = 0x8501;
+
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = 0x00;
+
+    cpu->regs->DE = address;
+
+    cpu->memory->WriteMemory(address, 0x10);
+
+    Instruction inst = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction(inst);
+
+    REQUIRE(cpu->regs->A == 0x10);
+}

@@ -1,5 +1,5 @@
 
-# GBEmu - GameBoy Emulator
+# Skuggi - GameBoy Emulator in C++
 ![Language](https://img.shields.io/badge/language-C++-blue?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Game%20Boy-red?style=flat-square)
 ![Type](https://img.shields.io/badge/type-Emulator-blue?style=flat-square)
