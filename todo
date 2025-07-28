@@ -9,18 +9,18 @@
 
 -Estrutura básica da memória
 -BANK00 e BANKNN (Read parcialmente implementado, falta ver o Write)
+-Separar a implementação do InstructionLoader da CPU... Fazer o método devolver o mapa e chamar pra criar o mapa dentro da CPU.
 
 -Estrutura básica de testes
-
+-Trocar a referência aos regs de string pra um Enum
 
 ****************************** A fazer *********************
 
 *Ciclo de instruções
 
--Trocar a referência aos regs de string pra um Enum
+-Um sisteminha pra fazer traceback de erros... Conseguir identificar se quebrar uma instrução, futuro sistema de logging
 -Trocar o mnemonico das instruções de string pra enum
 -Trocar o tipo das flags pra bool
-
 
 *Testes
 
@@ -29,7 +29,6 @@
 
 *CPU
 
--Separar a implementação do InstructionLoader da CPU... Fazer o método devolver o mapa e chamar pra criar o mapa dentro da CPU.
 -implementar e add no mapa de funções
 -melhorar a separação das funções, evitar headers com declarações de coisas diferentes
 

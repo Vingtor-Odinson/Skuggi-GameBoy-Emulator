@@ -140,6 +140,15 @@ namespace Instructions{
                 *destReg = orValue;
             }
 
+            else if( params.OriginIsNextBytes ) {
+                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
+                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
+
+                uint16_t orAddress = (msb << 8) | lsb;
+
+                *destReg = cpu->memory->ReadMemory(orAddress);
+            }
+
         }
 
         else if(uint16_t* dest16Reg = get16BitsReg(params.AimedReg, cpu)) { //Se entrada for de 16 bits

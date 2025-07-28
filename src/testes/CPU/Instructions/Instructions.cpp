@@ -247,3 +247,28 @@ TEST_CASE("LD A, [r16] instruction working", "[ld]") {
 
     REQUIRE(cpu->regs->A == 0x10);
 }
+
+TEST_CASE("LD A, [n16] instruction working", "[ld]") {
+
+    uint8_t opcode = 0xFA;
+    uint8_t value = 0x15;
+
+    uint16_t valAddress = 0x8510;
+    uint16_t address = 0x8500;
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = 0x00;
+    cpu->regs->PC = address;
+
+    cpu->memory->WriteMemory(address, 0x10);
+    cpu->memory->WriteMemory(address + 1, 0x85);
+
+    cpu->memory->WriteMemory(valAddress, value);
+
+    Instruction inst = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction(inst);
+
+    REQUIRE(cpu->regs->A == value);
+}
