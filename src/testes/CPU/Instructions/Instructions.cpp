@@ -142,6 +142,52 @@ TEST_CASE("LD r8, HL instruction working", "[ld]") {
     delete cpu;
 }
 
+TEST_CASE("LD A, [HLI] instruction working", "[ld]") {
+
+    uint8_t opcode = 0x2A; //opcode for the LD
+    uint8_t value = 0x15;
+    uint16_t address = 0x8510;
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = 0x00;
+    cpu->regs->HL = address; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    cpu->memory->WriteMemory(cpu->regs->HL, value);
+
+    Instruction incLD_AHLI = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction(incLD_AHLI);
+
+    REQUIRE(cpu->regs->A == value);
+    REQUIRE(cpu->regs->HL == address + 1);
+
+    delete cpu;
+}
+
+TEST_CASE("LD A, [HLD] instruction working", "[ld]") {
+
+    uint8_t opcode = 0x3A; //opcode for the LD
+    uint8_t value = 0x15;
+    uint16_t address = 0x8510;
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = 0x00;
+    cpu->regs->HL = address; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    cpu->memory->WriteMemory(cpu->regs->HL, value);
+
+    Instruction incLD_AHLD = cpu->getInstruction(opcode);
+
+    cpu->executeInstruction(incLD_AHLD);
+
+    REQUIRE(cpu->regs->A == value);
+    REQUIRE(cpu->regs->HL == address - 1);
+
+    delete cpu;
+}
+
 TEST_CASE("LD [HL], r8 instruction working", "[ld]") {
 
     uint8_t opcode = 0x70;

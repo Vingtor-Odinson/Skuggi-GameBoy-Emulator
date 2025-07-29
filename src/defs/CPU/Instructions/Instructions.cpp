@@ -132,6 +132,9 @@ namespace Instructions{
             else if( uint16_t* orReg = get16BitsReg(params.OriginReg, cpu) ) {
                 if( params.OriginIsAddress ) {
                     *destReg = cpu->memory->ReadMemory(*orReg);
+
+                    *orReg += params.OriginShouldIncrement ? 1 : 0;
+                    *orReg -= params.OriginShouldDecrement ? 1 : 0;
                 }
             }
 
