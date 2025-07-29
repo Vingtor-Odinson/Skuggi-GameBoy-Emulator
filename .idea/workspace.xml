@@ -25,37 +25,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65f2cb38-e78d-40eb-9b87-926b40958919" name="Changes" comment="Altera o CMakeLists pra adicionar o sanitizer nos testes">
-      <change beforePath="$PROJECT_DIR$/.cmake/api/v1/reply/index-2025-07-27T20-56-29-0501.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/CPU/CPU.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/BANK00.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/BANKNN.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/Memory.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/MemoryParts.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/Memoria/VRAM.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/defs/ROM/ROMLoader.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmu.dir/src/main.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/CPU.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionLoader.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionLoader.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/InstructionResolver.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANK00.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/BANKNN.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/Memoria/MemoryParts.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/defs/ROM/ROMLoader.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/GBEmu" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/GBEmu" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Tests/GBEmuTests" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Tests/GBEmuTests" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionResolver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/InstructionResolver.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/includes/CPU/Instructions/InstructionsParameters.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/Instructions/InstructionsParameters.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,30 +66,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "CMake Application.GBEmu.executor": "Debug",
-    "Catch.GBEmuTests.executor": "Debug",
-    "Catch.INC B instruction working properly.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.west.config.association.type.startup.service": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "GPU",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CMakeSettings",
-    "structure.view.defaults.are.configured": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;CMake Application.GBEmu.executor&quot;: &quot;Debug&quot;,
+    &quot;Catch.GBEmuTests.executor&quot;: &quot;Debug&quot;,
+    &quot;Catch.INC B instruction working properly.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.west.config.association.type.startup.service&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;GPU&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CMakeSettings&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Catch.GBEmuTests">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -153,7 +129,7 @@
       <workItem from="1753383042576" duration="2656000" />
       <workItem from="1753475205112" duration="5235000" />
       <workItem from="1753648876513" duration="7195000" />
-      <workItem from="1753710823518" duration="9979000" />
+      <workItem from="1753710823518" duration="11215000" />
     </task>
     <task id="LOCAL-00001" summary="Altera o CMakeLists pra adicionar o sanitizer nos testes">
       <option name="closed" value="true" />
@@ -206,13 +182,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp</url>
-          <line>289</line>
-          <option name="timeStamp" value="18" />
+          <line>309</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp</url>
           <line>125</line>
-          <option name="timeStamp" value="21" />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

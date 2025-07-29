@@ -99,7 +99,7 @@ std::unordered_map<uint8_t, Instruction> InstructionLoader::LoadInstructions()
                     operand.setIsIncrement(op["increment"]);
                 }
 
-                if (op.contains("decrement") && value["decrement"].is_boolean()) {
+                if (op.contains("decrement") && op["decrement"].is_boolean()) {
                     operand.setIsDecrement(op["decrement"]);
                 }
 
