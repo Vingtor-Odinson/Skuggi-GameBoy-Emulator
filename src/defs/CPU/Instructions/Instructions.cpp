@@ -166,6 +166,9 @@ namespace Instructions{
 
                 if(params.AimedIsAddress) { // Se deve tratar o "aimed" como endereço
                     cpu->memory->WriteMemory(*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
+
+                    *dest16Reg += params.AimShouldIncrement ? 1 : 0;
+                    *dest16Reg -= params.AimShouldDecrement ? 1 : 0;
                 }
 
             }

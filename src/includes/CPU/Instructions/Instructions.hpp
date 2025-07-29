@@ -29,19 +29,22 @@ class Operand
         RegistersEnum name; //Tlavez trocar pra regs*
         uint8_t bytes;
         bool immediate;
+        bool increment = false;
         bool decrement = false;
 
     public:
 
         void SetName(RegistersEnum nome){name = nome;}
         void SetNeededBytes(uint8_t bts){bytes = bts;}   //trocar as entradas pra string e fazer cast
-        void SetIsImmediate(bool imm){ immediate = imm; }
-        void SetIsDecrement(bool imm){ decrement = imm; }
+        void setIsImmediate(bool imm){ immediate = imm; }
+        void setIsIncrement(bool imm) { increment = imm; }
+        void setIsDecrement(bool imm){ decrement = imm; }
 
         RegistersEnum GetName(){return name;}
         uint8_t GetBytes(){ return bytes; }
         bool IsImmediate(){ return immediate; }
-        bool IsDecrement(){ return decrement; }
+        bool isIncrement(){ return increment; }
+        bool isDecrement(){ return decrement; }
 };
 
 struct Flags
@@ -93,7 +96,7 @@ class Instruction
             {   Operand op = Operand();
                 op.SetName(RegistersEnum::INVALID);
                 op.SetNeededBytes(0);
-                op.SetIsImmediate(false);
+                op.setIsImmediate(false);
                 return op;
             }
             return operands[0];
@@ -106,7 +109,7 @@ class Instruction
                 Operand op = Operand();
                 op.SetName(RegistersEnum::INVALID);
                 op.SetNeededBytes(0);
-                op.SetIsImmediate(false);
+                op.setIsImmediate(false);
                 return op;
             }
             return operands[1];

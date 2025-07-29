@@ -35,6 +35,12 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
         {
             param.AimedIsAddress = true;
         }
+        if( firstOperand.isIncrement() ){
+            param.AimShouldIncrement = true;
+        }
+        else if( firstOperand.isDecrement() ) {
+            param.AimShouldDecrement = true;
+        }
 
         //////////////////////////////////// Segundo Operando /////////////////////////////////
 
@@ -63,6 +69,12 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
             if( !sndOperand.IsImmediate() ) // Deve tratar o alvo como endereço
             {
                 param.OriginIsAddress = true;
+            }
+            if( sndOperand.isIncrement() ){
+                param.OriginShouldIncrement = true;
+            }
+            else if( sndOperand.isDecrement() ){
+                param.OriginShouldDecrement = true;
             }
         }
     }

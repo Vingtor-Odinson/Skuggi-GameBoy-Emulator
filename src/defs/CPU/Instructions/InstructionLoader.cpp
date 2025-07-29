@@ -92,12 +92,17 @@ std::unordered_map<uint8_t, Instruction> InstructionLoader::LoadInstructions()
                 }
 
                 if (op.contains("immediate") && value["immediate"].is_boolean()) {
-                    operand.SetIsImmediate(op["immediate"]);
+                    operand.setIsImmediate(op["immediate"]);
+                }
+
+                if (op.contains("increment") && op["increment"].is_boolean()) {
+                    operand.setIsIncrement(op["increment"]);
                 }
 
                 if (op.contains("decrement") && value["decrement"].is_boolean()) {
-                    operand.SetIsDecrement(op["decrement"]);
+                    operand.setIsDecrement(op["decrement"]);
                 }
+
                 instruction.AddOperand(operand);
             }
         }

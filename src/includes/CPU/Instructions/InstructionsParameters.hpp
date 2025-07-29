@@ -26,4 +26,10 @@ class InstructionParameters
 
         bool OriginIsNextByte;
         bool OriginIsNextBytes;
+
+        bool AimShouldIncrement;
+        bool OriginShouldIncrement;
+
+        bool AimShouldDecrement;
+        bool OriginShouldDecrement;
 };
