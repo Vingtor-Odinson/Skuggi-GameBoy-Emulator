@@ -362,3 +362,25 @@ TEST_CASE("LD [HLD], A instruction working", "[ld]") {
     REQUIRE(cpu->memory->ReadMemory(address) == value);
     REQUIRE(cpu->regs->HL == address - 1);
 }
+
+TEST_CASE("LD SP, n16 instruction working", "[ld]") {
+
+    uint8_t opcode = 0x31; //opcode for the LD SP, n16
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->SP = 0x0000;
+    cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    cpu->memory->WriteMemory(cpu->regs->PC, 0x34);
+    cpu->memory->WriteMemory(cpu->regs->PC + 1, 0x12);
+
+    Instruction incLD_SPn16 = cpu->getInstruction(opcode); //Vai colocar o A = 0x05 e aumentar o PC em 1
+
+    cpu->executeInstruction(incLD_SPn16);
+
+    REQUIRE(cpu->regs->SP == 0x1234);
+    REQUIRE(cpu->regs->PC == 0x8502);
+
+    delete cpu;
+}
