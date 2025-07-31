@@ -157,6 +157,7 @@ namespace Instructions{
         else if(uint16_t* dest16Reg = get16BitsReg(params.AimedReg, cpu)) { //Se entrada for de 16 bits
 
             if( params.OriginIsNextBytes ) {
+
                 uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
                 uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
 
@@ -178,12 +179,18 @@ namespace Instructions{
         }
 
         else if( params.AimIsNextBytes && params.AimedIsAddress ) {
+
             uint8_t lsb = cpu->fetchMemory(); //least sugnificant byte
             uint8_t msb = cpu->fetchMemory(); //most significant byte
 
             uint16_t destAdd = (msb << 8) | lsb;
 
-            if(uint8_t* orReg = get8BitsReg(params.OriginReg, cpu)) {
+            if( params.OriginReg == RegistersEnum::SP) {
+                uint16_t valueSP = *(get16BitsReg(params.OriginReg, cpu));
+                cpu->memory->WriteMemory(destAdd, valueSP & 0xFF);
+                cpu->memory->WriteMemory(destAdd + 1, valueSP >> 8);
+            }
+            else if(uint8_t* orReg = get8BitsReg(params.OriginReg, cpu)) {
                 cpu->memory->WriteMemory(destAdd, *orReg);
             }
 
