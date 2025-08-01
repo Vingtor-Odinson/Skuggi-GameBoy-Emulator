@@ -408,3 +408,44 @@ TEST_CASE("LD [n16], SP instruction working", "[ld]") {
 
     delete cpu;
 }
+
+TEST_CASE("LD SP, HL instruction working", "[ld]") {
+
+    uint8_t opcode = 0xF9; //opcode for the LD SP, n16
+    uint16_t valueSP = 0x0000;
+    uint16_t valueHL = 0x8510;
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->SP = valueSP;
+    cpu->regs->HL = valueHL; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    Instruction incLD_SPHL = cpu->getInstruction(opcode);
+    cpu->executeInstruction(incLD_SPHL);
+
+    REQUIRE(cpu->regs->SP == valueHL);
+
+    delete cpu;
+}
+
+TEST_CASE("OR A, r8 instruction working", "[or]") {
+
+    uint8_t opcode = 0xB0; //opcode for the OR A, B
+    uint8_t valueA = 0x10;
+    uint8_t valueB = 0x11;
+
+    CPU* cpu = new CPU();
+
+    cpu->regs->A = valueA;
+    cpu->regs->B = valueB; //Tem que ser em algum pedaço da memória que possa ser lido
+
+    Instruction incOR_AB = cpu->getInstruction(opcode);
+    cpu->executeInstruction(incOR_AB);
+
+    REQUIRE(cpu->regs->A == (valueA | valueB) );
+    REQUIRE(cpu->flags->N == "0"); //todo: preciso trocar urgente pra bool
+    REQUIRE(cpu->flags->H == "0");
+    REQUIRE(cpu->flags->C == "0");
+
+    delete cpu; //todo: add teste de quando o or dá 0
+}

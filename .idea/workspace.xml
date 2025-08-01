@@ -32,7 +32,9 @@
       <change beforePath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/GBEmuTests.dir/src/testes/CPU/Instructions/Instructions.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Tests/GBEmuTests" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Tests/GBEmuTests" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/CPU.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/includes/CPU/Instructions/Instructions.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/testes/CPU/Instructions/Instructions.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +128,8 @@
       <workItem from="1753475205112" duration="5235000" />
       <workItem from="1753648876513" duration="7195000" />
       <workItem from="1753710823518" duration="12886000" />
-      <workItem from="1753923580556" duration="2895000" />
+      <workItem from="1753923580556" duration="5728000" />
+      <workItem from="1754015511970" duration="666000" />
     </task>
     <task id="LOCAL-00001" summary="Altera o CMakeLists pra adicionar o sanitizer nos testes">
       <option name="closed" value="true" />
@@ -173,16 +176,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Altera o CMakeLists pra adicionar o sanitizer nos testes" />
     <option name="LAST_COMMIT_MESSAGE" value="Altera o CMakeLists pra adicionar o sanitizer nos testes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/defs/CPU/Instructions/Instructions.cpp</url>
-          <line>187</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

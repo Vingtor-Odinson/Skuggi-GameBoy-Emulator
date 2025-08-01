@@ -20,7 +20,9 @@ namespace Instructions{
     
     void dec( InstructionParameters param, CPU* cpu ); //TODO: testar
 
-    void ld( InstructionParameters param, CPU* cpu ); // TODO: implementar
+    void ld( InstructionParameters param, CPU* cpu ); // TODO: implementar as variantes que dependem da região de registros do sistema
+
+    void orInst( InstructionParameters, CPU* );
 }
 
 class Operand

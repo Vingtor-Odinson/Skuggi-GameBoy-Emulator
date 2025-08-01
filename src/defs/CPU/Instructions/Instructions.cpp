@@ -167,14 +167,16 @@ namespace Instructions{
             }
 
             else if(uint8_t* or8Reg = get8BitsReg(params.OriginReg, cpu)) { // Se o registro de origem for de 8 bits
-
                 if(params.AimedIsAddress) { // Se deve tratar o "aimed" como endereço
                     cpu->memory->WriteMemory(*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
 
                     *dest16Reg += params.AimShouldIncrement ? 1 : 0;
                     *dest16Reg -= params.AimShouldDecrement ? 1 : 0;
                 }
+            }
 
+            else if( uint16_t* or16Reg = get16BitsReg(params.OriginReg, cpu) ) {
+                *dest16Reg = *or16Reg;
             }
         }
 
@@ -194,6 +196,24 @@ namespace Instructions{
                 cpu->memory->WriteMemory(destAdd, *orReg);
             }
 
+        }
+    }
+
+    void orInst( InstructionParameters params, CPU* cpu ) {
+        if( uint8_t* dest8reg = get8BitsReg(params.AimedReg, cpu) ) {
+            if( uint8_t* org8reg = get8BitsReg(params.OriginReg, cpu) ) {
+                uint8_t value = (*dest8reg | *org8reg);
+
+                *dest8reg = value;
+
+                cpu->flags->N = "0";
+                cpu->flags->H = "0";
+                cpu->flags->C = "0";
+
+                if( value == 0 ) {
+                 cpu->flags->Z = "1";
+                }
+            }
         }
     }
 }
