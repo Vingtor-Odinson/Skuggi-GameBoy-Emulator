@@ -107,11 +107,10 @@ std::unordered_map<uint8_t, Instruction> InstructionLoader::LoadInstructions()
             }
         }
 
-        instruction.flags.Z = value["flags"].value("Z", std::string("-"));
-        instruction.flags.N = value["flags"].value("N", std::string("-"));
-        instruction.flags.H = value["flags"].value("H", std::string("-"));
-        instruction.flags.C = value["flags"].value("C", std::string("-"));
-
+        //instruction.flags.Z = value["flags"].value("Z", std::string("-"));
+        //instruction.flags.N = value["flags"].value("N", std::string("-"));
+        //instruction.flags.H = value["flags"].value("H", std::string("-"));
+        //instruction.flags.C = value["flags"].value("C", std::string("-"));
 
         Instructions[std::stoi(key, nullptr, 16)] = instruction;
     }

@@ -57,12 +57,11 @@ namespace Instructions{
             
             if( bitBeforeIsOne && !bitAfterIsOne )
             {
-                cpu->flags->H = "1";
+                cpu->regs->setFlag(FlagsEnum::H, true);
             }
 
-            cpu->flags->N = "0";
-
-            cpu->flags->Z = ( (*reg) == 0x0 ) ? "1" : "0";
+            cpu->regs->setFlag(FlagsEnum::N, false);
+            cpu->regs->setFlag(FlagsEnum::Z, ((*reg) == 0x0));
         }
 
         if( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
@@ -83,12 +82,11 @@ namespace Instructions{
 
                 if( bitBeforeIsOne && !bitAfterIsOne )
                 {
-                    cpu->flags->H = "1";
+                    cpu->regs->setFlag(FlagsEnum::H, true);
                 }
 
-                cpu->flags->Z = (reg == 0) ? "1" : "0";
-                cpu->flags->N = "0";
-
+                cpu->regs->setFlag(FlagsEnum::N, false);
+                cpu->regs->setFlag(FlagsEnum::Z, (reg == 0));
             }
         }
     }
@@ -101,7 +99,7 @@ namespace Instructions{
         }
         else if ( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
         {
-            cpu->flags->N = "1";
+            cpu->regs->setFlag(FlagsEnum::N, true);
 
             uint8_t lowerNibbleBefore = ( (*reg) & 0b00001111);
 
@@ -111,12 +109,12 @@ namespace Instructions{
 
             if( lowerNibbleAfter > lowerNibbleBefore )
             {
-                cpu->flags->H = "1";
+                cpu->regs->setFlag(FlagsEnum::H, true);
             }
 
             if( (*reg) == 0 )
             {
-                cpu->flags->Z = "0";
+                cpu->regs->setFlag(FlagsEnum::Z, false);
             }
         }
     }
@@ -206,12 +204,12 @@ namespace Instructions{
 
                 *dest8reg = value;
 
-                cpu->flags->N = "0";
-                cpu->flags->H = "0";
-                cpu->flags->C = "0";
+                cpu->regs->setFlag(FlagsEnum::N, false);
+                cpu->regs->setFlag(FlagsEnum::H, false);
+                cpu->regs->setFlag(FlagsEnum::C, false);
 
                 if( value == 0 ) {
-                 cpu->flags->Z = "1";
+                 cpu->regs->setFlag(FlagsEnum::Z, true);
                 }
             }
         }

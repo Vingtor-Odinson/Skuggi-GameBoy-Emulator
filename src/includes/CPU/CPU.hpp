@@ -31,7 +31,6 @@ class CPU
         Memory* memory;
         Registers* regs;
         InstructionResolver* instResolver;
-        Flags* flags;
 
         CPU();
         ~CPU();

@@ -19,13 +19,13 @@ TEST_CASE("INC B instruction working properly", "[inc]")
     cpu->executeInstruction( incB );
 
     REQUIRE(cpu->regs->B == 0x01); // Simple one, the third bit doesn't change
-    REQUIRE( cpu->flags->N == "0" );
+    REQUIRE(!cpu->regs->getFlag(FlagsEnum::N));
 
     cpu->regs->B = 0b01111;
     cpu->executeInstruction( incB );
 
-    REQUIRE( cpu->regs->B == 0b10000 );
-    REQUIRE( cpu->flags->H == "1" );
+    REQUIRE(cpu->regs->B == 0b10000);
+    REQUIRE(cpu->regs->getFlag(FlagsEnum::H));
 
     delete cpu;
 }
@@ -443,9 +443,9 @@ TEST_CASE("OR A, r8 instruction working", "[or]") {
     cpu->executeInstruction(incOR_AB);
 
     REQUIRE(cpu->regs->A == (valueA | valueB) );
-    REQUIRE(cpu->flags->N == "0"); //todo: preciso trocar urgente pra bool
-    REQUIRE(cpu->flags->H == "0");
-    REQUIRE(cpu->flags->C == "0");
+    REQUIRE(!cpu->regs->getFlag(FlagsEnum::N)); //todo: preciso trocar urgente pra bool
+    REQUIRE(!cpu->regs->getFlag(FlagsEnum::H));
+    REQUIRE(!cpu->regs->getFlag(FlagsEnum::C));
 
     delete cpu; //todo: add teste de quando o or dá 0
 }

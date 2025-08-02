@@ -49,14 +49,6 @@ class Operand
         bool isDecrement(){ return decrement; }
 };
 
-struct Flags
-{
-    std::string Z;
-    std::string N;
-    std::string H;
-    std::string C;
-};
-
 class Instruction
 {   
     private:
@@ -72,8 +64,6 @@ class Instruction
         Instruction(){
             operands = new Operand[10];
         }
-
-        Flags flags;
 
         void SetMnemonic( std::string name ){ mnemonic = name; }
         void SetNeededBytesQtd( uint8_t value ){ bytes = value; }

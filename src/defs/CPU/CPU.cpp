@@ -13,7 +13,6 @@ CPU::CPU(){
     romLoader = new ROMLoader( this );
     instResolver = new InstructionResolver();
     regs = new Registers();
-    flags = new Flags();
 }
 
 CPU::~CPU(){
@@ -21,7 +20,6 @@ CPU::~CPU(){
     delete romLoader;
     delete instResolver;
     delete regs;
-    delete flags;
 }
 
 uint8_t CPU::fetchMemory() const {
