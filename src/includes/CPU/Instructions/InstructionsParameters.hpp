@@ -2,6 +2,7 @@
 
 #include <string>
 #include <stdint.h>
+#include "enum/RegistersEnum.hpp"
 
 class InstructionParameters
 {
@@ -14,8 +15,8 @@ class InstructionParameters
         uint8_t Origin8Byte;
         uint16_t Origin16Byte;
 
-        std::string AimedReg;
-        std::string OriginReg;
+        RegistersEnum AimedReg;
+        RegistersEnum OriginReg;
 
         bool AimedIsAddress;
         bool OriginIsAddress;
@@ -25,4 +26,10 @@ class InstructionParameters
 
         bool OriginIsNextByte;
         bool OriginIsNextBytes;
+
+        bool AimShouldIncrement;
+        bool OriginShouldIncrement;
+
+        bool AimShouldDecrement;
+        bool OriginShouldDecrement;
 };

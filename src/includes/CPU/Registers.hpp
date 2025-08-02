@@ -1,10 +1,22 @@
 #pragma once
 
 #include <stdint.h>
+#include <unordered_map>
+#include "enum/FlagsEnum.hpp"
 
 class Registers
-{   
+{
+    private:
+        std::unordered_map<FlagsEnum, uint8_t> masks;
+
     public:
+
+        Registers();
+
+        void setFlag( const FlagsEnum&, const bool&);
+
+        bool getFlag( const FlagsEnum& );
+
         union{
             struct{
                 uint8_t F;

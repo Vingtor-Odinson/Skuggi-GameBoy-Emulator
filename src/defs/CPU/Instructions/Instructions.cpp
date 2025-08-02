@@ -7,78 +7,46 @@
 #include <unordered_map>
 #include <fstream>
 #include <iostream>
+#include "enum/RegistersEnum.hpp"
 
 using json = nlohmann::json;
 
 namespace Instructions{
 
-    uint8_t* get8BytesReg( std::string regString, CPU* cpu )
+    uint8_t* get8BitsReg(RegistersEnum reg, CPU* cpu )
     {
-        if(regString == "A")
-        {
-            return &(cpu->regs->A);
+        switch (reg) {
+            case RegistersEnum::A: return &(cpu->regs->A);
+            case RegistersEnum::B: return &(cpu->regs->B);
+            case RegistersEnum::C: return &(cpu->regs->C);
+            case RegistersEnum::D: return &(cpu->regs->D);
+            case RegistersEnum::E: return &(cpu->regs->E);
+            case RegistersEnum::F: return &(cpu->regs->F);
+            case RegistersEnum::H: return &(cpu->regs->H);
+            case RegistersEnum::L: return &(cpu->regs->L);
+            default: return nullptr;
         }
-        else if(regString == "B")
-        {
-            return &(cpu->regs->B);
-        }
-        else if(regString == "C")
-        {
-            return &(cpu->regs->C);
-        }
-        else if(regString == "D")
-        {
-            return &(cpu->regs->D);
-        }
-        else if(regString == "E")
-        {
-            return &(cpu->regs->E);
-        }
-        else if(regString == "H")
-        {
-            return &(cpu->regs->H);
-        }
-        else if(regString == "L")
-        {
-            return &(cpu->regs->L);
-        }
-
-        return nullptr;
     }
 
-    uint16_t* get16BytesReg( std::string regString, CPU* cpu )
+    uint16_t* get16BitsReg( RegistersEnum reg, CPU* cpu )
     {
-        if(regString == "AF")
-        {
-            return &(cpu->regs->AF);
+        switch (reg) {
+            case RegistersEnum::AF: return &(cpu->regs->AF);
+            case RegistersEnum::BC: return &(cpu->regs->BC);
+            case RegistersEnum::DE: return &(cpu->regs->DE);
+            case RegistersEnum::HL: return &(cpu->regs->HL);
+            case RegistersEnum::PC: return &(cpu->regs->PC);
+            case RegistersEnum::SP: return &(cpu->regs->SP);
+            default: return nullptr;
         }
-        else if(regString == "BC")
-        {
-            return &(cpu->regs->BC);
-        }
-        else if(regString == "DE")
-        {
-            return &(cpu->regs->DE);
-        }
-        else if(regString == "HL")
-        {
-            return &(cpu->regs->HL);
-        }
-        else if(regString == "SP")
-        {
-            return &(cpu->regs->SP);
-        }
-
-        return nullptr;
     }
 
     void nop( InstructionParameters params, CPU* cpu ){}
 
     void inc( InstructionParameters params, CPU* cpu )
     {  
-        if( get8BytesReg( params.AimedReg, cpu ) != nullptr )
+        if( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
         {
-            uint8_t* reg = get8BytesReg( params.AimedReg, cpu );
             uint8_t mask = 0x08;
         
             bool bitBeforeIsOne = ( (*reg) & mask) != 0; // 3o bit era 1 antes?
@@ -89,54 +57,49 @@ namespace Instructions{
             
             if( bitBeforeIsOne && !bitAfterIsOne )
             {
-                cpu->flags->H = "1";
+                cpu->regs->setFlag(FlagsEnum::H, true);
             }
 
-            cpu->flags->N = "0";
+            cpu->regs->setFlag(FlagsEnum::N, false);
+            cpu->regs->setFlag(FlagsEnum::Z, ((*reg) == 0x0));
         }
 
-        if( get16BytesReg( params.AimedReg, cpu ) != nullptr )
+        if( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
         {
-            uint16_t* add = get16BytesReg( params.AimedReg, cpu );
+            if(!params.AimedIsAddress) { (*reg16) += 1; }
+            else {
+                uint8_t reg = cpu->memory->ReadMemory( (*reg16) );
 
-            uint8_t reg = cpu->memory->ReadMemory( (*add) );
+                uint8_t mask = 0x08;
 
-            uint8_t mask = 0x08;
-        
-            bool bitBeforeIsOne = ( reg & mask) != 0; // 3o bit era 1 antes?
-        
-            reg += 1;
-            
-            cpu->memory->WriteMemory( (*add), reg );
+                bool bitBeforeIsOne = ( reg & mask) != 0; // 3o bit era 1 antes?
 
-            bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
-            
-            if( bitBeforeIsOne && !bitAfterIsOne )
-            {
-                cpu->flags->H = "1";
+                reg += 1;
+
+                cpu->memory->WriteMemory( (*reg16), reg );
+
+                bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
+
+                if( bitBeforeIsOne && !bitAfterIsOne )
+                {
+                    cpu->regs->setFlag(FlagsEnum::H, true);
+                }
+
+                cpu->regs->setFlag(FlagsEnum::N, false);
+                cpu->regs->setFlag(FlagsEnum::Z, (reg == 0));
             }
-            if( reg == 0 )
-            {
-                cpu->flags->Z = "1";
-            }
-
-            cpu->flags->N = "0";
-        
         }
     }
 
     void dec( InstructionParameters params, CPU* cpu )
     {   
-        if ( get16BytesReg( params.AimedReg, cpu ) != nullptr )
-        {   
-            uint16_t* reg = get16BytesReg( params.AimedReg, cpu );
-            (*reg) -= 1;
+        if ( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
+        {
+            (*reg16) -= 1;
         }
-        else if ( get8BytesReg( params.AimedReg, cpu ) != nullptr )
-        {   
-            uint8_t* reg = get8BytesReg( params.AimedReg, cpu );
-
-            cpu->flags->N = "1";
+        else if ( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
+        {
+            cpu->regs->setFlag(FlagsEnum::N, true);
 
             uint8_t lowerNibbleBefore = ( (*reg) & 0b00001111);
 
@@ -146,101 +109,109 @@ namespace Instructions{
 
             if( lowerNibbleAfter > lowerNibbleBefore )
             {
-                cpu->flags->H = "1";
+                cpu->regs->setFlag(FlagsEnum::H, true);
             }
 
             if( (*reg) == 0 )
             {
-                cpu->flags->Z = "0";
+                cpu->regs->setFlag(FlagsEnum::Z, false);
             }
         }
     }
 
     void ld( InstructionParameters params, CPU* cpu )
     {
-        
-    }
-}
+        if( uint8_t* destReg = get8BitsReg(params.AimedReg, cpu) ) { //Se entrada for de 8 bits
 
-void InstructionLoader::LoadInstructions()
-{
+            if( uint8_t* orReg = get8BitsReg(params.OriginReg, cpu) ) { // Se o objetivo for de 8 bits
+                *destReg = *orReg;
+            }
 
-    ////////////////////////////// Carrega a Lista de instruções do json ////////////////////////////
+            else if( uint16_t* orReg = get16BitsReg(params.OriginReg, cpu) ) {
+                if( params.OriginIsAddress ) {
+                    *destReg = cpu->memory->ReadMemory(*orReg);
 
-    std::ifstream file;
+                    *orReg += params.OriginShouldIncrement ? 1 : 0;
+                    *orReg -= params.OriginShouldDecrement ? 1 : 0;
+                }
+            }
 
-    file.open(fileLocation);
+            else if( params.OriginIsNextByte ) { //Caso o origin sejam os próximos 8 bits
+                uint8_t orValue = cpu->fetchMemory(cpu->regs->PC);
+                *destReg = orValue;
+            }
 
-    if (!file.is_open()) {
-        throw std::runtime_error("Não foi possível abrir o arquivo de instruções");
-    }
+            else if( params.OriginIsNextBytes ) {
+                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
+                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
 
-    json jsonData = json::parse(file);
+                uint16_t orAddress = (msb << 8) | lsb;
 
-    for(auto& [key, value] : jsonData["unprefixed"].items() )
-    {
-        Instruction instruction;
+                *destReg = cpu->memory->ReadMemory(orAddress);
+            }
 
-        if( value.contains("mnemonic") && value["mnemonic"].is_string() )
-        {
-            instruction.SetMnemonic(value["mnemonic"]);
         }
 
-        if( value.contains("bytes") && value["bytes"].is_number_integer() )
-        {
-            instruction.SetNeededBytesQtd( value["bytes"] );
-        }
-        
-        if( value.contains("cycles") && !value["cycles"].empty() )
-        {
-            instruction.SetCiclesNumber( value["cycles"][0] );
-        }
+        else if(uint16_t* dest16Reg = get16BitsReg(params.AimedReg, cpu)) { //Se entrada for de 16 bits
 
-        if(value.contains("immediate") && value["immediate"].is_boolean())
-        {
-            instruction.SetImmediate( value["immediate"] );
-        }
+            if( params.OriginIsNextBytes ) {
 
-        if( value.contains("operands") && value["operands"].is_array() && !value["operands"].empty() )
-        {
-            for (const auto &op: value["operands"]) {
-                Operand operand;
+                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
+                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
 
-                if (op.contains("name")) {
-                    operand.SetName(op["name"]);
+                uint16_t orValue = (msb << 8) | lsb;
+
+                *dest16Reg = orValue;
+            }
+
+            else if(uint8_t* or8Reg = get8BitsReg(params.OriginReg, cpu)) { // Se o registro de origem for de 8 bits
+                if(params.AimedIsAddress) { // Se deve tratar o "aimed" como endereço
+                    cpu->memory->WriteMemory(*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
+
+                    *dest16Reg += params.AimShouldIncrement ? 1 : 0;
+                    *dest16Reg -= params.AimShouldDecrement ? 1 : 0;
                 }
+            }
 
-                if (op.contains("bytes") && value["bytes"].is_number_integer()) {
-                    operand.SetNeededBytes(op["bytes"]);
-                }
-
-                if (op.contains("immediate") && value["immediate"].is_boolean()) {
-                    operand.SetIsImmediate(op["immediate"]);
-                }
-
-                if (op.contains("decrement") && value["decrement"].is_boolean()) {
-                    operand.SetIsDecrement(op["decrement"]);
-                }
-                instruction.AddOperand(operand);
+            else if( uint16_t* or16Reg = get16BitsReg(params.OriginReg, cpu) ) {
+                *dest16Reg = *or16Reg;
             }
         }
 
-        instruction.flags.Z = value["flags"].value("Z", std::string("-"));
-        instruction.flags.N = value["flags"].value("N", std::string("-"));
-        instruction.flags.H = value["flags"].value("H", std::string("-"));
-        instruction.flags.C = value["flags"].value("C", std::string("-"));
-        
+        else if( params.AimIsNextBytes && params.AimedIsAddress ) {
 
-        cpu->Instructions[std::stoi(key, nullptr, 16)] = instruction;
+            uint8_t lsb = cpu->fetchMemory(); //least sugnificant byte
+            uint8_t msb = cpu->fetchMemory(); //most significant byte
+
+            uint16_t destAdd = (msb << 8) | lsb;
+
+            if( params.OriginReg == RegistersEnum::SP) {
+                uint16_t valueSP = *(get16BitsReg(params.OriginReg, cpu));
+                cpu->memory->WriteMemory(destAdd, valueSP & 0xFF);
+                cpu->memory->WriteMemory(destAdd + 1, valueSP >> 8);
+            }
+            else if(uint8_t* orReg = get8BitsReg(params.OriginReg, cpu)) {
+                cpu->memory->WriteMemory(destAdd, *orReg);
+            }
+
+        }
     }
 
-    file.close();
+    void orInst( InstructionParameters params, CPU* cpu ) {
+        if( uint8_t* dest8reg = get8BitsReg(params.AimedReg, cpu) ) {
+            if( uint8_t* org8reg = get8BitsReg(params.OriginReg, cpu) ) {
+                uint8_t value = (*dest8reg | *org8reg);
 
-    //////////////////////// Carrega as funções no mapa de funções /////////////////
+                *dest8reg = value;
 
-    cpu->InstructionMap["NOP"] = Instructions::nop;
-    cpu->InstructionMap["INC"] = Instructions::inc;
-    cpu->InstructionMap["DEC"] = Instructions::dec;
-    cpu->InstructionMap["LD"]  = Instructions::ld;
-    
+                cpu->regs->setFlag(FlagsEnum::N, false);
+                cpu->regs->setFlag(FlagsEnum::H, false);
+                cpu->regs->setFlag(FlagsEnum::C, false);
+
+                if( value == 0 ) {
+                 cpu->regs->setFlag(FlagsEnum::Z, true);
+                }
+            }
+        }
+    }
 }
