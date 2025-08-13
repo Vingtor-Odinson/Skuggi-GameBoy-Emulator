@@ -7,7 +7,7 @@ Registers::Registers() {
     masks[FlagsEnum::C] = 4; //0b00010000
 }
 
-void Registers::setFlag(const FlagsEnum& flag, const bool& value) {
+void Registers::setFlag(FlagsEnum flag, bool value) {
     if(value) {
         F |= (1 << masks[flag]);  // 0bffff0000 | 0bznhc0000
     }
@@ -16,6 +16,6 @@ void Registers::setFlag(const FlagsEnum& flag, const bool& value) {
     }
 }
 
-bool Registers::getFlag(const FlagsEnum& flag) {
+bool Registers::getFlag(FlagsEnum flag) {
     return (F >> masks[flag]) & 0b1;
 }

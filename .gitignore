@@ -29,3 +29,5 @@ Testing
 build.ninja
 cmake_install.cmake
 GBEmu
+GBEmuTests
+save
