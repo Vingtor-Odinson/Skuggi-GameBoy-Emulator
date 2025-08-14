@@ -27,6 +27,10 @@ This is one of the main components of a working emulator, and I indeed wanted to
 
 It may seem a little overcomplicated at first, but this complication's reward is a better readability, maintability and modularity. Making the code easier to understand, expand and debug. It also avoids excessive comparation, which accelerates the response time, mainly due to the unordered_maps used to store metadata and the instruction's code itself. 
 
+## Images
+
+![Testes das instruções da CPU](Images/Testes.png)
+
 ## References
 
 The main references are technical, and listed bellow (with no care to importance positioning):

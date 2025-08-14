@@ -28,4 +28,6 @@ CMakeCache.txt
 Testing
 build.ninja
 cmake_install.cmake
-GBEmu
+Skuggi
+SkuggiTests
+save

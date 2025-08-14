@@ -3,13 +3,10 @@
 #include <Memoria/Memory.hpp>
 #include <Memoria/MemoryParts.hpp>
 #include "fstream"
+#include "MBC/MBC.hpp"
+#include "MBC/MBCFactory.hpp"
 
-ROMLoader::ROMLoader( CPU* cpuRef )
-{
-    cpu = cpuRef;
-}
-
-void ROMLoader::SetROM( std::string Path)
+void ROMLoader::SetROM( const std::string& Path)
 {
     ROMPath = Path;
 }
@@ -29,9 +26,41 @@ void ROMLoader::LoadROM()
     ROMData = new std::vector<uint8_t>(size);
 
     ROM.read(reinterpret_cast<char*>(ROMData->data()), size);
+
+    MBCFactory mbcFactory;
+    mbc = mbcFactory.createMBC(*ROMData);
 }
 
-uint8_t ROMLoader::ReadROM( uint16_t add )
+uint8_t ROMLoader::readRom(const uint16_t& add)
 {
     return (*ROMData)[add];
+}
+
+uint8_t ROMLoader::readFixedBank(const uint16_t &address) {
+    if(mbc) {
+        uint16_t mbcAddress = mbc->readFixedBank(address);
+        return readRom(mbcAddress);
+    }
+    else {
+        return readRom(address);
+    }
+}
+
+uint8_t ROMLoader::readSwapBank(const uint16_t &address) {
+    if (mbc) {
+        uint16_t mbcAddress = mbc->readSwapBank(address);
+        return readRom(mbcAddress);
+    }
+    else {
+        throw std::runtime_error("There's no MBC available to manage banking.");
+    }
+}
+
+void ROMLoader::write(const uint16_t &address, const uint8_t &value) {
+    if (mbc) {
+        mbc->write(address, value);
+    }
+    else {
+        throw std::runtime_error("There's no available MBC to be written.");
+    }
 }

@@ -13,9 +13,9 @@ class Registers
 
         Registers();
 
-        void setFlag( const FlagsEnum&, const bool&);
+        void setFlag(FlagsEnum, bool);
 
-        bool getFlag( const FlagsEnum& );
+        bool getFlag(FlagsEnum);
 
         union{
             struct{

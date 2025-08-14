@@ -32,14 +32,12 @@ MemoryPart* Memory::GetMemoryPart( uint16_t address )
     case 0x2:
     case 0x3:
         return this->bank00;
-        break;
     
     case 0x4:
     case 0x5:
     case 0x6:
     case 0x7:
         return this->banknn;
-        break;
 
     case 0x8:
     case 0x9:
