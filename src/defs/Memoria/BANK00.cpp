@@ -10,11 +10,13 @@ BANK00::BANK00( CPU* pCpu )
     romLoader = cpu->romLoader;
 }
 
-void BANK00::Write( uint16_t address, uint8_t value ){}
+void BANK00::Write( uint16_t address, uint8_t value ){
+    cpu->romLoader->write(address, value); //manda para o cartucho lidar com a escrita...
+}
 
 uint8_t BANK00::Read( uint16_t address )
 {   
-    return cpu->romLoader->ReadROM(address);
+    return cpu->romLoader->readFixedBank(address); //Lê do banco fixo do cartucho (pode alterar de acordo com o MBC)
 }
 
 void BANK00::MostraPrimeiros16()
@@ -26,7 +28,7 @@ void BANK00::MostraPrimeiros16()
         printf("%02X ", Read(i));
     }
 
-    std::cout << std::endl << std::endl  << std::endl;
+    std::cout << std::endl << std::endl  << std::endl   ;
 }
 
 void BANK00::PrintaLogoNintendo()

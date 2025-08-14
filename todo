@@ -1,6 +1,7 @@
-*Criei o RegistersEnum
-*Alterei o tipo no InstructionLoader e no Instruction
-*Criei a função que passa de String pra RegisterEnum no Loader
+***************************** Urgente ********************
+-Rever necessidade de ter a CPU passada pra memória
+-Adicionar testes do MBC
+
 
 ****************************** Feito ***********************
 

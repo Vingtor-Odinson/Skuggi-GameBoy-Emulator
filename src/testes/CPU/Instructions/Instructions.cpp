@@ -216,7 +216,7 @@ TEST_CASE("LD [r16], A instruction working", "[ld]") {
 
     cpu->regs->BC = 0x8500;
 
-    cpu->memory->WriteMemory(cpu->regs->HL, 0x00);
+    cpu->memory->WriteMemory(cpu->regs->BC, 0x00);
 
     Instruction incLDr16_A = cpu->getInstruction(opcode);
 

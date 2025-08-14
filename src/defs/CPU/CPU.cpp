@@ -10,7 +10,7 @@ CPU::CPU(){
     loadOpcodeTable();
 
     memory = new Memory( this );
-    romLoader = new ROMLoader( this );
+    romLoader = new ROMLoader();
     instResolver = new InstructionResolver();
     regs = new Registers();
 }
