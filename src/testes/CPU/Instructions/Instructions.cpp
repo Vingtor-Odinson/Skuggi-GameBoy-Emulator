@@ -51,11 +51,11 @@ TEST_CASE("INC BC instruction working properly", "[inc]")
 
     cpu->flags->H == "1";
 
-    cpu->memory->WriteMemory(address, 0b1111);
+    cpu->getBus()->write(DeviceEnum::Memory,address, 0b1111);
 
     cpu->executeInstruction( incBC );
 
-    REQUIRE(cpu->memory->ReadMemory(address) == 0b10000); // Simple one, the third bit doesn't change
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,address) == 0b10000); // Simple one, the third bit doesn't change
     REQUIRE( cpu->flags->H == "1" );
 
     delete cpu;
@@ -109,7 +109,7 @@ TEST_CASE("LD r8, n8 instruction working", "[ld]") {
     cpu->regs->A = 0x01;
     cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->PC, 0x05);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC, 0x05);
 
     Instruction incLD_An8 = cpu->getInstruction(opcode); //Vai colocar o A = 0x05 e aumentar o PC em 1
 
@@ -130,7 +130,7 @@ TEST_CASE("LD r8, HL instruction working", "[ld]") {
     cpu->regs->C = 0x00;
     cpu->regs->HL = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->HL, 0x05);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->HL, 0x05);
 
     Instruction incLD_AHL = cpu->getInstruction(opcode);
 
@@ -152,7 +152,7 @@ TEST_CASE("LD A, [HLI] instruction working", "[ld]") {
     cpu->regs->A = 0x00;
     cpu->regs->HL = address; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->HL, value);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->HL, value);
 
     Instruction incLD_AHLI = cpu->getInstruction(opcode);
 
@@ -175,7 +175,7 @@ TEST_CASE("LD A, [HLD] instruction working", "[ld]") {
     cpu->regs->A = 0x00;
     cpu->regs->HL = address; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->HL, value);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->HL, value);
 
     Instruction incLD_AHLD = cpu->getInstruction(opcode);
 
@@ -196,13 +196,13 @@ TEST_CASE("LD [HL], r8 instruction working", "[ld]") {
 
     cpu->regs->HL = 0x8500;
 
-    cpu->memory->WriteMemory(cpu->regs->HL, 0x00);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->HL, 0x00);
 
     Instruction incLDhl_r8 = cpu->getInstruction(opcode);
 
     cpu->executeInstruction(incLDhl_r8);
 
-    REQUIRE(cpu->memory->ReadMemory(cpu->regs->HL) == 0x10);
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,cpu->regs->HL) == 0x10);
 
     delete cpu;
 }
@@ -216,13 +216,13 @@ TEST_CASE("LD [r16], A instruction working", "[ld]") {
 
     cpu->regs->BC = 0x8500;
 
-    cpu->memory->WriteMemory(cpu->regs->BC, 0x00);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->BC, 0x00);
 
     Instruction incLDr16_A = cpu->getInstruction(opcode);
 
     cpu->executeInstruction(incLDr16_A);
 
-    REQUIRE(cpu->memory->ReadMemory(cpu->regs->BC) == 0x10);
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,cpu->regs->BC) == 0x10);
 
     delete cpu;
 }
@@ -238,14 +238,14 @@ TEST_CASE("LD [n16], A instruction working", "[ld]") {
     cpu->regs->A = 0x10;
     cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->PC, 0x00);
-    cpu->memory->WriteMemory(cpu->regs->PC + 1, 0x85);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC, 0x00);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC + 1, 0x85);
 
     Instruction incLD_n16A = cpu->getInstruction(opcode); //Vai copiar o A em 0x8520
 
     cpu->executeInstruction(incLD_n16A);
 
-    REQUIRE(cpu->memory->ReadMemory(0x8500) == 0x10);
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,0x8500) == 0x10);
 
     delete cpu;
 }
@@ -259,8 +259,8 @@ TEST_CASE("LD r16, n16 instruction working", "[ld]") {
     cpu->regs->BC = 0x0000;
     cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->PC, 0x34);
-    cpu->memory->WriteMemory(cpu->regs->PC + 1, 0x12);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC, 0x34);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC + 1, 0x12);
 
     Instruction incLD_r16n16 = cpu->getInstruction(opcode); //Vai colocar o A = 0x05 e aumentar o PC em 1
 
@@ -284,7 +284,7 @@ TEST_CASE("LD A, [r16] instruction working", "[ld]") {
 
     cpu->regs->DE = address;
 
-    cpu->memory->WriteMemory(address, 0x10);
+    cpu->getBus()->write(DeviceEnum::Memory,address, 0x10);
 
     Instruction inst = cpu->getInstruction(opcode);
 
@@ -306,10 +306,10 @@ TEST_CASE("LD A, [n16] instruction working", "[ld]") {
     cpu->regs->A = 0x00;
     cpu->regs->PC = address;
 
-    cpu->memory->WriteMemory(address, 0x10);
-    cpu->memory->WriteMemory(address + 1, 0x85);
+    cpu->getBus()->write(DeviceEnum::Memory,address, 0x10);
+    cpu->getBus()->write(DeviceEnum::Memory,address + 1, 0x85);
 
-    cpu->memory->WriteMemory(valAddress, value);
+    cpu->getBus()->write(DeviceEnum::Memory,valAddress, value);
 
     Instruction inst = cpu->getInstruction(opcode);
 
@@ -330,13 +330,13 @@ TEST_CASE("LD [HLI], A instruction working", "[ld]") {
     cpu->regs->A = value;
     cpu->regs->HL = address;
 
-    cpu->memory->WriteMemory(address, 0x00);
+    cpu->getBus()->write(DeviceEnum::Memory,address, 0x00);
 
     Instruction inst = cpu->getInstruction(opcode);
 
     cpu->executeInstruction(inst);
 
-    REQUIRE(cpu->memory->ReadMemory(address) == value);
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,address) == value);
     REQUIRE(cpu->regs->HL == address + 1);
 }
 
@@ -352,13 +352,13 @@ TEST_CASE("LD [HLD], A instruction working", "[ld]") {
     cpu->regs->A = value;
     cpu->regs->HL = address;
 
-    cpu->memory->WriteMemory(address, 0x00);
+    cpu->getBus()->write(DeviceEnum::Memory,address, 0x00);
 
     Instruction inst = cpu->getInstruction(opcode);
 
     cpu->executeInstruction(inst);
 
-    REQUIRE(cpu->memory->ReadMemory(address) == value);
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,address) == value);
     REQUIRE(cpu->regs->HL == address - 1);
 }
 
@@ -371,8 +371,8 @@ TEST_CASE("LD SP, n16 instruction working", "[ld]") {
     cpu->regs->SP = 0x0000;
     cpu->regs->PC = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->PC, 0x34);
-    cpu->memory->WriteMemory(cpu->regs->PC + 1, 0x12);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC, 0x34);
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC + 1, 0x12);
 
     Instruction incLD_SPn16 = cpu->getInstruction(opcode); //Vai colocar o A = 0x05 e aumentar o PC em 1
 
@@ -396,14 +396,14 @@ TEST_CASE("LD [n16], SP instruction working", "[ld]") {
     cpu->regs->SP = value;
     cpu->regs->PC = addressPC; //Tem que ser em algum pedaço da memória que possa ser lido
 
-    cpu->memory->WriteMemory(cpu->regs->PC, address & 0xFF); //ùltimos 2 dígitos hex do address
-    cpu->memory->WriteMemory(cpu->regs->PC + 1, address >> 8); //primeiros 2 dígitos hex do address
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC, address & 0xFF); //ùltimos 2 dígitos hex do address
+    cpu->getBus()->write(DeviceEnum::Memory,cpu->regs->PC + 1, address >> 8); //primeiros 2 dígitos hex do address
 
     Instruction incLD_n16SP = cpu->getInstruction(opcode);
     cpu->executeInstruction(incLD_n16SP);
 
-    REQUIRE(cpu->memory->ReadMemory(address) == (value & 0xFF));
-    REQUIRE(cpu->memory->ReadMemory(address + 1) == (value >> 8));
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,address) == (value & 0xFF));
+    REQUIRE(cpu->getBus()->read(DeviceEnum::Memory,address + 1) == (value >> 8));
 
     delete cpu;
 }

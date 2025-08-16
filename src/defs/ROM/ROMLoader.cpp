@@ -36,23 +36,18 @@ uint8_t ROMLoader::readRom(const uint16_t& add)
     return (*ROMData)[add];
 }
 
-uint8_t ROMLoader::readFixedBank(const uint16_t &address) {
+uint8_t ROMLoader::read(const uint16_t &address) {
     if(mbc) {
         uint16_t mbcAddress = mbc->readFixedBank(address);
         return readRom(mbcAddress);
     }
     else {
-        return readRom(address);
-    }
-}
-
-uint8_t ROMLoader::readSwapBank(const uint16_t &address) {
-    if (mbc) {
-        uint16_t mbcAddress = mbc->readSwapBank(address);
-        return readRom(mbcAddress);
-    }
-    else {
-        throw std::runtime_error("There's no MBC available to manage banking.");
+        if( 0x0000 <= address && address < 0x4000  ) {
+            return readRom(address);
+        }
+        else {
+            throw std::runtime_error("There's no MBC available to manage banking.");
+        }
     }
 }
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdint.h>
 #include <string>
+#include "CPU/Device.hpp"
 
 class MBC;
 
@@ -10,7 +11,7 @@ class BANK00;
 
 class BANKNN;
 
-class ROMLoader
+class ROMLoader : public Device
 {   
     private:
 
@@ -24,9 +25,8 @@ class ROMLoader
 
         void LoadROM();
 
-        uint8_t readFixedBank(const uint16_t& address);
-        uint8_t readSwapBank(const uint16_t& address);
-        void write(const uint16_t& address, const uint8_t& value);
+        uint8_t read(const uint16_t& address) override;
+        void write(const uint16_t& address, const uint8_t& value) override;
         uint8_t readRom(const uint16_t& add);
 
         friend class BANK00;

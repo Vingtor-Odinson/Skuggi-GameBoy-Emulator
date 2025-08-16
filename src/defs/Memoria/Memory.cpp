@@ -1,11 +1,11 @@
 #include<Memoria/Memory.hpp>
 #include<Memoria/MemoryParts.hpp>
 
-Memory::Memory( CPU* pCPU )
-: cpu(pCPU)
+Memory::Memory( Bus* pBus )
+: bus(pBus)
 {
-    bank00 = new BANK00( pCPU );
-    banknn = new BANKNN( pCPU );
+    bank00 = new BANK00( pBus );
+    banknn = new BANKNN( pBus );
     vram = new VRAM();
 }
 
@@ -48,7 +48,7 @@ MemoryPart* Memory::GetMemoryPart( uint16_t address )
     }
 }
 
-uint8_t Memory::ReadMemory(uint16_t address)
+uint8_t Memory::read(const uint16_t& address)
 {
     MemoryPart* part = GetMemoryPart(address);
 
@@ -60,7 +60,7 @@ uint8_t Memory::ReadMemory(uint16_t address)
     return 0x0;
 }
 
-void Memory::WriteMemory( uint16_t address, uint8_t value )
+void Memory::write(const uint16_t& address,const uint8_t& value )
 {
     MemoryPart* part = GetMemoryPart(address);
 

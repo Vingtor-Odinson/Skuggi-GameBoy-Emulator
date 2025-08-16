@@ -4,24 +4,26 @@
 #include <Memoria/BANK00.hpp>
 #include <Memoria/BANKNN.hpp>
 #include <Memoria/VRAM.hpp>
+#include "CPU/Device.hpp"
+#include "CPU/Bus.hpp"
 
 class CPU;
 
-class Memory
+class Memory : public Device
 {   
     public:
 
-        CPU* cpu;
+        Bus* bus;
         BANK00* bank00;
         BANKNN* banknn;
         VRAM* vram;
     
-        Memory( CPU* pCPU );
+        explicit Memory( Bus* bus );
         ~Memory();
 
         static uint8_t GetMemoryCategory( uint16_t address );
-        uint8_t ReadMemory(uint16_t address);
-        void WriteMemory( uint16_t address, uint8_t value );
+        uint8_t read(const uint16_t& address) override;
+        void write(const uint16_t& address, const uint8_t& value ) override;
         MemoryPart* GetMemoryPart(uint16_t address);
 };
 

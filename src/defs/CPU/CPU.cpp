@@ -9,13 +9,18 @@ CPU::CPU(){
     Instructions = InstructionLoader::LoadInstructions();
     loadOpcodeTable();
 
-    memory = new Memory( this );
+    bus = new Bus();
+    memory = new Memory( bus );
     romLoader = new ROMLoader();
     instResolver = new InstructionResolver();
     regs = new Registers();
+
+    bus->addDevice(DeviceEnum::Memory, memory);
+    bus->addDevice(DeviceEnum::Cartridge, romLoader);
 }
 
 CPU::~CPU(){
+    delete bus;
     delete memory;
     delete romLoader;
     delete instResolver;
@@ -23,21 +28,21 @@ CPU::~CPU(){
 }
 
 uint8_t CPU::fetchMemory() const {
-    uint8_t value = this->memory->ReadMemory(this->regs->PC);
+    uint8_t value = bus->read(DeviceEnum::Memory, this->regs->PC);//this->memory->read(this->regs->PC);
     this->regs->PC++;
     return value;
 }
 
 uint8_t CPU::fetchMemory( uint16_t& address ) const
 {
-    uint8_t value = this->memory->ReadMemory(address);
+    uint8_t value = bus->read(DeviceEnum::Memory, address);
     address++;
     return value;
 }
 
 uint8_t CPU::getOpcode( uint16_t address )
 {
-    return this->memory->ReadMemory(address);
+    return bus->read(DeviceEnum::Memory, address);
 }
 
 void CPU::executeInstruction( Instruction Inst )
@@ -73,5 +78,9 @@ void CPU::loadOpcodeTable() {
     opcodeTable["DEC"] = Instructions::dec;
     opcodeTable["LD"]  = Instructions::ld;
     opcodeTable["OR"] = Instructions::orInst;
+}
+
+Bus *CPU::getBus() const {
+    return bus;
 }
 

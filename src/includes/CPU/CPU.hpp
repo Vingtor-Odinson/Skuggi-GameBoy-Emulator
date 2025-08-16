@@ -5,6 +5,7 @@
 #include <functional>
 
 #include<CPU/Instructions/Instructions.hpp>
+#include "Bus.hpp"
 
 
 using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
@@ -25,6 +26,7 @@ class CPU
     private:
         std::unordered_map<uint8_t, Instruction> Instructions;
         std::unordered_map<std::string, InstructionHandler> opcodeTable;
+        Bus* bus;
 
     public:
         ROMLoader* romLoader;
@@ -44,4 +46,5 @@ class CPU
         void executeInstruction( Instruction Inst );
         void setupCPU();
         void loadOpcodeTable();
+        Bus *getBus() const;
 };
