@@ -4,9 +4,9 @@
 #include <unordered_map>
 #include <functional>
 
-#include<CPU/Instructions/Instructions.hpp>
+#include "CPU/Instructions/Instructions.hpp"
 #include "Bus.hpp"
-
+#include "CPU/Registers.hpp"
 
 using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
 
@@ -47,4 +47,8 @@ class CPU
         void setupCPU();
         void loadOpcodeTable();
         Bus *getBus() const;
+
+        template<typename T>
+        T getRegister(const RegistersEnum& reg);
+        //todo: evaluate if the gains from template especialization are relevant and real (other option is using especific functions | maybe greater gain 'cause of compilation optimization)
 };

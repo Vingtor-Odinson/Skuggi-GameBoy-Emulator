@@ -45,7 +45,7 @@ namespace Instructions{
 
     void inc( InstructionParameters params, CPU* cpu )
     {  
-        if( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
+        if( auto* reg = cpu->getRegister<uint8_t*>(params.AimedReg)) 
         {
             uint8_t mask = 0x08;
         
@@ -64,7 +64,7 @@ namespace Instructions{
             cpu->regs->setFlag(FlagsEnum::Z, ((*reg) == 0x0));
         }
 
-        if( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
+        if( auto reg16 = cpu->getRegister<uint16_t*>(params.AimedReg) )
         {
             if(!params.AimedIsAddress) { (*reg16) += 1; }
             else {
@@ -93,11 +93,11 @@ namespace Instructions{
 
     void dec( InstructionParameters params, CPU* cpu )
     {   
-        if ( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
+        if ( auto reg16 = cpu->getRegister<uint16_t*>(params.AimedReg) )
         {
             (*reg16) -= 1;
         }
-        else if ( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
+        else if ( auto reg = cpu->getRegister<uint8_t*>(params.AimedReg) )
         {
             cpu->regs->setFlag(FlagsEnum::N, true);
 
@@ -121,13 +121,13 @@ namespace Instructions{
 
     void ld( InstructionParameters params, CPU* cpu )
     {
-        if( uint8_t* destReg = get8BitsReg(params.AimedReg, cpu) ) { //Se entrada for de 8 bits
+        if( auto destReg = cpu->getRegister<uint8_t*>(params.AimedReg) ) { //Se entrada for de 8 bits
 
-            if( uint8_t* orReg = get8BitsReg(params.OriginReg, cpu) ) { // Se o objetivo for de 8 bits
-                *destReg = *orReg;
+            if( auto or8Reg = cpu->getRegister<uint8_t*>(params.OriginReg) ) { // Se o objetivo for de 8 bits
+                *destReg = *or8Reg;
             }
 
-            else if( uint16_t* orReg = get16BitsReg(params.OriginReg, cpu) ) {
+            else if( auto orReg = cpu->getRegister<uint16_t*>(params.OriginReg) ) {
                 if( params.OriginIsAddress ) {
                     *destReg = cpu->getBus()->read(DeviceEnum::Memory,*orReg);
 
@@ -152,7 +152,7 @@ namespace Instructions{
 
         }
 
-        else if(uint16_t* dest16Reg = get16BitsReg(params.AimedReg, cpu)) { //Se entrada for de 16 bits
+        else if(auto dest16Reg = cpu->getRegister<uint16_t*>(params.AimedReg)) { //Se entrada for de 16 bits
 
             if( params.OriginIsNextBytes ) {
 
@@ -164,7 +164,7 @@ namespace Instructions{
                 *dest16Reg = orValue;
             }
 
-            else if(uint8_t* or8Reg = get8BitsReg(params.OriginReg, cpu)) { // Se o registro de origem for de 8 bits
+            else if(auto or8Reg = cpu->getRegister<uint8_t*>(params.OriginReg)) { // Se o registro de origem for de 8 bits
                 if(params.AimedIsAddress) { // Se deve tratar o "aimed" como endereço
                     cpu->getBus()->write(DeviceEnum::Memory,*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
 
@@ -173,7 +173,7 @@ namespace Instructions{
                 }
             }
 
-            else if( uint16_t* or16Reg = get16BitsReg(params.OriginReg, cpu) ) {
+            else if( auto or16Reg = cpu->getRegister<uint16_t*>(params.OriginReg) ) {
                 *dest16Reg = *or16Reg;
             }
         }
@@ -186,11 +186,11 @@ namespace Instructions{
             uint16_t destAdd = (msb << 8) | lsb;
 
             if( params.OriginReg == RegistersEnum::SP) {
-                uint16_t valueSP = *(get16BitsReg(params.OriginReg, cpu));
+                uint16_t valueSP = *(cpu->getRegister<uint16_t*>(params.OriginReg));
                 cpu->getBus()->write(DeviceEnum::Memory,destAdd, valueSP & 0xFF);
                 cpu->getBus()->write(DeviceEnum::Memory,destAdd + 1, valueSP >> 8);
             }
-            else if(uint8_t* orReg = get8BitsReg(params.OriginReg, cpu)) {
+            else if(auto orReg = cpu->getRegister<uint8_t*>(params.OriginReg)) {
                 cpu->getBus()->write(DeviceEnum::Memory,destAdd, *orReg);
             }
 
@@ -198,8 +198,8 @@ namespace Instructions{
     }
 
     void orInst( InstructionParameters params, CPU* cpu ) {
-        if( uint8_t* dest8reg = get8BitsReg(params.AimedReg, cpu) ) {
-            if( uint8_t* org8reg = get8BitsReg(params.OriginReg, cpu) ) {
+        if( auto dest8reg = cpu->getRegister<u_int8_t*>(params.AimedReg) ) {
+            if( auto org8reg = cpu->getRegister<uint8_t *>(params.OriginReg) ) {
                 uint8_t value = (*dest8reg | *org8reg);
 
                 *dest8reg = value;

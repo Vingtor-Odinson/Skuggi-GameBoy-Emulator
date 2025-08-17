@@ -84,3 +84,31 @@ Bus *CPU::getBus() const {
     return bus;
 }
 
+template<>
+uint8_t* CPU::getRegister<uint8_t*>(const RegistersEnum& reg) {
+    switch (reg) {
+        case RegistersEnum::A: return &(regs->A);
+        case RegistersEnum::B: return &(regs->B);
+        case RegistersEnum::C: return &(regs->C);
+        case RegistersEnum::D: return &(regs->D);
+        case RegistersEnum::E: return &(regs->E);
+        case RegistersEnum::F: return &(regs->F);
+        case RegistersEnum::H: return &(regs->H);
+        case RegistersEnum::L: return &(regs->L);
+        default: return nullptr;
+    }
+}
+
+template<>
+uint16_t* CPU::getRegister<uint16_t*>(const RegistersEnum& reg) {
+    switch (reg) {
+        case RegistersEnum::AF: return &(regs->AF);
+        case RegistersEnum::BC: return &(regs->BC);
+        case RegistersEnum::DE: return &(regs->DE);
+        case RegistersEnum::HL: return &(regs->HL);
+        case RegistersEnum::PC: return &(regs->PC);
+        case RegistersEnum::SP: return &(regs->SP);
+        default: return nullptr;
+    }
+}
+
