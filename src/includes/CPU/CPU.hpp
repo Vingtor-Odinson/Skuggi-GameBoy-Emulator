@@ -27,12 +27,12 @@ class CPU
         std::unordered_map<uint8_t, Instruction> Instructions;
         std::unordered_map<std::string, InstructionHandler> opcodeTable;
         Bus* bus;
-
-    public:
         ROMLoader* romLoader;
         Memory* memory;
         Registers* regs;
         InstructionResolver* instResolver;
+
+    public:
 
         CPU();
         ~CPU();
@@ -46,6 +46,10 @@ class CPU
         void executeInstruction( Instruction Inst );
         void setupCPU();
         void loadOpcodeTable();
+
+        void setFlag(const FlagsEnum&, const bool&);
+        bool getFlag(const FlagsEnum&);
+
         Bus *getBus() const;
 
         template<typename T>

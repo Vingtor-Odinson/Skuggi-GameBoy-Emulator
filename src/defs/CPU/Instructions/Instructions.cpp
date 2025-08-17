@@ -13,34 +13,6 @@ using json = nlohmann::json;
 
 namespace Instructions{
 
-    uint8_t* get8BitsReg(RegistersEnum reg, CPU* cpu )
-    {
-        switch (reg) {
-            case RegistersEnum::A: return &(cpu->regs->A);
-            case RegistersEnum::B: return &(cpu->regs->B);
-            case RegistersEnum::C: return &(cpu->regs->C);
-            case RegistersEnum::D: return &(cpu->regs->D);
-            case RegistersEnum::E: return &(cpu->regs->E);
-            case RegistersEnum::F: return &(cpu->regs->F);
-            case RegistersEnum::H: return &(cpu->regs->H);
-            case RegistersEnum::L: return &(cpu->regs->L);
-            default: return nullptr;
-        }
-    }
-
-    uint16_t* get16BitsReg( RegistersEnum reg, CPU* cpu )
-    {
-        switch (reg) {
-            case RegistersEnum::AF: return &(cpu->regs->AF);
-            case RegistersEnum::BC: return &(cpu->regs->BC);
-            case RegistersEnum::DE: return &(cpu->regs->DE);
-            case RegistersEnum::HL: return &(cpu->regs->HL);
-            case RegistersEnum::PC: return &(cpu->regs->PC);
-            case RegistersEnum::SP: return &(cpu->regs->SP);
-            default: return nullptr;
-        }
-    }
-
     void nop( InstructionParameters params, CPU* cpu ){}
 
     void inc( InstructionParameters params, CPU* cpu )
@@ -57,11 +29,11 @@ namespace Instructions{
             
             if( bitBeforeIsOne && !bitAfterIsOne )
             {
-                cpu->regs->setFlag(FlagsEnum::H, true);
+                cpu->setFlag(FlagsEnum::H, true);
             }
 
-            cpu->regs->setFlag(FlagsEnum::N, false);
-            cpu->regs->setFlag(FlagsEnum::Z, ((*reg) == 0x0));
+            cpu->setFlag(FlagsEnum::N, false);
+            cpu->setFlag(FlagsEnum::Z, ((*reg) == 0x0));
         }
 
         if( auto reg16 = cpu->getRegister<uint16_t*>(params.AimedReg) )
@@ -82,11 +54,11 @@ namespace Instructions{
 
                 if( bitBeforeIsOne && !bitAfterIsOne )
                 {
-                    cpu->regs->setFlag(FlagsEnum::H, true);
+                    cpu->setFlag(FlagsEnum::H, true);
                 }
 
-                cpu->regs->setFlag(FlagsEnum::N, false);
-                cpu->regs->setFlag(FlagsEnum::Z, (reg == 0));
+                cpu->setFlag(FlagsEnum::N, false);
+                cpu->setFlag(FlagsEnum::Z, (reg == 0));
             }
         }
     }
@@ -99,7 +71,7 @@ namespace Instructions{
         }
         else if ( auto reg = cpu->getRegister<uint8_t*>(params.AimedReg) )
         {
-            cpu->regs->setFlag(FlagsEnum::N, true);
+            cpu->setFlag(FlagsEnum::N, true);
 
             uint8_t lowerNibbleBefore = ( (*reg) & 0b00001111);
 
@@ -109,12 +81,12 @@ namespace Instructions{
 
             if( lowerNibbleAfter > lowerNibbleBefore )
             {
-                cpu->regs->setFlag(FlagsEnum::H, true);
+                cpu->setFlag(FlagsEnum::H, true);
             }
 
             if( (*reg) == 0 )
             {
-                cpu->regs->setFlag(FlagsEnum::Z, false);
+                cpu->setFlag(FlagsEnum::Z, false);
             }
         }
     }
@@ -137,13 +109,13 @@ namespace Instructions{
             }
 
             else if( params.OriginIsNextByte ) { //Caso o origin sejam os próximos 8 bits
-                uint8_t orValue = cpu->fetchMemory(cpu->regs->PC);
+                uint8_t orValue = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC)));//cpu->regs->PC);
                 *destReg = orValue;
             }
 
             else if( params.OriginIsNextBytes ) {
-                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
-                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
+                uint8_t lsb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //least significant byte
+                uint8_t msb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //most significant byte
 
                 uint16_t orAddress = (msb << 8) | lsb;
 
@@ -156,8 +128,8 @@ namespace Instructions{
 
             if( params.OriginIsNextBytes ) {
 
-                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
-                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
+                uint8_t lsb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //least significant byte
+                uint8_t msb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //most significant byte
 
                 uint16_t orValue = (msb << 8) | lsb;
 
@@ -204,12 +176,12 @@ namespace Instructions{
 
                 *dest8reg = value;
 
-                cpu->regs->setFlag(FlagsEnum::N, false);
-                cpu->regs->setFlag(FlagsEnum::H, false);
-                cpu->regs->setFlag(FlagsEnum::C, false);
+                cpu->setFlag(FlagsEnum::N, false);
+                cpu->setFlag(FlagsEnum::H, false);
+                cpu->setFlag(FlagsEnum::C, false);
 
                 if( value == 0 ) {
-                 cpu->regs->setFlag(FlagsEnum::Z, true);
+                 cpu->setFlag(FlagsEnum::Z, true);
                 }
             }
         }
