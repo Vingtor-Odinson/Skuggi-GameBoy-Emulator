@@ -170,20 +170,29 @@ namespace Instructions{
     }
 
     void orInst( InstructionParameters params, CPU* cpu ) {
-        if( auto dest8reg = cpu->getRegister<u_int8_t*>(params.AimedReg) ) {
-            if( auto org8reg = cpu->getRegister<uint8_t *>(params.OriginReg) ) {
-                uint8_t value = (*dest8reg | *org8reg);
 
-                *dest8reg = value;
+        uint8_t value = 0;
 
-                cpu->setFlag(FlagsEnum::N, false);
-                cpu->setFlag(FlagsEnum::H, false);
-                cpu->setFlag(FlagsEnum::C, false);
+        auto dest8reg = cpu->getRegister<u_int8_t*>(params.AimedReg);
 
-                if( value == 0 ) {
-                 cpu->setFlag(FlagsEnum::Z, true);
-                }
-            }
+        if( auto org8reg = cpu->getRegister<uint8_t *>(params.OriginReg) ) {
+            value = (*dest8reg | *org8reg);
         }
+        else if(auto org16reg = cpu->getRegister<uint16_t*>(params.OriginReg)) {
+            value = (*dest8reg | cpu->read(*org16reg));
+        }
+        else if(params.OriginIsNextByte) {
+            uint8_t nextByte = cpu->fetchMemory();
+            value = (*dest8reg | nextByte);
+        }
+
+        *dest8reg = value;
+
+        if( value == 0 ) {
+            cpu->setFlag(FlagsEnum::Z, true);
+        }
+        cpu->setFlag(FlagsEnum::N, false);
+        cpu->setFlag(FlagsEnum::H, false);
+        cpu->setFlag(FlagsEnum::C, false);
     }
 }
