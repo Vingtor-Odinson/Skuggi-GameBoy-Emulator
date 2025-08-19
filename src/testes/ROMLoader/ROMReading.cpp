@@ -11,12 +11,10 @@ TEST_CASE("Reading ROM with MBC", "[ROM]")
     cpu.setROM(path);
     cpu.loadROM();
 
-    Bus* cpuBusPtr = cpu.getBus();
-
     for(int i = 0; i < 0x30; i++) {
         uint16_t addr = 0x104 + i;
-        REQUIRE(NINTENDO_LOGO.at(i) == cpuBusPtr->read(DeviceEnum::Memory, addr));
+        REQUIRE(NINTENDO_LOGO.at(i) == cpu.read(addr));
     }
 
-    REQUIRE(cpuBusPtr->read(DeviceEnum::Memory, 0x147) == 0x03);
+    REQUIRE(cpu.read(0x147) == 0x03);
 }

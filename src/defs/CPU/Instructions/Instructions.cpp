@@ -40,7 +40,7 @@ namespace Instructions{
         {
             if(!params.AimedIsAddress) { (*reg16) += 1; }
             else {
-                uint8_t reg = cpu->getBus()->read(DeviceEnum::Memory,(*reg16));
+                uint8_t reg = cpu->read((*reg16));
 
                 uint8_t mask = 0x08;
 
@@ -48,7 +48,7 @@ namespace Instructions{
 
                 reg += 1;
 
-                cpu->getBus()->write(DeviceEnum::Memory,(*reg16), reg);
+                cpu->write((*reg16), reg);
 
                 bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
 
@@ -101,7 +101,7 @@ namespace Instructions{
 
             else if( auto orReg = cpu->getRegister<uint16_t*>(params.OriginReg) ) {
                 if( params.OriginIsAddress ) {
-                    *destReg = cpu->getBus()->read(DeviceEnum::Memory,*orReg);
+                    *destReg = cpu->read(*orReg);
 
                     *orReg += params.OriginShouldIncrement ? 1 : 0;
                     *orReg -= params.OriginShouldDecrement ? 1 : 0;
@@ -119,7 +119,7 @@ namespace Instructions{
 
                 uint16_t orAddress = (msb << 8) | lsb;
 
-                *destReg = cpu->getBus()->read(DeviceEnum::Memory,orAddress);
+                *destReg = cpu->read(orAddress);
             }
 
         }
@@ -138,7 +138,7 @@ namespace Instructions{
 
             else if(auto or8Reg = cpu->getRegister<uint8_t*>(params.OriginReg)) { // Se o registro de origem for de 8 bits
                 if(params.AimedIsAddress) { // Se deve tratar o "aimed" como endereço
-                    cpu->getBus()->write(DeviceEnum::Memory,*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
+                    cpu->write(*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
 
                     *dest16Reg += params.AimShouldIncrement ? 1 : 0;
                     *dest16Reg -= params.AimShouldDecrement ? 1 : 0;
@@ -152,18 +152,18 @@ namespace Instructions{
 
         else if( params.AimIsNextBytes && params.AimedIsAddress ) {
 
-            uint8_t lsb = cpu->fetchMemory(); //least sugnificant byte
+            uint8_t lsb = cpu->fetchMemory(); //least significant byte
             uint8_t msb = cpu->fetchMemory(); //most significant byte
 
             uint16_t destAdd = (msb << 8) | lsb;
 
             if( params.OriginReg == RegistersEnum::SP) {
                 uint16_t valueSP = *(cpu->getRegister<uint16_t*>(params.OriginReg));
-                cpu->getBus()->write(DeviceEnum::Memory,destAdd, valueSP & 0xFF);
-                cpu->getBus()->write(DeviceEnum::Memory,destAdd + 1, valueSP >> 8);
+                cpu->write(destAdd, valueSP & 0xFF);
+                cpu->write(destAdd + 1, valueSP >> 8);
             }
             else if(auto orReg = cpu->getRegister<uint8_t*>(params.OriginReg)) {
-                cpu->getBus()->write(DeviceEnum::Memory,destAdd, *orReg);
+                cpu->write(destAdd, *orReg);
             }
 
         }

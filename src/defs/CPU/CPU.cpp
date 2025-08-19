@@ -61,13 +61,6 @@ void CPU::setupCPU()
     this->regs->PC = 0x00;
 }
 
-void CPU::instructionLoop()
-{
-    uint8_t opCode = fetchMemory( this->regs->PC );
-    Instruction inst = Instructions[opCode];
-    executeInstruction( inst );
-}
-
 Instruction CPU::getInstruction(uint8_t opcode) {
     return Instructions[opcode];
 }
@@ -78,10 +71,6 @@ void CPU::loadOpcodeTable() {
     opcodeTable["DEC"] = Instructions::dec;
     opcodeTable["LD"]  = Instructions::ld;
     opcodeTable["OR"] = Instructions::orInst;
-}
-
-Bus *CPU::getBus() const {
-    return bus;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) {
@@ -98,6 +87,14 @@ void CPU::setROM(const std::string &Path) const {
 
 void CPU::loadROM() const {
     romLoader->LoadROM();
+}
+
+uint8_t CPU::read(const uint16_t &addr) const {
+    return bus->read(DeviceEnum::Memory, addr);
+}
+
+void CPU::write(const uint16_t &addr, const uint8_t &val) {
+    bus->write(DeviceEnum::Memory, addr, val);
 }
 
 template<>

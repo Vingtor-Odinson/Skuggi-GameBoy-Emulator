@@ -32,6 +32,9 @@ class CPU
         Registers* regs;
         InstructionResolver* instResolver;
 
+        void setupCPU();
+        void loadOpcodeTable();
+
     public:
 
         CPU();
@@ -41,19 +44,16 @@ class CPU
         uint8_t fetchMemory() const;
         uint8_t fetchMemory( uint16_t& address ) const;
         Instruction getInstruction( uint8_t opcode );
-        void operateByte();
-        void instructionLoop();
         void executeInstruction( Instruction Inst );
-        void setupCPU();
-        void loadOpcodeTable();
 
         void setFlag(const FlagsEnum&, const bool&);
         bool getFlag(const FlagsEnum&);
 
-        Bus *getBus() const;
-
         void setROM(const std::string& Path) const;
         void loadROM()  const;
+
+        uint8_t read(const uint16_t& addr) const;
+        void write(const uint16_t& addr, const uint8_t& val);
 
         template<typename T>
         T getRegister(const RegistersEnum& reg);
