@@ -92,6 +92,14 @@ void CPU::setFlag(const FlagsEnum &flag, const bool &value) {
     regs->setFlag(flag, value);
 }
 
+void CPU::setROM(const std::string &Path) const {
+    romLoader->SetROM(Path);
+}
+
+void CPU::loadROM() const {
+    romLoader->LoadROM();
+}
+
 template<>
 uint8_t* CPU::getRegister<uint8_t*>(const RegistersEnum& reg) {
     switch (reg) {

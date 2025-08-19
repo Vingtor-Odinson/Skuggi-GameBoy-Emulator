@@ -16,11 +16,6 @@ Memory::~Memory()
     delete vram;
 }
 
-uint8_t Memory::GetMemoryCategory(uint16_t address)
-{
-    
-}
-
 MemoryPart* Memory::GetMemoryPart( uint16_t address )
 {   
     uint8_t region = address >> 12;

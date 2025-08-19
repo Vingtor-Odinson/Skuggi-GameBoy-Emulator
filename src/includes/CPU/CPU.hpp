@@ -52,6 +52,9 @@ class CPU
 
         Bus *getBus() const;
 
+        void setROM(const std::string& Path) const;
+        void loadROM()  const;
+
         template<typename T>
         T getRegister(const RegistersEnum& reg);
         //todo: evaluate if the gains from template especialization are relevant and real (other option is using especific functions | maybe greater gain 'cause of compilation optimization)

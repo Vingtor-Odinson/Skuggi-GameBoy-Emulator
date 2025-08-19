@@ -38,7 +38,7 @@ uint8_t ROMLoader::readRom(const uint16_t& add)
 
 uint8_t ROMLoader::read(const uint16_t &address) {
     if(mbc) {
-        uint16_t mbcAddress = mbc->readFixedBank(address);
+        uint16_t mbcAddress = mbc->read(address);
         return readRom(mbcAddress);
     }
     else {

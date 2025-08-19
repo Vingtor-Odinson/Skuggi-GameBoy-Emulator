@@ -12,8 +12,7 @@ class MBC1 : public MBC {
     uint16_t offset;
 
 public:
-    uint16_t readFixedBank( const uint16_t& address) override;
-    uint16_t readSwapBank( const uint16_t& address) override;
+    uint16_t read(const uint16_t& address) override;
     void write(const uint16_t& address, const uint8_t& value) override;
 };
 
