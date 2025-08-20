@@ -10,19 +10,17 @@ class CPU;
 
 namespace Instructions{
 
-    uint8_t* get8BitsReg(RegistersEnum reg, CPU* cpu );
+    void nop( const InstructionParameters& param, CPU* cpu );
 
-    uint16_t* get16BitsReg(RegistersEnum reg, CPU* cpu );
-
-    void nop( InstructionParameters param, CPU* cpu );
-
-    void inc( InstructionParameters param, CPU* cpu ); //TODO: arrumar o teste
+    void inc( const InstructionParameters& param, CPU* cpu ); //TODO: arrumar o teste
     
-    void dec( InstructionParameters param, CPU* cpu ); //TODO: testar
+    void adc(const InstructionParameters& param, CPU* cpu);
+    
+    void dec( const InstructionParameters& param, CPU* cpu ); //TODO: testar
 
-    void ld( InstructionParameters param, CPU* cpu ); // TODO: implementar as variantes que dependem da região de registros do sistema
+    void ld( const InstructionParameters& param, CPU* cpu ); // TODO: implementar as variantes que dependem da região de registros do sistema
 
-    void orInst( InstructionParameters, CPU* );
+    void orInst( const InstructionParameters&, CPU* );
 }
 
 class Operand

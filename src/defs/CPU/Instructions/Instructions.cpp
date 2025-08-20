@@ -11,11 +11,36 @@
 
 using json = nlohmann::json;
 
+void checkSumFlags(const uint8_t& oldValue, const uint8_t& newValue, CPU* cpu) {
+
+    if(newValue == 0x00) {
+        cpu->setFlag(FlagsEnum::Z, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::Z, false);
+    }
+
+    if(((oldValue & 0x0F) + (newValue & 0x0F)) > 0x0F || ((oldValue & 0x0F) == 0x0F && (newValue & 0x0F) == 0x00))
+    {
+        cpu->setFlag(FlagsEnum::H, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::H, false);
+    }
+
+    if(newValue < oldValue) {
+        cpu->setFlag(FlagsEnum::C, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::C, false);
+    }
+}
+
 namespace Instructions{
 
-    void nop( InstructionParameters params, CPU* cpu ){}
+    void nop( const InstructionParameters& params, CPU* cpu ){}
 
-    void inc( InstructionParameters params, CPU* cpu )
+    void inc( const InstructionParameters& params, CPU* cpu ) //todo: change to use the CheckSumFlags function
     {  
         if( auto* reg = cpu->getRegister<uint8_t*>(params.AimedReg)) 
         {
@@ -62,8 +87,35 @@ namespace Instructions{
             }
         }
     }
+    
+    void adc(const InstructionParameters& param, CPU* cpu) {
 
-    void dec( InstructionParameters params, CPU* cpu )
+        if( auto dest8reg = cpu->getRegister<uint8_t*>(param.AimedReg)){
+
+            uint8_t orValueA = *dest8reg;
+            uint8_t carryValue = cpu->getFlag(FlagsEnum::C) ? 1 : 0;
+            uint8_t newValueA = orValueA;
+
+            if(auto or8reg = cpu->getRegister<uint8_t*>(param.OriginReg)) {
+                newValueA += *or8reg + carryValue;
+            }
+            else if(auto or16reg = cpu->getRegister<uint16_t*>(param.OriginReg)) {
+                uint8_t regValue = cpu->read(*or16reg);
+                newValueA += regValue + carryValue;
+            }
+            else if(param.OriginIsNextByte) {
+                uint8_t nextByteValue = cpu->fetchMemory();
+                newValueA += nextByteValue + carryValue;
+            }
+
+            *dest8reg = newValueA;
+
+            cpu->setFlag(FlagsEnum::N, false);
+            checkSumFlags(orValueA, newValueA, cpu);
+        }
+    }
+
+    void dec( const InstructionParameters& params, CPU* cpu )
     {   
         if ( auto reg16 = cpu->getRegister<uint16_t*>(params.AimedReg) )
         {
@@ -91,7 +143,7 @@ namespace Instructions{
         }
     }
 
-    void ld( InstructionParameters params, CPU* cpu )
+    void ld( const InstructionParameters& params, CPU* cpu )
     {
         if( auto destReg = cpu->getRegister<uint8_t*>(params.AimedReg) ) { //Se entrada for de 8 bits
 
@@ -169,7 +221,7 @@ namespace Instructions{
         }
     }
 
-    void orInst( InstructionParameters params, CPU* cpu ) {
+    void orInst( const InstructionParameters& params, CPU* cpu ) {
 
         uint8_t value = 0;
 

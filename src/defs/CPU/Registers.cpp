@@ -5,6 +5,11 @@ Registers::Registers() {
     masks[FlagsEnum::N] = 6; //0b01000000
     masks[FlagsEnum::H] = 5; //0b00100000
     masks[FlagsEnum::C] = 4; //0b00010000
+
+    setFlag(FlagsEnum::Z, false);
+    setFlag(FlagsEnum::N, false);
+    setFlag(FlagsEnum::H, false);
+    setFlag(FlagsEnum::C, false);
 }
 
 void Registers::setFlag(FlagsEnum flag, bool value) {

@@ -3,7 +3,6 @@
 #include <CPU/Registers.hpp>
 #include <CPU/Instructions/Instructions.hpp>
 #include <CPU/Instructions/InstructionResolver.hpp>
-#include <Memoria/Memory.hpp>
 
 TEST_CASE("INC B instruction working properly", "[inc]")
 {
