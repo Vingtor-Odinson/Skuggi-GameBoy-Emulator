@@ -4,15 +4,16 @@
 #include<Memoria/MemoryParts.hpp>
 #include<Memoria/BANKNN.hpp>
 
-BANKNN::BANKNN( CPU* pCpu )
+BANKNN::BANKNN( Bus* pBus )
 {   
-    cpu = pCpu;
-    romLoader = cpu->romLoader;
+    bus = pBus;
 }
 
-void BANKNN::Write( uint16_t address, uint8_t value ){}
+void BANKNN::Write( uint16_t address, uint8_t value ){
+    bus->write(DeviceEnum::Cartridge, address, value);
+}
 
 uint8_t BANKNN::Read( uint16_t address )
 {
-    return cpu->romLoader->readSwapBank(address);
+    return bus->read(DeviceEnum::Cartridge, address);
 }

@@ -11,41 +11,38 @@
 
 using json = nlohmann::json;
 
+void checkSumFlags(const uint8_t& oldValue, const uint8_t& newValue, CPU* cpu) {
+
+    if(newValue == 0x00) {
+        cpu->setFlag(FlagsEnum::Z, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::Z, false);
+    }
+
+    if(((oldValue & 0x0F) + (newValue & 0x0F)) > 0x0F || ((oldValue & 0x0F) == 0x0F && (newValue & 0x0F) == 0x00))
+    {
+        cpu->setFlag(FlagsEnum::H, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::H, false);
+    }
+
+    if(newValue < oldValue) {
+        cpu->setFlag(FlagsEnum::C, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::C, false);
+    }
+}
+
 namespace Instructions{
 
-    uint8_t* get8BitsReg(RegistersEnum reg, CPU* cpu )
-    {
-        switch (reg) {
-            case RegistersEnum::A: return &(cpu->regs->A);
-            case RegistersEnum::B: return &(cpu->regs->B);
-            case RegistersEnum::C: return &(cpu->regs->C);
-            case RegistersEnum::D: return &(cpu->regs->D);
-            case RegistersEnum::E: return &(cpu->regs->E);
-            case RegistersEnum::F: return &(cpu->regs->F);
-            case RegistersEnum::H: return &(cpu->regs->H);
-            case RegistersEnum::L: return &(cpu->regs->L);
-            default: return nullptr;
-        }
-    }
+    void nop( const InstructionParameters& params, CPU* cpu ){}
 
-    uint16_t* get16BitsReg( RegistersEnum reg, CPU* cpu )
-    {
-        switch (reg) {
-            case RegistersEnum::AF: return &(cpu->regs->AF);
-            case RegistersEnum::BC: return &(cpu->regs->BC);
-            case RegistersEnum::DE: return &(cpu->regs->DE);
-            case RegistersEnum::HL: return &(cpu->regs->HL);
-            case RegistersEnum::PC: return &(cpu->regs->PC);
-            case RegistersEnum::SP: return &(cpu->regs->SP);
-            default: return nullptr;
-        }
-    }
-
-    void nop( InstructionParameters params, CPU* cpu ){}
-
-    void inc( InstructionParameters params, CPU* cpu )
+    void inc( const InstructionParameters& params, CPU* cpu ) //todo: change to use the CheckSumFlags function
     {  
-        if( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
+        if( auto* reg = cpu->getRegister<uint8_t*>(params.AimedReg)) 
         {
             uint8_t mask = 0x08;
         
@@ -57,18 +54,18 @@ namespace Instructions{
             
             if( bitBeforeIsOne && !bitAfterIsOne )
             {
-                cpu->regs->setFlag(FlagsEnum::H, true);
+                cpu->setFlag(FlagsEnum::H, true);
             }
 
-            cpu->regs->setFlag(FlagsEnum::N, false);
-            cpu->regs->setFlag(FlagsEnum::Z, ((*reg) == 0x0));
+            cpu->setFlag(FlagsEnum::N, false);
+            cpu->setFlag(FlagsEnum::Z, ((*reg) == 0x0));
         }
 
-        if( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
+        if( auto reg16 = cpu->getRegister<uint16_t*>(params.AimedReg) )
         {
             if(!params.AimedIsAddress) { (*reg16) += 1; }
             else {
-                uint8_t reg = cpu->memory->ReadMemory( (*reg16) );
+                uint8_t reg = cpu->read((*reg16));
 
                 uint8_t mask = 0x08;
 
@@ -76,30 +73,83 @@ namespace Instructions{
 
                 reg += 1;
 
-                cpu->memory->WriteMemory( (*reg16), reg );
+                cpu->write((*reg16), reg);
 
                 bool bitAfterIsOne = (reg & mask) != 0; // 3o bit é 1 depois?
 
                 if( bitBeforeIsOne && !bitAfterIsOne )
                 {
-                    cpu->regs->setFlag(FlagsEnum::H, true);
+                    cpu->setFlag(FlagsEnum::H, true);
                 }
 
-                cpu->regs->setFlag(FlagsEnum::N, false);
-                cpu->regs->setFlag(FlagsEnum::Z, (reg == 0));
+                cpu->setFlag(FlagsEnum::N, false);
+                cpu->setFlag(FlagsEnum::Z, (reg == 0));
             }
         }
     }
+    
+    void adc(const InstructionParameters& param, CPU* cpu) {
 
-    void dec( InstructionParameters params, CPU* cpu )
+        if( auto dest8reg = cpu->getRegister<uint8_t*>(param.AimedReg)){
+
+            uint8_t orValueA = *dest8reg;
+            uint8_t carryValue = cpu->getFlag(FlagsEnum::C) ? 1 : 0;
+            uint8_t newValueA = orValueA;
+
+            if(auto or8reg = cpu->getRegister<uint8_t*>(param.OriginReg)) {
+                newValueA += *or8reg + carryValue;
+            }
+            else if(auto or16reg = cpu->getRegister<uint16_t*>(param.OriginReg)) {
+                uint8_t regValue = cpu->read(*or16reg);
+                newValueA += regValue + carryValue;
+            }
+            else if(param.OriginIsNextByte) {
+                uint8_t nextByteValue = cpu->fetchMemory();
+                newValueA += nextByteValue + carryValue;
+            }
+
+            *dest8reg = newValueA;
+
+            cpu->setFlag(FlagsEnum::N, false);
+            checkSumFlags(orValueA, newValueA, cpu);
+        }
+    }
+
+    void add(const InstructionParameters& param, CPU* cpu) {
+
+        if( auto dest8reg = cpu->getRegister<uint8_t*>(param.AimedReg)){
+
+            uint8_t orValueA = *dest8reg;
+            uint8_t newValueA = orValueA;
+
+            if(auto or8reg = cpu->getRegister<uint8_t*>(param.OriginReg)) {
+                newValueA += *or8reg;
+            }
+            else if(auto or16reg = cpu->getRegister<uint16_t*>(param.OriginReg)) {
+                uint8_t regValue = cpu->read(*or16reg);
+                newValueA += regValue;
+            }
+            else if(param.OriginIsNextByte) {
+                uint8_t nextByteValue = cpu->fetchMemory();
+                newValueA += nextByteValue;
+            }
+
+            *dest8reg = newValueA;
+
+            cpu->setFlag(FlagsEnum::N, false);
+            checkSumFlags(orValueA, newValueA, cpu);
+        }
+    }
+
+    void dec( const InstructionParameters& params, CPU* cpu )
     {   
-        if ( uint16_t* reg16 = get16BitsReg(params.AimedReg, cpu ) )
+        if ( auto reg16 = cpu->getRegister<uint16_t*>(params.AimedReg) )
         {
             (*reg16) -= 1;
         }
-        else if ( uint8_t* reg = get8BitsReg(params.AimedReg, cpu) )
+        else if ( auto reg = cpu->getRegister<uint8_t*>(params.AimedReg) )
         {
-            cpu->regs->setFlag(FlagsEnum::N, true);
+            cpu->setFlag(FlagsEnum::N, true);
 
             uint8_t lowerNibbleBefore = ( (*reg) & 0b00001111);
 
@@ -109,27 +159,27 @@ namespace Instructions{
 
             if( lowerNibbleAfter > lowerNibbleBefore )
             {
-                cpu->regs->setFlag(FlagsEnum::H, true);
+                cpu->setFlag(FlagsEnum::H, true);
             }
 
             if( (*reg) == 0 )
             {
-                cpu->regs->setFlag(FlagsEnum::Z, false);
+                cpu->setFlag(FlagsEnum::Z, false);
             }
         }
     }
 
-    void ld( InstructionParameters params, CPU* cpu )
+    void ld( const InstructionParameters& params, CPU* cpu )
     {
-        if( uint8_t* destReg = get8BitsReg(params.AimedReg, cpu) ) { //Se entrada for de 8 bits
+        if( auto destReg = cpu->getRegister<uint8_t*>(params.AimedReg) ) { //Se entrada for de 8 bits
 
-            if( uint8_t* orReg = get8BitsReg(params.OriginReg, cpu) ) { // Se o objetivo for de 8 bits
-                *destReg = *orReg;
+            if( auto or8Reg = cpu->getRegister<uint8_t*>(params.OriginReg) ) { // Se o objetivo for de 8 bits
+                *destReg = *or8Reg;
             }
 
-            else if( uint16_t* orReg = get16BitsReg(params.OriginReg, cpu) ) {
+            else if( auto orReg = cpu->getRegister<uint16_t*>(params.OriginReg) ) {
                 if( params.OriginIsAddress ) {
-                    *destReg = cpu->memory->ReadMemory(*orReg);
+                    *destReg = cpu->read(*orReg);
 
                     *orReg += params.OriginShouldIncrement ? 1 : 0;
                     *orReg -= params.OriginShouldDecrement ? 1 : 0;
@@ -137,81 +187,90 @@ namespace Instructions{
             }
 
             else if( params.OriginIsNextByte ) { //Caso o origin sejam os próximos 8 bits
-                uint8_t orValue = cpu->fetchMemory(cpu->regs->PC);
+                uint8_t orValue = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC)));//cpu->regs->PC);
                 *destReg = orValue;
             }
 
             else if( params.OriginIsNextBytes ) {
-                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
-                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
+                uint8_t lsb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //least significant byte
+                uint8_t msb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //most significant byte
 
                 uint16_t orAddress = (msb << 8) | lsb;
 
-                *destReg = cpu->memory->ReadMemory(orAddress);
+                *destReg = cpu->read(orAddress);
             }
 
         }
 
-        else if(uint16_t* dest16Reg = get16BitsReg(params.AimedReg, cpu)) { //Se entrada for de 16 bits
+        else if(auto dest16Reg = cpu->getRegister<uint16_t*>(params.AimedReg)) { //Se entrada for de 16 bits
 
             if( params.OriginIsNextBytes ) {
 
-                uint8_t lsb = cpu->fetchMemory(cpu->regs->PC); //least significant byte
-                uint8_t msb = cpu->fetchMemory(cpu->regs->PC); //most significant byte
+                uint8_t lsb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //least significant byte
+                uint8_t msb = cpu->fetchMemory(*(cpu->getRegister<uint16_t *>(RegistersEnum::PC))); //most significant byte
 
                 uint16_t orValue = (msb << 8) | lsb;
 
                 *dest16Reg = orValue;
             }
 
-            else if(uint8_t* or8Reg = get8BitsReg(params.OriginReg, cpu)) { // Se o registro de origem for de 8 bits
+            else if(auto or8Reg = cpu->getRegister<uint8_t*>(params.OriginReg)) { // Se o registro de origem for de 8 bits
                 if(params.AimedIsAddress) { // Se deve tratar o "aimed" como endereço
-                    cpu->memory->WriteMemory(*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
+                    cpu->write(*dest16Reg, *or8Reg); //copia valor do registro de 8 bits no endereço
 
                     *dest16Reg += params.AimShouldIncrement ? 1 : 0;
                     *dest16Reg -= params.AimShouldDecrement ? 1 : 0;
                 }
             }
 
-            else if( uint16_t* or16Reg = get16BitsReg(params.OriginReg, cpu) ) {
+            else if( auto or16Reg = cpu->getRegister<uint16_t*>(params.OriginReg) ) {
                 *dest16Reg = *or16Reg;
             }
         }
 
         else if( params.AimIsNextBytes && params.AimedIsAddress ) {
 
-            uint8_t lsb = cpu->fetchMemory(); //least sugnificant byte
+            uint8_t lsb = cpu->fetchMemory(); //least significant byte
             uint8_t msb = cpu->fetchMemory(); //most significant byte
 
             uint16_t destAdd = (msb << 8) | lsb;
 
             if( params.OriginReg == RegistersEnum::SP) {
-                uint16_t valueSP = *(get16BitsReg(params.OriginReg, cpu));
-                cpu->memory->WriteMemory(destAdd, valueSP & 0xFF);
-                cpu->memory->WriteMemory(destAdd + 1, valueSP >> 8);
+                uint16_t valueSP = *(cpu->getRegister<uint16_t*>(params.OriginReg));
+                cpu->write(destAdd, valueSP & 0xFF);
+                cpu->write(destAdd + 1, valueSP >> 8);
             }
-            else if(uint8_t* orReg = get8BitsReg(params.OriginReg, cpu)) {
-                cpu->memory->WriteMemory(destAdd, *orReg);
+            else if(auto orReg = cpu->getRegister<uint8_t*>(params.OriginReg)) {
+                cpu->write(destAdd, *orReg);
             }
 
         }
     }
 
-    void orInst( InstructionParameters params, CPU* cpu ) {
-        if( uint8_t* dest8reg = get8BitsReg(params.AimedReg, cpu) ) {
-            if( uint8_t* org8reg = get8BitsReg(params.OriginReg, cpu) ) {
-                uint8_t value = (*dest8reg | *org8reg);
+    void orInst( const InstructionParameters& params, CPU* cpu ) {
 
-                *dest8reg = value;
+        uint8_t value = 0;
 
-                cpu->regs->setFlag(FlagsEnum::N, false);
-                cpu->regs->setFlag(FlagsEnum::H, false);
-                cpu->regs->setFlag(FlagsEnum::C, false);
+        auto dest8reg = cpu->getRegister<u_int8_t*>(params.AimedReg);
 
-                if( value == 0 ) {
-                 cpu->regs->setFlag(FlagsEnum::Z, true);
-                }
-            }
+        if( auto org8reg = cpu->getRegister<uint8_t *>(params.OriginReg) ) {
+            value = (*dest8reg | *org8reg);
         }
+        else if(auto org16reg = cpu->getRegister<uint16_t*>(params.OriginReg)) {
+            value = (*dest8reg | cpu->read(*org16reg));
+        }
+        else if(params.OriginIsNextByte) {
+            uint8_t nextByte = cpu->fetchMemory();
+            value = (*dest8reg | nextByte);
+        }
+
+        *dest8reg = value;
+
+        if( value == 0 ) {
+            cpu->setFlag(FlagsEnum::Z, true);
+        }
+        cpu->setFlag(FlagsEnum::N, false);
+        cpu->setFlag(FlagsEnum::H, false);
+        cpu->setFlag(FlagsEnum::C, false);
     }
 }

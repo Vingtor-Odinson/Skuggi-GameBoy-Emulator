@@ -1,4 +1,3 @@
-
 #ifndef GBEMU_FLAGSENUM_HPP
 #define GBEMU_FLAGSENUM_HPP
 

@@ -24,14 +24,8 @@ void MBC1::write(const uint16_t &address, const uint8_t &value) {
     }
 }
 
-uint16_t MBC1::readFixedBank(const uint16_t &address) {
+uint16_t MBC1::read(const uint16_t &address) {
     bankNumber = bankingMode ? (bankNumber2 & bank2Mask) << 5 : 0;
-    offset = bankNumber*0x4000;
-    return address + offset;
-}
-
-uint16_t MBC1::readSwapBank(const uint16_t &address) {
-    bankNumber = ((bankNumber2 & bank2Mask) << 5) + (bankNumber1 & bank1Mask);
     offset = bankNumber*0x4000;
     return address + offset;
 }

@@ -11,8 +11,7 @@ protected:
     bool bankingMode;
 
 public:
-    virtual uint16_t readFixedBank( const uint16_t& address ) {return 0x00;};
-    virtual uint16_t readSwapBank( const uint16_t& address ) {return 0x00;};
+    virtual uint16_t read(const uint16_t& address ) {return 0x00;};
     virtual void write( const uint16_t& address, const uint8_t& value ) {};
 };
 
