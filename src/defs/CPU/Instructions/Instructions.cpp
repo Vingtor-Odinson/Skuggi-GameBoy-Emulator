@@ -115,6 +115,32 @@ namespace Instructions{
         }
     }
 
+    void add(const InstructionParameters& param, CPU* cpu) {
+
+        if( auto dest8reg = cpu->getRegister<uint8_t*>(param.AimedReg)){
+
+            uint8_t orValueA = *dest8reg;
+            uint8_t newValueA = orValueA;
+
+            if(auto or8reg = cpu->getRegister<uint8_t*>(param.OriginReg)) {
+                newValueA += *or8reg;
+            }
+            else if(auto or16reg = cpu->getRegister<uint16_t*>(param.OriginReg)) {
+                uint8_t regValue = cpu->read(*or16reg);
+                newValueA += regValue;
+            }
+            else if(param.OriginIsNextByte) {
+                uint8_t nextByteValue = cpu->fetchMemory();
+                newValueA += nextByteValue;
+            }
+
+            *dest8reg = newValueA;
+
+            cpu->setFlag(FlagsEnum::N, false);
+            checkSumFlags(orValueA, newValueA, cpu);
+        }
+    }
+
     void dec( const InstructionParameters& params, CPU* cpu )
     {   
         if ( auto reg16 = cpu->getRegister<uint16_t*>(params.AimedReg) )

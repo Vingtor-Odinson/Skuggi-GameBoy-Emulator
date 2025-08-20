@@ -15,6 +15,8 @@ namespace Instructions{
     void inc( const InstructionParameters& param, CPU* cpu ); //TODO: arrumar o teste
     
     void adc(const InstructionParameters& param, CPU* cpu);
+
+    void add(const InstructionParameters& param, CPU* cpu);
     
     void dec( const InstructionParameters& param, CPU* cpu ); //TODO: testar
 
