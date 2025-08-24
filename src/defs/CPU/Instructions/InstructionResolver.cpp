@@ -18,6 +18,10 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
         {
             param.AimIsNextByte = true;
         }
+        else if(firstOperand.GetName() == RegistersEnum::e8) //alvo são os próximos 8 bytes tratado com sinal
+        {
+            param.AimIsNextByteSigned = true;
+        }
         else if(firstOperand.GetName() == RegistersEnum::n16) //alvo são os próximos 16 bytes
         {
             param.AimIsNextByte = true;
@@ -53,6 +57,10 @@ void InstructionResolver::ConfigParams( Instruction* inst, InstructionParameters
             if(sndOperand.GetName() == RegistersEnum::n8) //alvo são os próximos 8 bytes
             {
                 param.OriginIsNextByte = true;
+            }
+            else if(sndOperand.GetName() == RegistersEnum::e8) //alvo são os próximos 8 bytes
+            {
+                param.OriginIsNextByteSigned = true;
             }
             else if(sndOperand.GetName() == RegistersEnum::n16) //alvo são os próximos 16 bytes
             {

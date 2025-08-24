@@ -22,6 +22,7 @@ std::unordered_map <std::string, RegistersEnum> InstructionLoader::registerNameE
         {"H", RegistersEnum::H},
         {"L", RegistersEnum::L},
         {"n8", RegistersEnum::n8},
+        {"e8", RegistersEnum::e8},
         {"n16", RegistersEnum::n16},
         {"a16", RegistersEnum::a16},
         {"AF", RegistersEnum::AF},

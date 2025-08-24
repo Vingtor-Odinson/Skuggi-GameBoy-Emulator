@@ -32,4 +32,7 @@ class InstructionParameters
 
         bool AimShouldDecrement;
         bool OriginShouldDecrement;
+
+        bool AimIsNextByteSigned;
+        bool OriginIsNextByteSigned;
 };

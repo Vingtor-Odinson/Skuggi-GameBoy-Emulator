@@ -11,7 +11,7 @@
 
 using json = nlohmann::json;
 
-void checkSumFlags(const uint8_t& oldValue, const uint8_t& newValue, CPU* cpu) {
+void checkSumFlags8bits(const uint8_t& oldValue, const uint8_t& newValue, CPU* cpu) {
 
     if(newValue == 0x00) {
         cpu->setFlag(FlagsEnum::Z, true);
@@ -21,6 +21,49 @@ void checkSumFlags(const uint8_t& oldValue, const uint8_t& newValue, CPU* cpu) {
     }
 
     if(((oldValue & 0x0F) + (newValue & 0x0F)) > 0x0F || ((oldValue & 0x0F) == 0x0F && (newValue & 0x0F) == 0x00))
+    {
+        cpu->setFlag(FlagsEnum::H, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::H, false);
+    }
+
+    if(newValue < oldValue) {
+        cpu->setFlag(FlagsEnum::C, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::C, false);
+    }
+}
+
+void checkSumFlags8bits(const uint16_t& oldValue, const uint16_t& newValue, CPU* cpu) {
+
+    if(newValue == 0x00) {
+        cpu->setFlag(FlagsEnum::Z, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::Z, false);
+    }
+
+    if(((oldValue & 0x0F) + (newValue & 0x0F)) > 0x0F || ((oldValue & 0x0F) == 0x0F && (newValue & 0x0F) == 0x00))
+    {
+        cpu->setFlag(FlagsEnum::H, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::H, false);
+    }
+
+    if(newValue < oldValue) {
+        cpu->setFlag(FlagsEnum::C, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::C, false);
+    }
+}
+
+void checkSumFlags16bits(const uint16_t& oldValue, const uint16_t& newValue, CPU* cpu) {
+
+    if(((oldValue & 0x800) + (newValue & 0x800)) > 0x800 || ((oldValue & 0x800) == 0x800 && (newValue & 0x800) == 0x800))
     {
         cpu->setFlag(FlagsEnum::H, true);
     }
@@ -111,7 +154,7 @@ namespace Instructions{
             *dest8reg = newValueA;
 
             cpu->setFlag(FlagsEnum::N, false);
-            checkSumFlags(orValueA, newValueA, cpu);
+            checkSumFlags8bits(orValueA, newValueA, cpu);
         }
     }
 
@@ -137,7 +180,24 @@ namespace Instructions{
             *dest8reg = newValueA;
 
             cpu->setFlag(FlagsEnum::N, false);
-            checkSumFlags(orValueA, newValueA, cpu);
+            checkSumFlags8bits(orValueA, newValueA, cpu);
+        }
+        else if( auto dest16bits = cpu->getRegister<uint16_t*>(param.AimedReg) ) {
+            uint16_t orValueDest = *dest16bits;
+            uint16_t newValueDest = orValueDest;
+
+            if(auto or16bits = cpu->getRegister<uint16_t*>(param.OriginReg)) {
+                newValueDest += *or16bits;
+                checkSumFlags16bits(orValueDest, newValueDest, cpu);
+            }
+            else if(param.OriginIsNextByteSigned) {
+                auto value = (int8_t) cpu->fetchMemory();
+                newValueDest += value;
+                checkSumFlags8bits(orValueDest, newValueDest, cpu);
+            }
+
+            *dest16bits = newValueDest;
+            cpu->setFlag(FlagsEnum::N, false);
         }
     }
 

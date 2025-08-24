@@ -1,5 +1,5 @@
 ***************************** Urgente ********************
--Rever necessidade de ter a CPU passada pra memória
+-Adicionar testes do ADD HL, r16 | ADD HL SP | ADD Sp, e8
 -Adicionar testes do MBC
 
 
