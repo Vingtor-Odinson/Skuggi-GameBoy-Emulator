@@ -8,4 +8,4 @@ enum class FlagsEnum {
     C
 };
 
-#endif GBEMU_FLAGSENUM_HPP
+#endif //GBEMU_FLAGSENUM_HPP

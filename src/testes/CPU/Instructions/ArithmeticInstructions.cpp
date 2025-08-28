@@ -392,3 +392,113 @@ TEST_CASE("ADD A, n8 instruction working", "[add]") {
     REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
 }
+
+TEST_CASE("ADD HL, r16 instruction working", "[add]") {
+
+    uint8_t opcode = 0x09; //opcode for the ADD HL, BC
+    CPU cpu = CPU();
+
+    //Tests 15th bit overflow and value
+
+    uint16_t valueHL = 0xFFFF;
+    uint16_t valueBC = 0x0010;
+
+    *cpu.getRegister<uint16_t*>(RegistersEnum::HL) = valueHL;
+    *cpu.getRegister<uint16_t*>(RegistersEnum::BC) = valueBC;
+
+    Instruction instADD_HLBC = cpu.getInstruction(opcode);
+    cpu.executeInstruction(instADD_HLBC);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::HL) == 0x000F);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    // Tests 11th bit overflow value and flags
+
+    valueHL = 0x0800;
+    valueBC = 0x0002;
+
+    *cpu.getRegister<uint16_t*>(RegistersEnum::HL) = valueHL;
+    *cpu.getRegister<uint16_t*>(RegistersEnum::BC) = valueBC;
+
+    cpu.executeInstruction(instADD_HLBC);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::HL) == 0x0802);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+
+    //Testes 11th and 15th bit overflow and value
+
+    valueHL = 0xF800;
+    valueBC = 0x1002;
+
+    *cpu.getRegister<uint16_t*>(RegistersEnum::HL) = valueHL;
+    *cpu.getRegister<uint16_t*>(RegistersEnum::BC) = valueBC;
+
+    cpu.executeInstruction(instADD_HLBC);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::HL) == 0x0802);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+}
+
+TEST_CASE("ADD HL, SP instruction working", "[add]") {
+
+    uint8_t opcode = 0x39; //opcode for the ADD HL, BC
+    CPU cpu = CPU();
+
+    //Tests 15th bit overflow and value
+
+    uint16_t valueHL = 0xFFFF;
+    uint16_t valueSP = 0x0010;
+
+    *cpu.getRegister<uint16_t*>(RegistersEnum::HL) = valueHL;
+    *cpu.getRegister<uint16_t*>(RegistersEnum::SP) = valueSP;
+
+    Instruction instADD_HLSP = cpu.getInstruction(opcode);
+    cpu.executeInstruction(instADD_HLSP);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::HL) == 0x000F);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    // Tests 11th bit overflow value and flags
+
+    valueHL = 0x0800;
+    valueSP = 0x0002;
+
+    *cpu.getRegister<uint16_t*>(RegistersEnum::HL) = valueHL;
+    *cpu.getRegister<uint16_t*>(RegistersEnum::SP) = valueSP;
+
+    cpu.executeInstruction(instADD_HLSP);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::HL) == 0x0802);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+
+    //Testes 11th and 15th bit overflow and value
+
+    valueHL = 0xF800;
+    valueSP = 0x1002;
+
+    *cpu.getRegister<uint16_t*>(RegistersEnum::HL) = valueHL;
+    *cpu.getRegister<uint16_t*>(RegistersEnum::SP) = valueSP;
+
+    cpu.executeInstruction(instADD_HLSP);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::HL) == 0x0802);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+}
