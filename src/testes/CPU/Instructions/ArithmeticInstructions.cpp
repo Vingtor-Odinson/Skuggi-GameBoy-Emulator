@@ -502,3 +502,100 @@ TEST_CASE("ADD HL, SP instruction working", "[add]") {
     REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
 }
+
+TEST_CASE("ADD SP, e8 instruction working", "[add]") {
+
+    uint8_t opcode = 0xE8; //opcode for the ADD HL, BC
+    CPU cpu = CPU();
+
+    //Tests the sum
+
+    uint16_t valueSP = 0x0010;
+    uint16_t addrPC = 0x8500;
+    uint8_t valueRegister = 0x01;
+
+    *cpu.getRegister<uint16_t *>(RegistersEnum::PC) = addrPC;
+    *cpu.getRegister<uint16_t *>(RegistersEnum::SP) = valueSP;
+    cpu.write(addrPC, valueRegister);
+
+    Instruction instADD_SPe8 = cpu.getInstruction(opcode);
+    cpu.executeInstruction(instADD_SPe8);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::SP) == 0x0011);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    //Tests the overflow from 3rd bit
+
+    valueSP = 0x000F;
+    addrPC = 0x8500;
+    valueRegister = 0x01;
+
+    *cpu.getRegister<uint16_t *>(RegistersEnum::PC) = addrPC;
+    *cpu.getRegister<uint16_t *>(RegistersEnum::SP) = valueSP;
+    cpu.write(addrPC, valueRegister);
+
+    cpu.executeInstruction(instADD_SPe8);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::SP) == 0x0010);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+
+    //Tests the overflow from 7nd bit
+
+    valueSP = 0x00F0;
+    addrPC = 0x8500;
+    valueRegister = 0x10;
+
+    *cpu.getRegister<uint16_t *>(RegistersEnum::PC) = addrPC;
+    *cpu.getRegister<uint16_t *>(RegistersEnum::SP) = valueSP;
+    cpu.write(addrPC, valueRegister);
+
+    cpu.executeInstruction(instADD_SPe8);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::SP) == 0x0100);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    //Tests the overflow of 3rd and 7th bit
+
+    valueSP = 0x00FF;
+    addrPC = 0x8500;
+    valueRegister = 0x01;
+
+    *cpu.getRegister<uint16_t *>(RegistersEnum::PC) = addrPC;
+    *cpu.getRegister<uint16_t *>(RegistersEnum::SP) = valueSP;
+    cpu.write(addrPC, valueRegister);
+
+    cpu.executeInstruction(instADD_SPe8);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::SP) == 0x0100);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+
+    //Tests subtraction
+
+    valueSP = 0x0010;
+    addrPC = 0x8500;
+    valueRegister = 0b11111111; //The computer reads the first byte as a negative symbol... This value is equivalent to -1
+
+    *cpu.getRegister<uint16_t *>(RegistersEnum::PC) = addrPC;
+    *cpu.getRegister<uint16_t *>(RegistersEnum::SP) = valueSP;
+    cpu.write(addrPC, valueRegister);
+
+    cpu.executeInstruction(instADD_SPe8);
+
+    REQUIRE(*cpu.getRegister<uint16_t *>(RegistersEnum::SP) == 0x000F);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+}

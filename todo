@@ -1,5 +1,5 @@
 ***************************** Urgente ********************
--Adicionar testes do ADD HL, r16 | ADD HL SP | ADD Sp, e8
+-Adicionar testes do ADD Sp, e8
 -Adicionar testes do MBC
 
 

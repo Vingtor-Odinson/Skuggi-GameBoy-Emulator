@@ -38,13 +38,6 @@ void checkSumFlags8bits(const uint8_t& oldValue, const uint8_t& newValue, CPU* c
 
 void checkSumFlags8bits(const uint16_t& oldValue, const uint16_t& newValue, CPU* cpu) {
 
-    if(newValue == 0x00) {
-        cpu->setFlag(FlagsEnum::Z, true);
-    }
-    else {
-        cpu->setFlag(FlagsEnum::Z, false);
-    }
-
     if(((oldValue & 0x0F) + (newValue & 0x0F)) > 0x0F || ((oldValue & 0x0F) == 0x0F && (newValue & 0x0F) == 0x00))
     {
         cpu->setFlag(FlagsEnum::H, true);
@@ -53,7 +46,7 @@ void checkSumFlags8bits(const uint16_t& oldValue, const uint16_t& newValue, CPU*
         cpu->setFlag(FlagsEnum::H, false);
     }
 
-    if(newValue < oldValue) {
+    if(((oldValue & 0x00FF) + (newValue & 0x00FF)) > 0x00FF || (oldValue <= 0x00FF && newValue > 0x00FF && (newValue & 0x00FF) == 0x0000)) {
         cpu->setFlag(FlagsEnum::C, true);
     }
     else {
