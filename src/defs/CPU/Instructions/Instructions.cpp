@@ -72,6 +72,19 @@ void checkSumFlags16bits(const uint16_t& oldValue, const uint16_t& newValue, CPU
     }
 }
 
+void checkAndFlags(const uint8_t& value, CPU* cpu) {
+    if(value == 0x00) {
+        cpu->setFlag(FlagsEnum::Z, true);
+    }
+    else {
+        cpu->setFlag(FlagsEnum::Z, false);
+    }
+
+    cpu->setFlag(FlagsEnum::N, false);
+    cpu->setFlag(FlagsEnum::H, true);
+    cpu->setFlag(FlagsEnum::C, false);
+}
+
 namespace Instructions{
 
     void nop( const InstructionParameters& params, CPU* cpu ){}
@@ -325,5 +338,26 @@ namespace Instructions{
         cpu->setFlag(FlagsEnum::N, false);
         cpu->setFlag(FlagsEnum::H, false);
         cpu->setFlag(FlagsEnum::C, false);
+    }
+
+    void andInst(const InstructionParameters& params, CPU* cpu) {
+        if(auto dest8reg = cpu->getRegister<uint8_t*>(params.AimedReg)){
+
+            uint8_t value = *dest8reg;
+
+            if(auto or8reg = cpu->getRegister<uint8_t*>(params.OriginReg)) {
+                value = (*dest8reg & *or8reg);
+            }
+            else if(params.OriginIsNextByte) {
+                uint8_t nextBit = cpu->fetchMemory();
+                value = (*dest8reg & nextBit);
+            }
+            else if(auto or16reg = cpu->getRegister<uint16_t*>(params.OriginReg)) {
+                value = (*dest8reg & cpu->read(*or16reg));
+            }
+
+            *dest8reg = value;
+            checkAndFlags(value, cpu);
+        }
     }
 }

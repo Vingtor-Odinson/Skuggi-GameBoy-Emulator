@@ -23,6 +23,8 @@ namespace Instructions{
     void ld( const InstructionParameters& param, CPU* cpu ); // TODO: implementar as variantes que dependem da região de registros do sistema
 
     void orInst( const InstructionParameters&, CPU* );
+
+    void andInst(const InstructionParameters&, CPU*);
 }
 
 class Operand

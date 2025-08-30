@@ -70,9 +70,11 @@ void CPU::loadOpcodeTable() {
     opcodeTable["INC"] = Instructions::inc;
     opcodeTable["DEC"] = Instructions::dec;
     opcodeTable["LD"]  = Instructions::ld;
-    opcodeTable["OR"] = Instructions::orInst;
     opcodeTable["ADC"] = Instructions::adc;
     opcodeTable["ADD"] = Instructions::add;
+
+    opcodeTable["OR"] = Instructions::orInst;
+    opcodeTable["AND"] = Instructions::andInst;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) {
