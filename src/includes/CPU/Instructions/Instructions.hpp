@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <unordered_map>
 #include <CPU/Instructions/InstructionsParameters.hpp>
-#include "enum/RegistersEnum.hpp"
+#include "enum/OperatorMnemonicEnum.hpp"
 
 class CPU;
 
@@ -25,12 +25,14 @@ namespace Instructions{
     void orInst( const InstructionParameters&, CPU* );
 
     void andInst(const InstructionParameters&, CPU*);
+
+    void call(const InstructionParameters&, CPU*);
 }
 
 class Operand
 {
     private:
-        RegistersEnum name; //Tlavez trocar pra regs*
+        OperatorMnemonicEnum name; //Tlavez trocar pra regs*
         uint8_t bytes;
         bool immediate;
         bool increment = false;
@@ -38,13 +40,13 @@ class Operand
 
     public:
 
-        void SetName(RegistersEnum nome){name = nome;}
+        void SetName(OperatorMnemonicEnum nome){ name = nome;}
         void SetNeededBytes(uint8_t bts){bytes = bts;}   //trocar as entradas pra string e fazer cast
         void setIsImmediate(bool imm){ immediate = imm; }
         void setIsIncrement(bool imm) { increment = imm; }
         void setIsDecrement(bool imm){ decrement = imm; }
 
-        RegistersEnum GetName(){return name;}
+        OperatorMnemonicEnum GetName(){return name;}
         uint8_t GetBytes(){ return bytes; }
         bool IsImmediate(){ return immediate; }
         bool isIncrement(){ return increment; }
@@ -88,7 +90,7 @@ class Instruction
         {
             if(operandsNumber < 1)
             {   Operand op = Operand();
-                op.SetName(RegistersEnum::INVALID);
+                op.SetName(OperatorMnemonicEnum::INVALID);
                 op.SetNeededBytes(0);
                 op.setIsImmediate(false);
                 return op;
@@ -101,7 +103,7 @@ class Instruction
             if(operandsNumber < 2)
             {
                 Operand op = Operand();
-                op.SetName(RegistersEnum::INVALID);
+                op.SetName(OperatorMnemonicEnum::INVALID);
                 op.SetNeededBytes(0);
                 op.setIsImmediate(false);
                 return op;

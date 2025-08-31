@@ -28,8 +28,8 @@ CPU::~CPU(){
 }
 
 uint8_t CPU::fetchMemory() const {
-    uint8_t value = bus->read(DeviceEnum::Memory, this->regs->PC);//this->memory->read(this->regs->PC);
-    this->regs->PC++;
+    uint8_t value = bus->read(DeviceEnum::Memory, *get16bitRegister(RegistersEnum::PC));//this->memory->read(this->regs->PC);
+    *get16bitRegister(RegistersEnum::PC) += 1;
     return value;
 }
 
@@ -38,6 +38,11 @@ uint8_t CPU::fetchMemory( uint16_t& address ) const
     uint8_t value = bus->read(DeviceEnum::Memory, address);
     address++;
     return value;
+}
+
+void CPU::addToStack(const uint8_t& value) {
+    write(*this->get16bitRegister(RegistersEnum::SP), value);
+    *get16bitRegister(RegistersEnum::SP) -= 1;
 }
 
 uint8_t CPU::getOpcode( uint16_t address )
@@ -58,7 +63,7 @@ void CPU::executeInstruction( Instruction Inst )
 
 void CPU::setupCPU()
 {
-    this->regs->PC = 0x00;
+    *get16bitRegister(RegistersEnum::PC) = 0x00;
 }
 
 Instruction CPU::getInstruction(uint8_t opcode) {
@@ -75,6 +80,8 @@ void CPU::loadOpcodeTable() {
 
     opcodeTable["OR"] = Instructions::orInst;
     opcodeTable["AND"] = Instructions::andInst;
+
+    opcodeTable["CALL"] = Instructions::call;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) {
@@ -101,31 +108,12 @@ void CPU::write(const uint16_t &addr, const uint8_t &val) {
     bus->write(DeviceEnum::Memory, addr, val);
 }
 
-template<>
-uint8_t* CPU::getRegister<uint8_t*>(const RegistersEnum& reg) {
-    switch (reg) {
-        case RegistersEnum::A: return &(regs->A);
-        case RegistersEnum::B: return &(regs->B);
-        case RegistersEnum::C: return &(regs->C);
-        case RegistersEnum::D: return &(regs->D);
-        case RegistersEnum::E: return &(regs->E);
-        case RegistersEnum::F: return &(regs->F);
-        case RegistersEnum::H: return &(regs->H);
-        case RegistersEnum::L: return &(regs->L);
-        default: return nullptr;
-    }
+uint8_t* CPU::get8bitRegister(const RegistersEnum& reg) const {
+
+    return regs->get8bitRegister(reg);
 }
 
-template<>
-uint16_t* CPU::getRegister<uint16_t*>(const RegistersEnum& reg) {
-    switch (reg) {
-        case RegistersEnum::AF: return &(regs->AF);
-        case RegistersEnum::BC: return &(regs->BC);
-        case RegistersEnum::DE: return &(regs->DE);
-        case RegistersEnum::HL: return &(regs->HL);
-        case RegistersEnum::PC: return &(regs->PC);
-        case RegistersEnum::SP: return &(regs->SP);
-        default: return nullptr;
-    }
+uint16_t* CPU::get16bitRegister(const RegistersEnum& reg) const {
+    return regs->get16bitRegister(reg);
 }
 

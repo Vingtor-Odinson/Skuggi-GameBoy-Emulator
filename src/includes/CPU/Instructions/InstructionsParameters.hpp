@@ -2,6 +2,8 @@
 
 #include <string>
 #include <stdint.h>
+#include "enum/OperatorMnemonicEnum.hpp"
+#include "enum/FlagsEnum.hpp"
 #include "enum/RegistersEnum.hpp"
 
 class InstructionParameters
@@ -17,6 +19,9 @@ class InstructionParameters
 
         RegistersEnum AimedReg;
         RegistersEnum OriginReg;
+
+        OperatorMnemonicEnum firstOpMnemonic;
+        OperatorMnemonicEnum sndOpMnemonic;
 
         bool AimedIsAddress;
         bool OriginIsAddress;

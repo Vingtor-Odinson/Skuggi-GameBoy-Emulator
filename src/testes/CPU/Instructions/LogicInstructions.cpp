@@ -8,13 +8,13 @@ TEST_CASE("AND A, r8 instruction working", "[and]") {
 
     // Tests the Z flag
 
-    *cpu.getRegister<uint8_t*>(RegistersEnum::A) = 0x10;
-    *cpu.getRegister<uint8_t*>(RegistersEnum::B) = 0x00;
+    *cpu.get8bitRegister(RegistersEnum::A) = 0x10;
+    *cpu.get8bitRegister(RegistersEnum::B) = 0x00;
 
     Instruction inst_AndAr8 = cpu.getInstruction(opcode);
     cpu.executeInstruction(inst_AndAr8);
 
-    REQUIRE(*cpu.getRegister<uint8_t*>(RegistersEnum::A) == 0x00);
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::A) == 0x00);
     REQUIRE(cpu.getFlag(FlagsEnum::Z) == true);
     REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
@@ -22,12 +22,12 @@ TEST_CASE("AND A, r8 instruction working", "[and]") {
 
     // Tests a normal case
 
-    *cpu.getRegister<uint8_t*>(RegistersEnum::A) = 0b10;
-    *cpu.getRegister<uint8_t*>(RegistersEnum::B) = 0b11;
+    *cpu.get8bitRegister(RegistersEnum::A) = 0b10;
+    *cpu.get8bitRegister(RegistersEnum::B) = 0b11;
 
     cpu.executeInstruction(inst_AndAr8);
 
-    REQUIRE(*cpu.getRegister<uint8_t*>(RegistersEnum::A) == 0b10);
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::A) == 0b10);
     REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
@@ -45,14 +45,14 @@ TEST_CASE("AND A, [HL] instruction working", "[and]") {
     uint8_t value = 0x00;
     uint16_t addrHL = 0x8510;
 
-    *cpu.getRegister<uint8_t*>(RegistersEnum::A) = valueA;
-    *cpu.getRegister<uint16_t *>(RegistersEnum::HL) = addrHL;
+    *cpu.get8bitRegister(RegistersEnum::A) = valueA;
+    *cpu.get16bitRegister(RegistersEnum::HL) = addrHL;
     cpu.write(addrHL, value);
 
     Instruction inst_AndAr8 = cpu.getInstruction(opcode);
     cpu.executeInstruction(inst_AndAr8);
 
-    REQUIRE(*cpu.getRegister<uint8_t*>(RegistersEnum::A) == 0x00);
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::A) == 0x00);
     REQUIRE(cpu.getFlag(FlagsEnum::Z) == true);
     REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
@@ -63,13 +63,13 @@ TEST_CASE("AND A, [HL] instruction working", "[and]") {
     valueA = 0b10;
     value = 0b11;
 
-    *cpu.getRegister<uint8_t*>(RegistersEnum::A) = valueA;
-    *cpu.getRegister<uint16_t *>(RegistersEnum::HL) = addrHL;
+    *cpu.get8bitRegister(RegistersEnum::A) = valueA;
+    *cpu.get16bitRegister(RegistersEnum::HL) = addrHL;
     cpu.write(addrHL, value);
 
     cpu.executeInstruction(inst_AndAr8);
 
-    REQUIRE(*cpu.getRegister<uint8_t*>(RegistersEnum::A) == 0b10);
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::A) == 0b10);
     REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
@@ -87,14 +87,14 @@ TEST_CASE("AND A, n8 instruction working", "[and]") {
     uint8_t value = 0x00;
     uint16_t addrPC = 0x8510;
 
-    *cpu.getRegister<uint8_t*>(RegistersEnum::A) = valueA;
-    *cpu.getRegister<uint16_t *>(RegistersEnum::PC) = addrPC;
+    *cpu.get8bitRegister(RegistersEnum::A) = valueA;
+    *cpu.get16bitRegister(RegistersEnum::PC) = addrPC;
     cpu.write(addrPC, value);
 
     Instruction inst_AndAr8 = cpu.getInstruction(opcode);
     cpu.executeInstruction(inst_AndAr8);
 
-    REQUIRE(*cpu.getRegister<uint8_t*>(RegistersEnum::A) == 0x00);
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::A) == 0x00);
     REQUIRE(cpu.getFlag(FlagsEnum::Z) == true);
     REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
@@ -105,12 +105,12 @@ TEST_CASE("AND A, n8 instruction working", "[and]") {
     valueA = 0b10;
     value = 0b11;
 
-    *cpu.getRegister<uint8_t*>(RegistersEnum::A) = valueA;
+    *cpu.get8bitRegister(RegistersEnum::A) = valueA;
     cpu.write(addrPC + 1, value);
 
     cpu.executeInstruction(inst_AndAr8);
 
-    REQUIRE(*cpu.getRegister<uint8_t*>(RegistersEnum::A) == 0b10);
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::A) == 0b10);
     REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
@@ -125,23 +125,23 @@ TEST_CASE("OR A, r8 instruction working", "[or]") {
 
     CPU* cpu = new CPU();
 
-    *cpu->getRegister<uint8_t*>(RegistersEnum::A) = valueA;
-    *cpu->getRegister<uint8_t*>(RegistersEnum::B) = valueB;
+    *cpu->get8bitRegister(RegistersEnum::A) = valueA;
+    *cpu->get8bitRegister(RegistersEnum::B) = valueB;
 
     Instruction incOR_AB = cpu->getInstruction(opcode);
     cpu->executeInstruction(incOR_AB);
 
-    REQUIRE(*cpu->getRegister<uint8_t*>(RegistersEnum::A) == (valueA | valueB) );
+    REQUIRE(*cpu->get8bitRegister(RegistersEnum::A) == (valueA | valueB) );
     REQUIRE(!cpu->getFlag(FlagsEnum::N));
     REQUIRE(!cpu->getFlag(FlagsEnum::H));
     REQUIRE(!cpu->getFlag(FlagsEnum::C));
 
-    *cpu->getRegister<uint8_t*>(RegistersEnum::A) = 0x00;
-    *cpu->getRegister<uint8_t*>(RegistersEnum::B) = 0x00;
+    *cpu->get8bitRegister(RegistersEnum::A) = 0x00;
+    *cpu->get8bitRegister(RegistersEnum::B) = 0x00;
 
     cpu->executeInstruction(incOR_AB);
 
-    REQUIRE(*cpu->getRegister<uint8_t*>(RegistersEnum::A) == 0x00 );
+    REQUIRE(*cpu->get8bitRegister(RegistersEnum::A) == 0x00 );
     REQUIRE(cpu->getFlag(FlagsEnum::Z));
 
     delete cpu;
@@ -156,24 +156,24 @@ TEST_CASE("OR A, [HL] instruction working", "[or]") {
 
     CPU* cpu = new CPU();
 
-    *cpu->getRegister<uint8_t*>(RegistersEnum::A) = valueA;
-    *cpu->getRegister<uint16_t*>(RegistersEnum::HL) = addrHL;
+    *cpu->get8bitRegister(RegistersEnum::A) = valueA;
+    *cpu->get16bitRegister(RegistersEnum::HL) = addrHL;
     cpu->write(addrHL, valueB);
 
     Instruction incOR_AHL = cpu->getInstruction(opcode);
     cpu->executeInstruction(incOR_AHL);
 
-    REQUIRE(*cpu->getRegister<uint8_t*>(RegistersEnum::A) == (valueA | valueB) );
+    REQUIRE(*cpu->get8bitRegister(RegistersEnum::A) == (valueA | valueB) );
     REQUIRE(!cpu->getFlag(FlagsEnum::N));
     REQUIRE(!cpu->getFlag(FlagsEnum::H));
     REQUIRE(!cpu->getFlag(FlagsEnum::C));
 
-    *cpu->getRegister<uint8_t*>(RegistersEnum::A) = 0x00;
+    *cpu->get8bitRegister(RegistersEnum::A) = 0x00;
     cpu->write(addrHL, 0x00);
 
     cpu->executeInstruction(incOR_AHL);
 
-    REQUIRE(*cpu->getRegister<uint8_t*>(RegistersEnum::A) == 0x00 );
+    REQUIRE(*cpu->get8bitRegister(RegistersEnum::A) == 0x00 );
     REQUIRE(cpu->getFlag(FlagsEnum::Z));
 
     delete cpu;
@@ -188,24 +188,24 @@ TEST_CASE("OR A, n8 instruction working", "[or]") {
 
     CPU* cpu = new CPU();
 
-    *cpu->getRegister<uint8_t*>(RegistersEnum::A) = valueA;
-    *cpu->getRegister<uint16_t*>(RegistersEnum::PC) = addrPC;
+    *cpu->get8bitRegister(RegistersEnum::A) = valueA;
+    *cpu->get16bitRegister(RegistersEnum::PC) = addrPC;
     cpu->write(addrPC, valueB);
 
     Instruction incOR_Ar8 = cpu->getInstruction(opcode);
     cpu->executeInstruction(incOR_Ar8);
 
-    REQUIRE(*cpu->getRegister<uint8_t*>(RegistersEnum::A) == (valueA | valueB) );
+    REQUIRE(*cpu->get8bitRegister(RegistersEnum::A) == (valueA | valueB) );
     REQUIRE(!cpu->getFlag(FlagsEnum::N));
     REQUIRE(!cpu->getFlag(FlagsEnum::H));
     REQUIRE(!cpu->getFlag(FlagsEnum::C));
 
-    *cpu->getRegister<uint8_t*>(RegistersEnum::A) = 0x00;
+    *cpu->get8bitRegister(RegistersEnum::A) = 0x00;
     cpu->write(addrPC + 1, 0x00);
 
     cpu->executeInstruction(incOR_Ar8);
 
-    REQUIRE(*cpu->getRegister<uint8_t*>(RegistersEnum::A) == 0x00 );
+    REQUIRE(*cpu->get8bitRegister(RegistersEnum::A) == 0x00 );
     REQUIRE(cpu->getFlag(FlagsEnum::Z));
 
     delete cpu;

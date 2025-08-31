@@ -7,6 +7,7 @@
 #include "CPU/Instructions/Instructions.hpp"
 #include "Bus.hpp"
 #include "CPU/Registers.hpp"
+#include "enum/RegistersEnum.hpp"
 
 using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
 
@@ -43,6 +44,8 @@ class CPU
         uint8_t getOpcode( uint16_t address );
         uint8_t fetchMemory() const;
         uint8_t fetchMemory( uint16_t& address ) const;
+        void addToStack(const uint8_t&);
+
         Instruction getInstruction( uint8_t opcode );
         void executeInstruction( Instruction Inst );
 
@@ -55,7 +58,6 @@ class CPU
         uint8_t read(const uint16_t& addr) const;
         void write(const uint16_t& addr, const uint8_t& val);
 
-        template<typename T>
-        T getRegister(const RegistersEnum& reg);
-        //todo: evaluate if the gains from template especialization are relevant and real (other option is using especific functions | maybe greater gain 'cause of compilation optimization)
+        uint8_t* get8bitRegister(const RegistersEnum& reg) const;
+        uint16_t* get16bitRegister(const RegistersEnum& reg) const;
 };

@@ -12,30 +12,33 @@ using json = nlohmann::json;
 
 const std::string InstructionLoader::fileLocation = "Data/Instructions.json";
 
-std::unordered_map <std::string, RegistersEnum> InstructionLoader::registerNameEnumMap = {
-        {"A", RegistersEnum::A},
-        {"B", RegistersEnum::B},
-        {"C", RegistersEnum::C},
-        {"D", RegistersEnum::D},
-        {"E", RegistersEnum::E},
-        {"F", RegistersEnum::F},
-        {"H", RegistersEnum::H},
-        {"L", RegistersEnum::L},
-        {"n8", RegistersEnum::n8},
-        {"e8", RegistersEnum::e8},
-        {"n16", RegistersEnum::n16},
-        {"a16", RegistersEnum::a16},
-        {"AF", RegistersEnum::AF},
-        {"BC", RegistersEnum::BC},
-        {"DE", RegistersEnum::DE},
-        {"HL", RegistersEnum::HL},
-        {"SP", RegistersEnum::SP},
-        {"PC", RegistersEnum::PC}
+std::unordered_map <std::string, OperatorMnemonicEnum> InstructionLoader::registerNameEnumMap = {
+        {"A",   OperatorMnemonicEnum::A},
+        {"B",   OperatorMnemonicEnum::B},
+        {"C",   OperatorMnemonicEnum::C},
+        {"D",   OperatorMnemonicEnum::D},
+        {"E",   OperatorMnemonicEnum::E},
+        {"F",   OperatorMnemonicEnum::F},
+        {"H",   OperatorMnemonicEnum::H},
+        {"L",   OperatorMnemonicEnum::L},
+        {"n8",  OperatorMnemonicEnum::n8},
+        {"e8",  OperatorMnemonicEnum::e8},
+        {"n16", OperatorMnemonicEnum::n16},
+        {"a16", OperatorMnemonicEnum::a16},
+        {"AF",  OperatorMnemonicEnum::AF},
+        {"BC",  OperatorMnemonicEnum::BC},
+        {"DE",  OperatorMnemonicEnum::DE},
+        {"HL",  OperatorMnemonicEnum::HL},
+        {"SP",  OperatorMnemonicEnum::SP},
+        {"PC",  OperatorMnemonicEnum::PC},
+        {"Z",   OperatorMnemonicEnum::Z},
+        {"NZ",  OperatorMnemonicEnum::NZ},
+        {"NC",  OperatorMnemonicEnum::NC}
 };
 
-RegistersEnum InstructionLoader::getRegisterEnum(const std::string& name) {
+OperatorMnemonicEnum InstructionLoader::getRegisterEnum(const std::string& name) {
     auto iterator = registerNameEnumMap.find(name);
-    return (iterator != registerNameEnumMap.end()) ? iterator->second : RegistersEnum::INVALID; //checa se o iterator achou algo, se sim devolve o reg, se não devolve invalid
+    return (iterator != registerNameEnumMap.end()) ? iterator->second : OperatorMnemonicEnum::INVALID; //checa se o iterator achou algo, se sim devolve o reg, se não devolve invalid
 };
 
 std::unordered_map<uint8_t, Instruction> InstructionLoader::LoadInstructions()

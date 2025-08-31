@@ -24,3 +24,32 @@ void Registers::setFlag(FlagsEnum flag, bool value) {
 bool Registers::getFlag(FlagsEnum flag) {
     return (F >> masks[flag]) & 0b1;
 }
+
+uint8_t *Registers::get8bitRegister(const RegistersEnum &reg) {
+    switch (reg) {
+        case RegistersEnum::A: return &(A);
+        case RegistersEnum::B: return &(B);
+        case RegistersEnum::C: return &(C);
+        case RegistersEnum::D: return &(D);
+        case RegistersEnum::E: return &(E);
+        case RegistersEnum::F: return &(F);
+        case RegistersEnum::H: return &(H);
+        case RegistersEnum::L: return &(L);
+        default: return nullptr;
+    }
+    return nullptr;
+}
+
+uint16_t *Registers::get16bitRegister(const RegistersEnum &reg) {
+    switch (reg) {
+        case RegistersEnum::AF: return &(AF);
+        case RegistersEnum::BC: return &(BC);
+        case RegistersEnum::DE: return &(DE);
+        case RegistersEnum::HL: return &(HL);
+        case RegistersEnum::PC: return &(PC);
+        case RegistersEnum::SP: return &(SP);
+        default: return nullptr;
+    }
+    return nullptr;
+}
+

@@ -1,7 +1,7 @@
-#ifndef GBEMU_REGISTERSENUM_H
-#define GBEMU_REGISTERSENUM_H
+#ifndef SKUGGI_REGISTERS_ENUM_HPP
+#define SKUGGI_REGISTERS_ENUM_HPP
 
-enum class RegistersEnum {
+enum class RegistersEnum{
     A,
     B,
     C,
@@ -16,11 +16,7 @@ enum class RegistersEnum {
     HL,
     SP,
     PC,
-    n8,
-    e8,
-    n16,
-    a16,
     INVALID
 };
 
-#endif //GBEMU_REGISTERSENUM_H
+#endif
