@@ -44,7 +44,7 @@ class CPU
         uint8_t getOpcode( uint16_t address );
         uint8_t fetchMemory() const;
         uint8_t fetchMemory( uint16_t& address ) const;
-        void addToStack(const uint8_t&);
+        void pushToStack(const uint8_t &value);
 
         Instruction getInstruction( uint8_t opcode );
         void executeInstruction( Instruction Inst );

@@ -40,9 +40,9 @@ uint8_t CPU::fetchMemory( uint16_t& address ) const
     return value;
 }
 
-void CPU::addToStack(const uint8_t& value) {
-    write(*this->get16bitRegister(RegistersEnum::SP), value);
+void CPU::pushToStack(const uint8_t& value) {
     *get16bitRegister(RegistersEnum::SP) -= 1;
+    write(*this->get16bitRegister(RegistersEnum::SP), value);
 }
 
 uint8_t CPU::getOpcode( uint16_t address )
