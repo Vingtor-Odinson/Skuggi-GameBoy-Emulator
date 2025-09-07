@@ -111,3 +111,64 @@ TEST_CASE("JP cc, u16 instruction working", "[jp]") {
 
     REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == 0x1234);
 }
+
+TEST_CASE("JR u16 instruction working", "[jr]") {
+
+    uint8_t opcode = 0x18; //opcode for the JR u16
+    CPU cpu = CPU();
+    Instruction inst_jru16 = cpu.getInstruction(opcode);
+
+    uint16_t iAddr = 0x8500;
+    uint8_t  offset = 0x00;
+
+    *cpu.get16bitRegister(RegistersEnum::PC) = iAddr;
+    cpu.write(iAddr, offset);
+
+    cpu.executeInstruction(inst_jru16);
+    iAddr++;
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == iAddr); //Se offset = 0 não muda o ponteiro
+
+    offset = 0x01;
+    cpu.write(iAddr, offset);
+    cpu.executeInstruction(inst_jru16);
+    iAddr++;
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == iAddr + 1); //Se offset = 1 aumenta o PC em 1
+    iAddr++; //Pra deixar igual o PC
+
+    offset = 0xFF;
+    cpu.write(iAddr, offset);
+    cpu.executeInstruction(inst_jru16);
+    iAddr++;
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == iAddr - 1); //Se offset = 1 diminui o PC em 1
+}
+
+TEST_CASE("JR cc, u16 instruction working", "[jr]") {
+
+    uint8_t opcode = 0x38; //opcode for the JP C, u16
+    CPU cpu = CPU();
+    Instruction inst_jru16 = cpu.getInstruction(opcode);
+    cpu.setFlag(FlagsEnum::C, true);
+
+    uint16_t iAddr = 0x8500;
+    uint8_t  offset = 0x00;
+
+    *cpu.get16bitRegister(RegistersEnum::PC) = iAddr;
+    cpu.write(iAddr, offset);
+
+    cpu.executeInstruction(inst_jru16);
+    iAddr++;
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == iAddr); //Se offset = 0 não muda o ponteiro
+
+    offset = 0x01;
+    cpu.write(iAddr, offset);
+    cpu.executeInstruction(inst_jru16);
+    iAddr++;
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == iAddr + 1); //Se offset = 1 aumenta o PC em 1
+    iAddr++; //Pra deixar igual ao PC
+
+    offset = 0xFF;
+    cpu.write(iAddr, offset);
+    cpu.executeInstruction(inst_jru16);
+    iAddr++;
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == iAddr - 1); //Se offset = 1 diminui o PC em 1
+}

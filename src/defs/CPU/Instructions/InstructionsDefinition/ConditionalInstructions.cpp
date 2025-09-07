@@ -45,4 +45,11 @@ namespace Instructions {
         }
     }
 
+    void jr(const InstructionParameters& param, CPU* cpu) {
+        if(checkFlagsConditions(param.firstOpMnemonic, cpu) || (param.firstOpMnemonic == OperatorMnemonicEnum::e8)) {
+            int8_t offset = cpu->fetchMemory();
+            *cpu->get16bitRegister(RegistersEnum::PC) += offset;
+        }
+    }
+
 }
