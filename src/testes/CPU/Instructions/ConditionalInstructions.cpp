@@ -49,3 +49,65 @@ TEST_CASE("CALL u16 instruction working", "[call]") {
     REQUIRE(cpu.read(addSP-1) == (addPC & 0xFF00) >> 8);
     REQUIRE(cpu.read(addSP-2) == (addPC & 0xFF) + 2); //Pois fez fetch duas vezes
 }
+
+TEST_CASE("JP u16 instruction working", "[jp]") {
+
+    uint8_t opcode = 0xC3; //opcode for the OR A, B
+    CPU cpu = CPU();
+    Instruction inst_jpu16 = cpu.getInstruction(opcode);
+
+    uint16_t addPC = 0x8500;
+    uint16_t address = 0x8500;
+    uint8_t lsbNewAdd = 0x34;
+    uint8_t msbNewAdd = 0x12;
+
+    *cpu.get16bitRegister(RegistersEnum::PC) = addPC;
+    cpu.write(address, lsbNewAdd);
+    cpu.write(address + 1, msbNewAdd);
+
+    cpu.executeInstruction(inst_jpu16);
+
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == 0x1234); //Pois fez fetch duas vezes
+}
+
+TEST_CASE("JP HL instruction working", "[jp]") {
+
+    uint8_t opcode = 0xE9; //opcode for the JP, HL
+    CPU cpu = CPU();
+    Instruction inst_jpuhl = cpu.getInstruction(opcode);
+
+    uint16_t addPC = 0x8000;
+    uint16_t addHL = 0x1234;
+
+    *cpu.get16bitRegister(RegistersEnum::PC) = addPC;
+    *cpu.get16bitRegister(RegistersEnum::HL) = addHL;
+
+    cpu.executeInstruction(inst_jpuhl);
+
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == addHL);
+}
+
+TEST_CASE("JP cc, u16 instruction working", "[jp]") {
+
+    uint8_t opcode = 0xCA; //opcode for the JP Z, u16
+    CPU cpu = CPU();
+    Instruction inst_jpu16 = cpu.getInstruction(opcode);
+
+    uint16_t addPC = 0x8500;
+    uint16_t address = 0x8500;
+    uint8_t lsbNewAdd = 0x34;
+    uint8_t msbNewAdd = 0x12;
+
+    *cpu.get16bitRegister(RegistersEnum::PC) = addPC;
+    cpu.write(address, lsbNewAdd);
+    cpu.write(address + 1, msbNewAdd);
+
+    cpu.executeInstruction(inst_jpu16);
+
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == 0x8500);
+
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.executeInstruction(inst_jpu16);
+
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == 0x1234);
+}

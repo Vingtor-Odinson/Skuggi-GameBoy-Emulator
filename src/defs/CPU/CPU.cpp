@@ -82,9 +82,10 @@ void CPU::loadOpcodeTable() {
     opcodeTable["AND"] = Instructions::andInst;
 
     opcodeTable["CALL"] = Instructions::call;
+    opcodeTable["JP"] = Instructions::jp;
 }
 
-bool CPU::getFlag(const FlagsEnum& flag) {
+bool CPU::getFlag(const FlagsEnum& flag) const {
     return regs->getFlag(flag);
 }
 

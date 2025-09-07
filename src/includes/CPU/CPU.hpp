@@ -50,7 +50,7 @@ class CPU
         void executeInstruction( Instruction Inst );
 
         void setFlag(const FlagsEnum&, const bool&);
-        bool getFlag(const FlagsEnum&);
+        bool getFlag(const FlagsEnum&) const;
 
         void setROM(const std::string& Path) const;
         void loadROM()  const;
