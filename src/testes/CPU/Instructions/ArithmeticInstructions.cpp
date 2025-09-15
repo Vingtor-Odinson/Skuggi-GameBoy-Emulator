@@ -599,3 +599,100 @@ TEST_CASE("ADD SP, e8 instruction working", "[add]") {
     REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
 }
+
+TEST_CASE("DEC r8, instruction working", "[dec]") {
+    uint8_t opcode = 0x05;
+    CPU cpu = CPU();
+    Instruction dec = cpu.getInstruction(opcode);
+
+    *cpu.get8bitRegister(RegistersEnum::B) = 0x10; //Tests the carry flag
+
+    cpu.executeInstruction(dec);
+
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::B) == 0x0F);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+
+    *cpu.get8bitRegister(RegistersEnum::B) = 0x01; //Tests the Zero flag
+
+    cpu.executeInstruction(dec);
+
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::B) == 0x00);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    *cpu.get8bitRegister(RegistersEnum::B) = 0x0A; //Tests a non flag operation
+
+    cpu.executeInstruction(dec);
+
+    REQUIRE(*cpu.get8bitRegister(RegistersEnum::B) == 0x09);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+}
+
+TEST_CASE("DEC r16 instruction working", "[dec]") {
+    uint8_t opcode = 0x3B; //DEC SP
+    CPU cpu = CPU();
+    Instruction inst = cpu.getInstruction(opcode);
+
+    *cpu.get16bitRegister(RegistersEnum::SP) = 0x000A;
+    cpu.executeInstruction(inst);
+
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::SP) == 0x0009);
+}
+
+TEST_CASE("DEC HL instruction working", "[dec]") {
+    uint8_t opcode = 0x2B; //DEC HL
+    CPU cpu = CPU();
+    Instruction inst = cpu.getInstruction(opcode);
+
+    *cpu.get16bitRegister(RegistersEnum::HL) = 0x000A;
+    cpu.executeInstruction(inst);
+
+    REQUIRE(*cpu.get16bitRegister(RegistersEnum::HL) == 0x0009);
+}
+
+TEST_CASE("DEC (HL) instruction working", "[dec]") {
+    uint8_t opcode = 0x35;
+    CPU cpu = CPU();
+    Instruction dec = cpu.getInstruction(opcode);
+    uint16_t addr = 0x8500;
+    *cpu.get16bitRegister(RegistersEnum::HL) = addr;
+
+
+    cpu.write(addr, 0x10); //Tests the carry flag
+
+    cpu.executeInstruction(dec);
+
+    REQUIRE(cpu.read(addr) == 0x0F);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+
+    cpu.write(addr, 0x01); //Tests the Zero flag
+
+    cpu.executeInstruction(dec);
+
+    REQUIRE(cpu.read(addr) == 0x00);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    cpu.write(addr, 0x0A); //Tests a non flag operation
+
+    cpu.executeInstruction(dec);
+
+    REQUIRE(cpu.read(addr) == 0x09);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+}
