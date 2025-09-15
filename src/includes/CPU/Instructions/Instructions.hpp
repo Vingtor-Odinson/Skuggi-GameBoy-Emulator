@@ -31,6 +31,10 @@ namespace Instructions{
     void jp(const InstructionParameters&, CPU*);
 
     void jr(const InstructionParameters&, CPU*);
+
+    void ccf(const InstructionParameters&, CPU*);
+
+    void scf(const InstructionParameters&, CPU*);
 }
 
 class Operand
