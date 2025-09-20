@@ -70,6 +70,33 @@ namespace Instructions {
         }
     }
 
+    void sbc(const InstructionParameters& params, CPU* cpu) {
+        if(params.AimedReg == RegistersEnum::A) {
+            uint8_t* ptrA = cpu->get8bitRegister(params.AimedReg);
+            uint8_t valueA = *ptrA;
+            uint8_t carryFlag = cpu->getFlag(FlagsEnum::C) ? 1 : 0;
+            uint8_t valueB;
+
+            if(auto regPtr = cpu->get8bitRegister(params.OriginReg)) {
+                valueB = *regPtr;
+            }
+            else if(params.OriginReg == RegistersEnum::HL && params.OriginIsAddress) {
+                uint16_t addrHL = cpu->get16bitRegisterValue(RegistersEnum::HL);
+                valueB = cpu->read(addrHL);
+            }
+            else if(params.OriginIsNextByte) {
+                valueB = cpu->fetchMemory();
+            }
+            else {
+                return;
+            }
+            valueB += carryFlag;
+
+            *ptrA = valueA - valueB;
+            checkSubFlags(valueA, valueB, cpu);
+        }
+    }
+
     void cp(const InstructionParameters& params, CPU* cpu) {
         if(params.AimedReg == RegistersEnum::A) {
             uint8_t* ptrA = cpu->get8bitRegister(params.AimedReg);

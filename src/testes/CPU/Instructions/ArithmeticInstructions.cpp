@@ -954,6 +954,88 @@ TEST_CASE("SUB A, n8 instruction working", "[sub]") {
     REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
 }
 
+TEST_CASE("SBC A, r8 instruction working", "[sbc]") {
+    uint8_t opcode = 0x98; //DEC SP
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
+    Instruction inst = cpu.getInstruction(opcode);
+
+    //Test without flag C
+    uint8_t valueA = 0x12;
+    uint8_t valueB = 0x01;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x11);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    //Test with flag C
+    cpu.setFlag(FlagsEnum::C, true);
+    valueA = 0x12;
+    valueB = 0x01;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x10);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+}
+
+TEST_CASE("SBC A, [HL] instruction working", "[sbc]") {
+    uint8_t opcode = 0x9E;
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
+    Instruction inst = cpu.getInstruction(opcode);
+    uint16_t addrHL = 0x8500;
+
+    cpu.setFlag(FlagsEnum::C, true);
+    uint8_t valueA = 0x12;
+    uint8_t valueB = 0x02;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+    cpu.write(addrHL, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x0F);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+}
+
+TEST_CASE("SBC A, n8 instruction working", "[sbc]") {
+    uint8_t opcode = 0xDE;
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
+    Instruction inst = cpu.getInstruction(opcode);
+    uint16_t addrPC = 0x8500;
+
+    cpu.setFlag(FlagsEnum::C, true);
+    uint8_t valueA = 0x12;
+    uint8_t valueB = 0x01;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set16bitRegister(RegistersEnum::PC, addrPC);
+    cpu.write(cpu.get16bitRegisterValue(RegistersEnum::PC), valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x10);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+}
+
 TEST_CASE("CP A, r8 instruction working", "[cp]") {
     uint8_t opcode = 0xB8;
     CPUMock cpuMock = CPUMock();
