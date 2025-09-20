@@ -4,6 +4,7 @@
 #include "MBC/MBC.hpp"
 #include "MBC/MBCFactory.hpp"
 #include "CPU/Bus.hpp"
+#include "Exceptions/ROMReadingGenericError.hpp"
 
 ROMLoader::ROMLoader(Bus* bus) {
     this->bus = bus;
@@ -20,7 +21,7 @@ void ROMLoader::LoadROM()
 
     if(!ROM.is_open())
     {
-        throw std::runtime_error("Não foi posśivel carregar a ROM");
+        throw ROMReadingGenericError("Não foi posśivel carregar a ROM");
     }
 
     std::streamsize size = ROM.tellg();
@@ -30,8 +31,7 @@ void ROMLoader::LoadROM()
 
     ROM.read(reinterpret_cast<char*>(ROMData->data()), size);
 
-    MBCFactory mbcFactory;
-    mbc = mbcFactory.createMBC(*ROMData);
+    mbc = MBCFactory::createMBC(*ROMData);
 }
 
 uint8_t ROMLoader::readRom(const uint16_t& add)
@@ -49,7 +49,7 @@ uint8_t ROMLoader::read(const uint16_t &address) {
             return readRom(address);
         }
         else {
-            throw std::runtime_error("There's no MBC available to manage banking.");
+            throw ROMReadingGenericError("There's no MBC available to manage banking.");
         }
     }
 }
@@ -59,6 +59,6 @@ void ROMLoader::write(const uint16_t &address, const uint8_t &value) {
         mbc->write(address, value);
     }
     else {
-        throw std::runtime_error("There's no available MBC to be written.");
+        throw ROMReadingGenericError("There's no available MBC to be written.");
     }
 }

@@ -10,15 +10,10 @@ class MBC;
 
 class MBCFactory{
 
-    std::unordered_map<uint8_t, MBCEnum> mbcTypes = {
-            {0x00, MBCEnum::NoMBC},
-            {0x01, MBCEnum::MBC1},
-            {0x02, MBCEnum::MBC1},
-            {0x03, MBCEnum::MBC1}
-    };
+    static const std::unordered_map<uint8_t, MBCEnum> mbcTypes;
 
 public:
-    MBC* createMBC(const std::vector<uint8_t>& type);
+    static MBC* createMBC(const std::vector<uint8_t>& type);
 };
 
 #endif //SKUGGI_MBCFACTORY_HPP
