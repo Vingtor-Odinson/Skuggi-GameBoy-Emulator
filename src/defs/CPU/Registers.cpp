@@ -1,4 +1,5 @@
 #include "CPU/Registers.hpp"
+#include "Exceptions/WrongCpuRegisterUsage.hpp"
 
 Registers::Registers() {
     masks[FlagsEnum::Z] = 7; //0b10000000
@@ -37,7 +38,6 @@ uint8_t *Registers::get8bitRegister(const RegistersEnum &reg) {
         case RegistersEnum::L: return &(L);
         default: return nullptr;
     }
-    return nullptr;
 }
 
 uint16_t *Registers::get16bitRegister(const RegistersEnum &reg) {
@@ -50,6 +50,39 @@ uint16_t *Registers::get16bitRegister(const RegistersEnum &reg) {
         case RegistersEnum::SP: return &(SP);
         default: return nullptr;
     }
-    return nullptr;
 }
 
+//todo adicionar tratamento de erro (quanto tiver)
+
+void Registers::set8bitRegister(const RegistersEnum& reg, const uint8_t& value) {
+    if( auto ptr = get8bitRegister(reg) ) {
+        *ptr = value;
+    }
+    else {
+        throw WrongCpuRegisterUsageException("Expected 8-bit register.", reg);
+    }
+}
+
+uint8_t Registers::get8bitRegisterValue(const RegistersEnum& reg) {
+    if( auto ptr = get8bitRegister(reg) ) {
+        return *ptr;
+    }
+
+    throw WrongCpuRegisterUsageException("Expected 8-bit register.", reg);
+}
+
+void Registers::set16bitRegister(const RegistersEnum& reg, const uint16_t& value) {
+    if( auto ptr = get16bitRegister(reg) ) {
+        *ptr = value;
+    } else {
+        throw WrongCpuRegisterUsageException("Expected 16-bit register.", reg);
+    }
+}
+
+uint16_t Registers::get16bitRegisterValue(const RegistersEnum& reg) {
+    if( auto ptr = get16bitRegister(reg) ) {
+        return *ptr;
+    }
+
+    throw WrongCpuRegisterUsageException("Expected 16-bit register.", reg);
+}

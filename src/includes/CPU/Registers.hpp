@@ -55,4 +55,10 @@ class Registers
 
         uint8_t* get8bitRegister(const RegistersEnum& reg);
         uint16_t* get16bitRegister(const RegistersEnum& reg);
+
+        void set8bitRegister(const RegistersEnum&, const uint8_t&);
+        void set16bitRegister(const RegistersEnum&, const uint16_t&);
+
+        uint8_t get8bitRegisterValue(const RegistersEnum&);
+        uint16_t get16bitRegisterValue(const RegistersEnum&);
 };

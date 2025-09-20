@@ -5,8 +5,6 @@
 #include<Memoria/Memory.hpp>
 #include<ROM/ROMLoader.hpp>
 
-
-
 CPU::CPU(Bus* bus){
     Instructions = InstructionLoader::LoadInstructions();
     loadOpcodeTable();
@@ -106,5 +104,25 @@ uint8_t* CPU::get8bitRegister(const RegistersEnum& reg) const {
 
 uint16_t* CPU::get16bitRegister(const RegistersEnum& reg) const {
     return regs->get16bitRegister(reg);
+}
+
+void CPU::set8bitRegister(const RegistersEnum &reg, const uint8_t &value) {
+    regs->set8bitRegister(reg, value);
+}
+
+void CPU::set16bitRegister(const RegistersEnum &reg, const uint16_t &value) {
+    regs->set16bitRegister(reg, value);
+}
+
+uint8_t CPU::get8bitRegisterValue(const RegistersEnum &reg) const {
+    try {
+        return regs->get8bitRegisterValue(reg);
+    } catch (std::exception ex) {
+        throw;
+    }
+}
+
+uint16_t CPU::get16bitRegisterValue(const RegistersEnum &reg) const {
+    return regs->get16bitRegisterValue(reg);
 }
 
