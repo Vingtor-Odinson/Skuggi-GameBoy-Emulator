@@ -82,16 +82,6 @@ void checkAndFlags(const uint8_t& value, CPU* cpu) {
     cpu->setFlag(FlagsEnum::C, false);
 }
 
-void checkDecFlags(const uint8_t& orValue, const uint8_t& newValue, CPU* cpu) {
-    cpu->setFlag(FlagsEnum::N, true);
-    cpu->setFlag(FlagsEnum::Z, newValue == 0x00);
-
-    uint8_t oldLowerPart = orValue & 0x0F;
-    uint8_t newLowerPart = newValue & 0x0F;
-
-    cpu->setFlag(FlagsEnum::H, oldLowerPart < newLowerPart);
-}
-
 namespace Instructions{
 
     void nop( const InstructionParameters& params, CPU* cpu ){}
@@ -211,33 +201,6 @@ namespace Instructions{
 
             *dest16bits = newValueDest;
             cpu->setFlag(FlagsEnum::N, false);
-        }
-    }
-
-    void dec( const InstructionParameters& params, CPU* cpu )
-    {   
-        if ( auto reg16 = cpu->get16bitRegister(params.AimedReg) )
-        {
-            if(params.AimedReg == RegistersEnum::HL && params.AimedIsAddress) {
-                uint8_t orValue = cpu->read(*reg16);
-                uint8_t newValue = orValue - 1;
-
-                cpu->write(*reg16, newValue);
-
-                checkDecFlags(orValue, newValue, cpu);
-            }
-            else {
-                (*reg16) -= 1;
-            }
-
-        }
-        else if ( auto reg = cpu->get8bitRegister(params.AimedReg) )
-        {
-            uint8_t orValue = *reg;
-            uint8_t newValue = orValue - 1;
-            (*reg) = newValue;
-
-            checkDecFlags(orValue, newValue, cpu);
         }
     }
 

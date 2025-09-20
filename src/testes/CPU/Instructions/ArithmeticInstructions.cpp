@@ -710,3 +710,80 @@ TEST_CASE("DEC (HL) instruction working", "[dec]") {
     REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
 }
+
+TEST_CASE("SUB A, r16 instruction working", "[sub]") {
+    uint8_t opcode = 0x90; //DEC SP
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
+    Instruction inst = cpu.getInstruction(opcode);
+
+    //Test the H flag
+    uint8_t valueA = 0x12;
+    uint8_t valueB = 0x03;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x0F);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+
+    //Test the Z flag
+    valueA = 0x12;
+    valueB = 0x12;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x00);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    //Test a non flag op
+    valueA = 0x12;
+    valueB = 0x02;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x10);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    //Tests a C flag operation
+    valueA = 0x10;
+    valueB = 0x20;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == (uint8_t) (valueA - valueB));
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+
+    //Tests a C and H flag operation
+    valueA = 0x10;
+    valueB = 0x21;
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == (uint8_t) (valueA - valueB));
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == true);
+}
