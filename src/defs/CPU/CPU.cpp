@@ -5,30 +5,25 @@
 #include<Memoria/Memory.hpp>
 #include<ROM/ROMLoader.hpp>
 
-CPU::CPU(){
+
+
+CPU::CPU(Bus* bus){
     Instructions = InstructionLoader::LoadInstructions();
     loadOpcodeTable();
 
-    bus = new Bus();
-    memory = new Memory( bus );
-    romLoader = new ROMLoader();
+    this->bus = bus;
     instResolver = new InstructionResolver();
     regs = new Registers();
-
-    bus->addDevice(DeviceEnum::Memory, memory);
-    bus->addDevice(DeviceEnum::Cartridge, romLoader);
 }
 
 CPU::~CPU(){
     delete bus;
-    delete memory;
-    delete romLoader;
     delete instResolver;
     delete regs;
 }
 
 uint8_t CPU::fetchMemory() const {
-    uint8_t value = bus->read(DeviceEnum::Memory, *get16bitRegister(RegistersEnum::PC));//this->memory->read(this->regs->PC);
+    uint8_t value = bus->read(DeviceEnum::Memory, *get16bitRegister(RegistersEnum::PC));
     *get16bitRegister(RegistersEnum::PC) += 1;
     return value;
 }
@@ -97,14 +92,6 @@ void CPU::setFlag(const FlagsEnum &flag, const bool &value) {
     regs->setFlag(flag, value);
 }
 
-void CPU::setROM(const std::string &Path) const {
-    romLoader->SetROM(Path);
-}
-
-void CPU::loadROM() const {
-    romLoader->LoadROM();
-}
-
 uint8_t CPU::read(const uint16_t &addr) const {
     return bus->read(DeviceEnum::Memory, addr);
 }
@@ -114,7 +101,6 @@ void CPU::write(const uint16_t &addr, const uint8_t &val) {
 }
 
 uint8_t* CPU::get8bitRegister(const RegistersEnum& reg) const {
-
     return regs->get8bitRegister(reg);
 }
 

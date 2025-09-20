@@ -1,14 +1,13 @@
 #include <catch2/catch_test_macros.hpp>
+#include "Mocks/CPUMock.hpp"
 #include <CPU/CPU.hpp>
-#include <CPU/Registers.hpp>
-#include <CPU/Instructions/Instructions.hpp>
-#include <CPU/Instructions/InstructionResolver.hpp>
 
 TEST_CASE("INC B instruction working properly", "[inc]")
 {
     uint8_t opcode = 0x04; //opcode for the INC B
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::B) = 0x00;
 
@@ -65,7 +64,8 @@ TEST_CASE("INC BC instruction working properly", "[inc]")
 { // Pra testar esse aqui eu preciso olhar a memória
     uint8_t opcode = 0x03; //opcode for the INC BC
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get16bitRegister(RegistersEnum::BC) = 0x8500;
     
@@ -81,7 +81,8 @@ TEST_CASE("INC BC instruction working properly", "[inc]")
 TEST_CASE("LD r8, r8 instruction working", "[ld]") {
     uint8_t opcode = 0x4F; //opcode for the LD
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x04;
@@ -103,7 +104,8 @@ TEST_CASE("LD r8, n8 instruction working", "[ld]") {
 
     uint8_t opcode = 0x3E; //opcode for the LD
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x01;
     *cpu->get16bitRegister(RegistersEnum::PC) = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -124,7 +126,8 @@ TEST_CASE("LD r8, HL instruction working", "[ld]") {
 
     uint8_t opcode = 0x4E; //opcode for the LD
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::C) = 0x00;
     *cpu->get16bitRegister(RegistersEnum::HL) = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -146,7 +149,8 @@ TEST_CASE("LD A, [HLI] instruction working", "[ld]") {
     uint8_t value = 0x15;
     uint16_t address = 0x8510;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x00;
     *cpu->get16bitRegister(RegistersEnum::HL) = address; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -169,7 +173,8 @@ TEST_CASE("LD A, [HLD] instruction working", "[ld]") {
     uint8_t value = 0x15;
     uint16_t address = 0x8510;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x00;
     *cpu->get16bitRegister(RegistersEnum::HL) = address; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -189,7 +194,8 @@ TEST_CASE("LD A, [HLD] instruction working", "[ld]") {
 TEST_CASE("LD [HL], r8 instruction working", "[ld]") {
 
     uint8_t opcode = 0x70;
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::B) = 0x10;
     *cpu->get16bitRegister(RegistersEnum::HL) = 0x8500;
@@ -208,7 +214,8 @@ TEST_CASE("LD [HL], r8 instruction working", "[ld]") {
 TEST_CASE("LD [r16], A instruction working", "[ld]") {
 
     uint8_t opcode = 0x02;
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x10;
     *cpu->get16bitRegister(RegistersEnum::BC) = 0x8500;
@@ -230,7 +237,8 @@ TEST_CASE("LD [n16], A instruction working", "[ld]") {
 
     uint8_t opcode = 0xEA; //opcode for the LD [n16], A
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x10;
     *cpu->get16bitRegister(RegistersEnum::PC) = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -251,7 +259,8 @@ TEST_CASE("LD r16, n16 instruction working", "[ld]") {
 
     uint8_t opcode = 0x01; //opcode for the LD BC, n16
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get16bitRegister(RegistersEnum::BC) = 0x0000;
     *cpu->get16bitRegister(RegistersEnum::PC) = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -275,7 +284,8 @@ TEST_CASE("LD A, [r16] instruction working", "[ld]") {
     uint16_t address = 0x8501;
 
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x00;
     *cpu->get16bitRegister(RegistersEnum::DE) = address;
@@ -297,7 +307,8 @@ TEST_CASE("LD A, [n16] instruction working", "[ld]") {
     uint16_t valAddress = 0x8510;
     uint16_t address = 0x8500;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = 0x00;
     *cpu->get16bitRegister(RegistersEnum::PC) = address;
@@ -321,7 +332,8 @@ TEST_CASE("LD [HLI], A instruction working", "[ld]") {
 
     uint16_t address = 0x8500;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = value;
     *cpu->get16bitRegister(RegistersEnum::HL) = address;
@@ -343,7 +355,8 @@ TEST_CASE("LD [HLD], A instruction working", "[ld]") {
 
     uint16_t address = 0x8500;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = value;
     *cpu->get16bitRegister(RegistersEnum::HL) = address;
@@ -362,7 +375,8 @@ TEST_CASE("LD SP, n16 instruction working", "[ld]") {
 
     uint8_t opcode = 0x31; //opcode for the LD SP, n16
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get16bitRegister(RegistersEnum::SP) = 0x0000;
     *cpu->get16bitRegister(RegistersEnum::PC) = 0x8500; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -387,7 +401,8 @@ TEST_CASE("LD [n16], SP instruction working", "[ld]") {
     uint16_t addressPC = 0x8500;
     uint16_t address = 0x8510;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get16bitRegister(RegistersEnum::SP) = value;
     *cpu->get16bitRegister(RegistersEnum::PC) = addressPC; //Tem que ser em algum pedaço da memória que possa ser lido
@@ -410,7 +425,8 @@ TEST_CASE("LD SP, HL instruction working", "[ld]") {
     uint16_t valueSP = 0x0000;
     uint16_t valueHL = 0x8510;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get16bitRegister(RegistersEnum::SP) = valueSP;
     *cpu->get16bitRegister(RegistersEnum::HL) = valueHL; //Tem que ser em algum pedaço da memória que possa ser lido

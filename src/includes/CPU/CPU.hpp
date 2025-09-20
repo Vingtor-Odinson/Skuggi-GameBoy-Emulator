@@ -11,13 +11,7 @@
 
 using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
 
-class Memory;
-
-class ROMLoader;
-
 class Registers;
-
-class Operand;
 
 class InstructionResolver;
 
@@ -27,18 +21,18 @@ class CPU
     private:
         std::unordered_map<uint8_t, Instruction> Instructions;
         std::unordered_map<std::string, InstructionHandler> opcodeTable;
-        Bus* bus;
-        ROMLoader* romLoader;
-        Memory* memory;
+
         Registers* regs;
         InstructionResolver* instResolver;
+
+        Bus* bus;
 
         void setupCPU();
         void loadOpcodeTable();
 
     public:
 
-        CPU();
+        explicit CPU(Bus* bus);
         ~CPU();
 
         uint8_t getOpcode( uint16_t address );
@@ -52,12 +46,15 @@ class CPU
         void setFlag(const FlagsEnum&, const bool&);
         bool getFlag(const FlagsEnum&) const;
 
-        void setROM(const std::string& Path) const;
-        void loadROM()  const;
-
         uint8_t read(const uint16_t& addr) const;
         void write(const uint16_t& addr, const uint8_t& val);
 
         uint8_t* get8bitRegister(const RegistersEnum& reg) const;
         uint16_t* get16bitRegister(const RegistersEnum& reg) const;
+
+        void set8bitRegister(const RegistersEnum&, const uint8_t&);
+        void set16bitRegister(const RegistersEnum&, const uint16_t&);
+
+        uint8_t get8bitRegisterValue(const RegistersEnum& reg) const;
+        uint16_t get16bitRegisterValue(const RegistersEnum& reg) const;
 };

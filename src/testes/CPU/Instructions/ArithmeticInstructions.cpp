@@ -1,11 +1,13 @@
 #include <catch2/catch_test_macros.hpp>
+#include <Mocks/CPUMock.hpp>
 #include <CPU/CPU.hpp>
 
 TEST_CASE("ADC A, r8 instruction working", "[adc]") {
 
     uint8_t opcode = 0x88; //opcode for the OR A, B
 
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     uint8_t valueA = 0x00;
     uint8_t valueB = 0x00;
@@ -70,7 +72,8 @@ TEST_CASE("ADC A, [HL] instruction working", "[adc]") {
     uint8_t opcode = 0x8E; //opcode for the OR A, B
     uint16_t addrHL = 0x8510;
 
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     uint8_t valueA = 0x00;
     uint8_t valueB = 0x00;
@@ -136,7 +139,8 @@ TEST_CASE("ADC A, n8 instruction working", "[adc]") {
     uint8_t opcode = 0xCE; //opcode for the OR A, B
     uint16_t addrPC = 0x8500;
 
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     uint8_t valueA = 0x00;
     uint8_t valueB = 0x00;
@@ -201,7 +205,8 @@ TEST_CASE("ADD A, r8 instruction working", "[add]") {
 
     uint8_t opcode = 0x80; //opcode for the OR A, B
 
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     uint8_t valueA = 0x00;
     uint8_t valueB = 0x00;
@@ -266,7 +271,8 @@ TEST_CASE("ADD A, [HL] instruction working", "[add]") {
     uint8_t opcode = 0x86; //opcode for the OR A, B
     uint16_t addrHL = 0x8510;
 
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     uint8_t valueA = 0x00;
     uint8_t valueB = 0x00;
@@ -332,7 +338,8 @@ TEST_CASE("ADD A, n8 instruction working", "[add]") {
     uint8_t opcode = 0xC6; //opcode for the OR A, B
     uint16_t addrPC = 0x8500;
 
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     uint8_t valueA = 0x00;
     uint8_t valueB = 0x00;
@@ -396,7 +403,8 @@ TEST_CASE("ADD A, n8 instruction working", "[add]") {
 TEST_CASE("ADD HL, r16 instruction working", "[add]") {
 
     uint8_t opcode = 0x09; //opcode for the ADD HL, BC
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     //Tests 15th bit overflow and value
 
@@ -451,7 +459,8 @@ TEST_CASE("ADD HL, r16 instruction working", "[add]") {
 TEST_CASE("ADD HL, SP instruction working", "[add]") {
 
     uint8_t opcode = 0x39; //opcode for the ADD HL, BC
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     //Tests 15th bit overflow and value
 
@@ -506,7 +515,8 @@ TEST_CASE("ADD HL, SP instruction working", "[add]") {
 TEST_CASE("ADD SP, e8 instruction working", "[add]") {
 
     uint8_t opcode = 0xE8; //opcode for the ADD HL, BC
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     //Tests the sum
 
@@ -602,7 +612,8 @@ TEST_CASE("ADD SP, e8 instruction working", "[add]") {
 
 TEST_CASE("DEC r8, instruction working", "[dec]") {
     uint8_t opcode = 0x05;
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction dec = cpu.getInstruction(opcode);
 
     *cpu.get8bitRegister(RegistersEnum::B) = 0x10; //Tests the carry flag
@@ -638,7 +649,8 @@ TEST_CASE("DEC r8, instruction working", "[dec]") {
 
 TEST_CASE("DEC r16 instruction working", "[dec]") {
     uint8_t opcode = 0x3B; //DEC SP
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst = cpu.getInstruction(opcode);
 
     *cpu.get16bitRegister(RegistersEnum::SP) = 0x000A;
@@ -649,7 +661,8 @@ TEST_CASE("DEC r16 instruction working", "[dec]") {
 
 TEST_CASE("DEC HL instruction working", "[dec]") {
     uint8_t opcode = 0x2B; //DEC HL
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst = cpu.getInstruction(opcode);
 
     *cpu.get16bitRegister(RegistersEnum::HL) = 0x000A;
@@ -660,7 +673,8 @@ TEST_CASE("DEC HL instruction working", "[dec]") {
 
 TEST_CASE("DEC (HL) instruction working", "[dec]") {
     uint8_t opcode = 0x35;
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction dec = cpu.getInstruction(opcode);
     uint16_t addr = 0x8500;
     *cpu.get16bitRegister(RegistersEnum::HL) = addr;

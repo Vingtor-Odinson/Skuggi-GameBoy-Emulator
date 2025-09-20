@@ -1,10 +1,12 @@
 #include <catch2/catch_test_macros.hpp>
+#include "Mocks/CPUMock.hpp"
 #include "CPU/CPU.hpp"
 
 TEST_CASE("AND A, r8 instruction working", "[and]") {
 
     uint8_t opcode = 0xA0; // AND A, B opcode
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     // Tests the Z flag
 
@@ -37,7 +39,8 @@ TEST_CASE("AND A, r8 instruction working", "[and]") {
 TEST_CASE("AND A, [HL] instruction working", "[and]") {
 
     uint8_t opcode = 0xA6; // AND A, [HL] opcode
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     // Tests the Z flag
 
@@ -79,7 +82,8 @@ TEST_CASE("AND A, [HL] instruction working", "[and]") {
 TEST_CASE("AND A, n8 instruction working", "[and]") {
 
     uint8_t opcode = 0xE6; // AND A, n8 opcode
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
 
     // Tests the Z flag
 
@@ -123,7 +127,8 @@ TEST_CASE("OR A, r8 instruction working", "[or]") {
     uint8_t valueA = 0x10;
     uint8_t valueB = 0x11;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = valueA;
     *cpu->get8bitRegister(RegistersEnum::B) = valueB;
@@ -154,7 +159,8 @@ TEST_CASE("OR A, [HL] instruction working", "[or]") {
     uint8_t valueA = 0x10;
     uint8_t valueB = 0x11;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = valueA;
     *cpu->get16bitRegister(RegistersEnum::HL) = addrHL;
@@ -186,7 +192,8 @@ TEST_CASE("OR A, n8 instruction working", "[or]") {
     uint8_t valueA = 0x10;
     uint8_t valueB = 0x11;
 
-    CPU* cpu = new CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
 
     *cpu->get8bitRegister(RegistersEnum::A) = valueA;
     *cpu->get16bitRegister(RegistersEnum::PC) = addrPC;

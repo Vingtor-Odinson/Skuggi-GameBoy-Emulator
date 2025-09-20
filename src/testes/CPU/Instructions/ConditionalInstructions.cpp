@@ -1,10 +1,12 @@
 #include <catch2/catch_test_macros.hpp>
+#include "Mocks/CPUMock.hpp"
 #include "CPU/CPU.hpp"
 
 TEST_CASE("CALL Z, u16 instruction working", "[call]") {
 
     uint8_t opcode = 0xCC; //opcode for the OR A, B
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst_callZa16 = cpu.getInstruction(opcode);
 
     uint16_t addPC = 0x8500;
@@ -29,7 +31,8 @@ TEST_CASE("CALL Z, u16 instruction working", "[call]") {
 TEST_CASE("CALL u16 instruction working", "[call]") {
 
     uint8_t opcode = 0xCD; //opcode for the OR A, B
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst_callZa16 = cpu.getInstruction(opcode);
 
     uint16_t addPC = 0x8500;
@@ -53,7 +56,8 @@ TEST_CASE("CALL u16 instruction working", "[call]") {
 TEST_CASE("JP u16 instruction working", "[jp]") {
 
     uint8_t opcode = 0xC3; //opcode for the OR A, B
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst_jpu16 = cpu.getInstruction(opcode);
 
     uint16_t addPC = 0x8500;
@@ -73,7 +77,8 @@ TEST_CASE("JP u16 instruction working", "[jp]") {
 TEST_CASE("JP HL instruction working", "[jp]") {
 
     uint8_t opcode = 0xE9; //opcode for the JP, HL
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst_jpuhl = cpu.getInstruction(opcode);
 
     uint16_t addPC = 0x8000;
@@ -90,7 +95,8 @@ TEST_CASE("JP HL instruction working", "[jp]") {
 TEST_CASE("JP cc, u16 instruction working", "[jp]") {
 
     uint8_t opcode = 0xCA; //opcode for the JP Z, u16
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst_jpu16 = cpu.getInstruction(opcode);
 
     uint16_t addPC = 0x8500;
@@ -115,7 +121,8 @@ TEST_CASE("JP cc, u16 instruction working", "[jp]") {
 TEST_CASE("JR u16 instruction working", "[jr]") {
 
     uint8_t opcode = 0x18; //opcode for the JR u16
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst_jru16 = cpu.getInstruction(opcode);
 
     uint16_t iAddr = 0x8500;
@@ -145,7 +152,8 @@ TEST_CASE("JR u16 instruction working", "[jr]") {
 TEST_CASE("JR cc, u16 instruction working", "[jr]") {
 
     uint8_t opcode = 0x38; //opcode for the JP C, u16
-    CPU cpu = CPU();
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
     Instruction inst_jru16 = cpu.getInstruction(opcode);
     cpu.setFlag(FlagsEnum::C, true);
 

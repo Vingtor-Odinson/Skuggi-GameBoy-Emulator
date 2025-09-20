@@ -1,10 +1,13 @@
 #include <ROM/ROMLoader.hpp>
-#include <CPU/CPU.hpp>
 #include <Memoria/Memory.hpp>
-#include <Memoria/MemoryParts.hpp>
 #include "fstream"
 #include "MBC/MBC.hpp"
 #include "MBC/MBCFactory.hpp"
+#include "CPU/Bus.hpp"
+
+ROMLoader::ROMLoader(Bus* bus) {
+    this->bus = bus;
+}
 
 void ROMLoader::SetROM( const std::string& Path)
 {
