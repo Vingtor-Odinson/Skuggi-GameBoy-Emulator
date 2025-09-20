@@ -17,6 +17,13 @@ GameBoy::GameBoy() {
     bus->addDevice(CARTRIDGE, romLoader);
 }
 
+GameBoy::~GameBoy() {
+    delete romLoader;
+    delete memory;
+    delete cpu;
+    delete bus;
+}
+
 void GameBoy::setRom(const std::string &path) const {
     romLoader->SetROM(path);
 }

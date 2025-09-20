@@ -17,3 +17,9 @@ CPUMock::CPUMock() {
 CPU* CPUMock::getMockedCPU() {
     return cpu;
 }
+
+CPUMock::~CPUMock() {
+    delete romLoader;
+    delete memory;
+    delete bus;
+}

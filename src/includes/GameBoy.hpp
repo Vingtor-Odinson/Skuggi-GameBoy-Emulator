@@ -22,6 +22,7 @@ private:
 
 public:
     GameBoy();
+    ~GameBoy();
 
     void setRom(const std::string &Path) const;
     void loadRom() const;

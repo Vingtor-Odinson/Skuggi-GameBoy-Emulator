@@ -15,7 +15,6 @@ CPU::CPU(Bus* bus){
 }
 
 CPU::~CPU(){
-    delete bus;
     delete instResolver;
     delete regs;
 }
