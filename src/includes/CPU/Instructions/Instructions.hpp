@@ -22,6 +22,10 @@ namespace Instructions{
 
     void sub(const InstructionParameters& param, CPU* cpu);
 
+    void sbc(const InstructionParameters& param, CPU* cpu);
+
+    void cp(const InstructionParameters& param, CPU* cpu);
+
     void ld( const InstructionParameters& param, CPU* cpu ); // TODO: implementar as variantes que dependem da região de registros do sistema
 
     void orInst( const InstructionParameters&, CPU* );

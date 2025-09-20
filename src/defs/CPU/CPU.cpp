@@ -67,6 +67,8 @@ void CPU::loadOpcodeTable() {
     opcodeTable["INC"] = Instructions::inc;
     opcodeTable["DEC"] = Instructions::dec;
     opcodeTable["SUB"] = Instructions::sub;
+    opcodeTable["SBC"] = Instructions::sbc;
+    opcodeTable["CP"] = Instructions::cp;
     opcodeTable["LD"]  = Instructions::ld;
     opcodeTable["ADC"] = Instructions::adc;
     opcodeTable["ADD"] = Instructions::add;
