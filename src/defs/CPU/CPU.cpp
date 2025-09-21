@@ -84,6 +84,9 @@ void CPU::loadOpcodeTable() {
 
     opcodeTable["CCF"] = Instructions::ccf;
     opcodeTable["SCF"] = Instructions::scf;
+
+    opcodeTable["RLA"] = Instructions::rla;
+    opcodeTable["RRA"] = Instructions::rra;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) const {

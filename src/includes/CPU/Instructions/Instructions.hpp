@@ -45,6 +45,10 @@ namespace Instructions{
     void ccf(const InstructionParameters&, CPU*);
 
     void scf(const InstructionParameters&, CPU*);
+
+    void rla (const InstructionParameters&, CPU*);
+
+    void rra (const InstructionParameters&, CPU*);
 }
 
 class Operand
