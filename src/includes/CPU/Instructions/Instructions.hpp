@@ -34,6 +34,8 @@ namespace Instructions{
 
     void andInst(const InstructionParameters&, CPU*);
 
+    void xorInst(const InstructionParameters&, CPU*);
+
     void call(const InstructionParameters&, CPU*);
 
     void jp(const InstructionParameters&, CPU*);

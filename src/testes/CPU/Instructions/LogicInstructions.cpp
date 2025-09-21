@@ -217,3 +217,88 @@ TEST_CASE("OR A, n8 instruction working", "[or]") {
 
     delete cpu;
 }
+
+TEST_CASE("XOR A, r8 instruction working", "[xor]") {
+
+    uint8_t opcode = 0xA8; //opcode for the OR A, B
+    uint8_t valueA = 0b11110000;
+    uint8_t valueB = 0b11001100;
+
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
+
+    cpu.set8bitRegister(RegistersEnum::A, valueA);
+    cpu.set8bitRegister(RegistersEnum::B, valueB);
+
+    Instruction inst = cpu.getInstruction(opcode);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0b00111100);
+    REQUIRE(!cpu.getFlag(FlagsEnum::N));
+    REQUIRE(!cpu.getFlag(FlagsEnum::H));
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+
+    cpu.set8bitRegister(RegistersEnum::A, 0xFF);
+    cpu.set8bitRegister(RegistersEnum::B, 0xFF);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0X00);
+    REQUIRE(!cpu.getFlag(FlagsEnum::N));
+    REQUIRE(!cpu.getFlag(FlagsEnum::H));
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(cpu.getFlag(FlagsEnum::Z));
+}
+
+TEST_CASE("XOR A, [HL] instruction working", "[xor]") {
+
+    uint8_t opcode = 0xAE;//opcode for the XOR A, [HL]
+    uint8_t valueA = 0b11110000;
+    uint8_t valueB = 0b11001100;
+    uint16_t addrHL = 0x8500;
+
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
+
+    cpu->set8bitRegister(RegistersEnum::A, valueA);
+    cpu->set16bitRegister(RegistersEnum::HL, addrHL);
+    cpu->write(addrHL, valueB);
+
+    Instruction inst = cpu->getInstruction(opcode);
+    cpu->executeInstruction(inst);
+
+    REQUIRE(cpu->get8bitRegisterValue(RegistersEnum::A) == 0b00111100);
+    REQUIRE(!cpu->getFlag(FlagsEnum::N));
+    REQUIRE(!cpu->getFlag(FlagsEnum::H));
+    REQUIRE(!cpu->getFlag(FlagsEnum::C));
+    REQUIRE(!cpu->getFlag(FlagsEnum::Z));
+
+    delete cpu;
+}
+
+TEST_CASE("XOR A, n8 instruction working", "[xor]") {
+
+    uint8_t opcode = 0xEE;//opcode for the XOR A, [HL]
+    uint8_t valueA = 0b11110000;
+    uint8_t valueB = 0b11001100;
+    uint16_t addrPC = 0x8500;
+
+    CPUMock cpuMock = CPUMock();
+    CPU* cpu = cpuMock.getMockedCPU();
+
+    cpu->set8bitRegister(RegistersEnum::A, valueA);
+    cpu->set16bitRegister(RegistersEnum::PC, addrPC);
+    cpu->write(addrPC, valueB);
+
+    Instruction inst = cpu->getInstruction(opcode);
+    cpu->executeInstruction(inst);
+
+    REQUIRE(cpu->get8bitRegisterValue(RegistersEnum::A) == 0b00111100);
+    REQUIRE(!cpu->getFlag(FlagsEnum::N));
+    REQUIRE(!cpu->getFlag(FlagsEnum::H));
+    REQUIRE(!cpu->getFlag(FlagsEnum::C));
+    REQUIRE(!cpu->getFlag(FlagsEnum::Z));
+
+    delete cpu;
+}

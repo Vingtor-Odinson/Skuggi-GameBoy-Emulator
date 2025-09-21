@@ -15,6 +15,36 @@ bool checkFlagsConditions(const OperatorMnemonicEnum& flag, const CPU* cpu) {
 
 namespace Instructions {
 
+    void xorInst(const InstructionParameters& params, CPU* cpu) {
+        if(params.AimedReg == RegistersEnum::A) {
+            uint8_t* ptrA = cpu->get8bitRegister(params.AimedReg);
+            uint8_t valueA = *ptrA;
+            uint8_t valueB;
+
+            if(auto regPtr = cpu->get8bitRegister(params.OriginReg)) {
+                valueB = *regPtr;
+            }
+            else if(params.OriginReg == RegistersEnum::HL && params.OriginIsAddress) {
+                uint16_t addrHL = cpu->get16bitRegisterValue(RegistersEnum::HL);
+                valueB = cpu->read(addrHL);
+            }
+            else if(params.OriginIsNextByte) {
+                valueB = cpu->fetchMemory();
+            }
+            else {
+                return;
+            }
+
+            valueA = valueA ^ valueB;
+            *ptrA = valueA;
+
+            cpu->setFlag(FlagsEnum::Z, valueA == 0x00);
+            cpu->setFlag(FlagsEnum::N, false);
+            cpu->setFlag(FlagsEnum::H, false);
+            cpu->setFlag(FlagsEnum::C, false);
+        }
+    }
+
     void call(const InstructionParameters& param, CPU* cpu) {
         if(checkFlagsConditions(param.firstOpMnemonic, cpu) || (param.firstOpMnemonic == OperatorMnemonicEnum::a16)){
 
