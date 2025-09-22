@@ -6,6 +6,7 @@ Memory::Memory( Bus* pBus )
 {
     bank00 = new BANK00( pBus );
     banknn = new BANKNN( pBus );
+    ioRegs = new IORegisters();
     vram = new VRAM();
 }
 
@@ -13,11 +14,16 @@ Memory::~Memory()
 {
     delete bank00;
     delete banknn;
+    delete ioRegs;
     delete vram;
 }
 
 MemoryPart* Memory::GetMemoryPart( uint16_t address )
-{   
+{
+    if(address >= 0xFF00 && address < 0xFF80) {
+        return ioRegs;
+    }
+
     uint8_t region = address >> 12;
 
     switch (region)
@@ -45,6 +51,10 @@ MemoryPart* Memory::GetMemoryPart( uint16_t address )
 
 uint8_t Memory::read(const uint16_t& address)
 {
+    if(address == 0xFFFF) {
+        return interruptEnableReg;
+    }
+
     MemoryPart* part = GetMemoryPart(address);
 
     if(part)
@@ -57,6 +67,11 @@ uint8_t Memory::read(const uint16_t& address)
 
 void Memory::write(const uint16_t& address,const uint8_t& value )
 {
+    if(address == 0xFFFF) {
+        interruptEnableReg = value;
+        return;
+    }
+
     MemoryPart* part = GetMemoryPart(address);
 
     if(part)

@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <Memoria/BANK00.hpp>
 #include <Memoria/BANKNN.hpp>
+#include <Memoria/IORegisters.hpp>
 #include <Memoria/VRAM.hpp>
 #include "CPU/Device.hpp"
 #include "CPU/Bus.hpp"
@@ -15,10 +16,12 @@ class Memory : public Device
         BANK00* bank00;
         BANKNN* banknn;
         VRAM* vram;
+        IORegisters* ioRegs;
 
         MemoryPart* GetMemoryPart(uint16_t address);
 
     public:
+        uint8_t interruptEnableReg;
         explicit Memory( Bus* bus );
         ~Memory();
 

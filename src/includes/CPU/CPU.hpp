@@ -27,6 +27,8 @@ class CPU
 
         Bus* bus;
 
+        bool IME;
+
         void setupCPU();
         void loadOpcodeTable();
 
