@@ -59,4 +59,10 @@ class CPU
 
         uint8_t get8bitRegisterValue(const RegistersEnum& reg) const;
         uint16_t get16bitRegisterValue(const RegistersEnum& reg) const;
+
+
+        bool shallSetIME;
+        void disableIME() {IME = false;};
+        void setIME() {IME = true;};
+        bool getIME() {return IME;};
 };

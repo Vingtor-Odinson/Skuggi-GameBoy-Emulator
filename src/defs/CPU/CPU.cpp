@@ -43,12 +43,18 @@ uint8_t CPU::getOpcode( uint16_t address )
 }
 
 void CPU::executeInstruction( Instruction Inst )
-{   
+{
+    bool willSetIME = this->shallSetIME;
     std::string mnemonic = Inst.GetMnemonic();
     InstructionParameters* param = new InstructionParameters();
 
     instResolver->ConfigParams( &Inst, *param );
     opcodeTable[mnemonic](*param, this);
+
+    if(willSetIME) {
+        this->setIME();
+        this->shallSetIME = false;
+    }
 
     delete param;
 }
@@ -89,6 +95,9 @@ void CPU::loadOpcodeTable() {
     opcodeTable["RRA"] = Instructions::rra;
     opcodeTable["RLCA"] = Instructions::rlca;
     opcodeTable["RRCA"] = Instructions::rrca;
+
+    opcodeTable["DI"] = Instructions::di;
+    opcodeTable["EI"] = Instructions::ei;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) const {

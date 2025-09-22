@@ -53,6 +53,10 @@ namespace Instructions{
     void rra (const InstructionParameters&, CPU*);
 
     void rrca (const InstructionParameters&, CPU*);
+
+    void ei(const InstructionParameters& param, CPU* cpu);
+
+    void di(const InstructionParameters& param, CPU* cpu);
 }
 
 class Operand
