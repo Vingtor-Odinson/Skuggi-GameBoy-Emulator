@@ -61,6 +61,10 @@ namespace Instructions{
     void push(const InstructionParameters& param, CPU* cpu);
 
     void pop(const InstructionParameters& param, CPU* cpu);
+
+    void ret(const InstructionParameters& param, CPU* cpu);
+
+    void reti(const InstructionParameters& param, CPU* cpu);
 }
 
 class Operand

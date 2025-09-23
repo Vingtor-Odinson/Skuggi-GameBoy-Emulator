@@ -82,4 +82,15 @@ namespace Instructions {
         }
     }
 
+    void ret(const InstructionParameters& param, CPU* cpu) {
+        InstructionParameters popParam = InstructionParameters();
+        popParam.AimedReg = RegistersEnum::PC;
+        pop(popParam, cpu);
+    }
+
+    void reti(const InstructionParameters& param, CPU* cpu) {
+        ret(param, cpu);
+        cpu->setIME();
+    }
+
 }
