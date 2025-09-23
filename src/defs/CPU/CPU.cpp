@@ -34,7 +34,13 @@ uint8_t CPU::fetchMemory( uint16_t& address ) const
 
 void CPU::pushToStack(const uint8_t& value) {
     *get16bitRegister(RegistersEnum::SP) -= 1;
-    write(*this->get16bitRegister(RegistersEnum::SP), value);
+    write(this->get16bitRegisterValue(RegistersEnum::SP), value);
+}
+
+uint8_t CPU::popStack() {
+    uint8_t value = read(this->get16bitRegisterValue(RegistersEnum::SP));
+    *get16bitRegister(RegistersEnum::SP) += 1;
+    return value;
 }
 
 uint8_t CPU::getOpcode( uint16_t address )
@@ -98,6 +104,9 @@ void CPU::loadOpcodeTable() {
 
     opcodeTable["DI"] = Instructions::di;
     opcodeTable["EI"] = Instructions::ei;
+
+    opcodeTable["PUSH"] = Instructions::push;
+    opcodeTable["POP"] = Instructions::pop;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) const {
