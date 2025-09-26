@@ -28,6 +28,11 @@ public:
     void loadRom() const;
 
     uint8_t read(const uint16_t&) const;
+
+    [[nodiscard]] CPU* getCPU() const
+    {
+        return cpu;
+    }
 };
 
 #endif //SKUGGI_GAMEBOY_HPP

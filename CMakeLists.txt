@@ -7,6 +7,11 @@ project(Skuggi)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(IMGUI_INCLUDE_DIR "/home/glauco/Dev/imgui")
+set(IMGUI_BACKENDS_INCLUDE_DIR "/home/glauco/Dev/imgui/backends")
+
+find_package(SDL3 REQUIRED)
+find_package(OpenGL REQUIRED)
 
 # Coletar todos os arquivos .cpp recursivamente de src e subpastas
 file(GLOB_RECURSE SOURCES
@@ -20,8 +25,9 @@ list(FILTER SOURCES EXCLUDE REGEX ".*/testes/.*")
 add_executable(Skuggi ${SOURCES})
 
 # Defina os diretórios de inclusão para os arquivos .hpp
-target_include_directories(Skuggi PRIVATE ${CMAKE_SOURCE_DIR}/src/includes)
+target_include_directories(Skuggi PRIVATE ${CMAKE_SOURCE_DIR}/src/includes ${IMGUI_INCLUDE_DIR} ${IMGUI_BACKENDS_INCLUDE_DIR} ${SDL3_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS})
 
+target_link_libraries(Skuggi ${SDL3_LIBRARIES} ${OPENGL_LIBRARIES})
 # Default build type if not specified
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type specified, defaulting to Debug")

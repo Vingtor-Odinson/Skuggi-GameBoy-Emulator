@@ -27,5 +27,7 @@ class Memory : public Device
 
         uint8_t read(const uint16_t& address) override;
         void write(const uint16_t& address, const uint8_t& value ) override;
+
+        // 0x0000 - 0xFFFF
 };
 
