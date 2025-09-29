@@ -1,7 +1,7 @@
 #ifndef GBEMU_REGISTERSENUM_H
 #define GBEMU_REGISTERSENUM_H
 
-enum class OperatorMnemonicEnum { //Todo: change this name since it does not represent only the registers anymore and seems to be more related to the op mnemonic
+enum class OperatorMnemonicEnum {
     A,
     B,
     C,
@@ -23,6 +23,22 @@ enum class OperatorMnemonicEnum { //Todo: change this name since it does not rep
     NC,
     Z,
     NZ,
+    x00,
+    x08,
+    x10,
+    x18,
+    x20,
+    x28,
+    x30,
+    x38,
+    b0,
+    b1,
+    b2,
+    b3,
+    b4,
+    b5,
+    b6,
+    b7,
     INVALID
 };
 

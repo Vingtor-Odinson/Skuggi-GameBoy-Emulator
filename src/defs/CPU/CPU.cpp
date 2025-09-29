@@ -111,6 +111,7 @@ void CPU::loadOpcodeTable() {
 
     opcodeTable["RET"] = Instructions::ret;
     opcodeTable["RETI"] = Instructions::reti;
+    opcodeTable["RST"] = Instructions::rst;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) const {

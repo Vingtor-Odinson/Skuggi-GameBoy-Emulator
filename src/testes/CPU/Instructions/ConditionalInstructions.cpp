@@ -180,3 +180,21 @@ TEST_CASE("JR cc, u16 instruction working", "[jr]") {
     iAddr++;
     REQUIRE(*cpu.get16bitRegister(RegistersEnum::PC) == iAddr - 1); //Se offset = 1 diminui o PC em 1
 }
+
+TEST_CASE("RST instruction working", "[rst]")
+{
+    uint8_t opcode = 0xF7; //RST 0x30
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
+    Instruction inst = cpu.getInstruction(opcode);
+
+    cpu.set16bitRegister(RegistersEnum::SP, 0x8510);
+    cpu.set16bitRegister(RegistersEnum::PC, 0x1234);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get16bitRegisterValue(RegistersEnum::PC) == 0x0030);
+    REQUIRE(cpu.get16bitRegisterValue(RegistersEnum::SP) == 0x850E);
+    REQUIRE(cpu.read(0x850F) == 0x12);
+    REQUIRE(cpu.read(0x850E) == 0x34);
+}
