@@ -17,6 +17,8 @@ namespace Instructions{
     void adc(const InstructionParameters& param, CPU* cpu);
 
     void add(const InstructionParameters& param, CPU* cpu);
+
+    void daa(const InstructionParameters& param, CPU* cpu);
     
     void dec( const InstructionParameters& param, CPU* cpu ); //TODO: testar
 

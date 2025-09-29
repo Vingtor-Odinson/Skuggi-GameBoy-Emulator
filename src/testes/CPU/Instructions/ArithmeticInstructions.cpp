@@ -1154,3 +1154,37 @@ TEST_CASE("CP A, n8 instruction working", "[cp]") {
     REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
     REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
 }
+
+TEST_CASE("DAA instruction working", "[daa]")
+{
+    uint8_t opcode = 0x27;
+    CPUMock cpuMock = CPUMock();
+    CPU cpu = *cpuMock.getMockedCPU();
+    Instruction inst = cpu.getInstruction(opcode);
+
+    cpu.set8bitRegister(RegistersEnum::A, 0x76);
+    cpu.setFlag(FlagsEnum::N, true);
+    cpu.setFlag(FlagsEnum::H, true);
+    cpu.setFlag(FlagsEnum::C, true);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x10);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == true);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == false);
+
+    cpu.set8bitRegister(RegistersEnum::A, 0x10);
+    cpu.setFlag(FlagsEnum::N, false);
+    cpu.setFlag(FlagsEnum::H, true);
+    cpu.setFlag(FlagsEnum::C, true);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0x76);
+    REQUIRE(cpu.getFlag(FlagsEnum::N) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::H) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::Z) == false);
+    REQUIRE(cpu.getFlag(FlagsEnum::C) == true);
+}

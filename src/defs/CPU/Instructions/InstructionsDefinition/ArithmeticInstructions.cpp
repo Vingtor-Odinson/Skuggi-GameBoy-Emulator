@@ -120,4 +120,33 @@ namespace Instructions {
             checkSubFlags(valueA, valueB, cpu);
         }
     }
+
+    void daa(const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t adjustment = 0;
+        uint8_t regAValue = cpu->get8bitRegisterValue(RegistersEnum::A);
+        bool hFlag = false;
+        bool cFlag = false;
+
+        if (cpu->getFlag(FlagsEnum::N))
+        {
+            hFlag = cpu->getFlag(FlagsEnum::H);
+            cFlag = cpu->getFlag(FlagsEnum::C);
+        }
+        else
+        {
+            hFlag = cpu->getFlag(FlagsEnum::H) || ( regAValue & 0x0F) > 0x09;
+            cFlag = cpu->getFlag(FlagsEnum::C) || regAValue > 0x99;
+        }
+
+        cpu->setFlag(FlagsEnum::C, !cpu->getFlag(FlagsEnum::N) && (cpu->getFlag(FlagsEnum::C) || regAValue > 0x99));
+
+        adjustment += hFlag*0x06 + cFlag*0x60;
+        regAValue = cpu->getFlag(FlagsEnum::N) ? regAValue - adjustment : regAValue + adjustment;
+
+        cpu->set8bitRegister(RegistersEnum::A, regAValue);
+
+        cpu->setFlag(FlagsEnum::H, false);
+        cpu->setFlag(FlagsEnum::Z, regAValue == 0x00);
+    }
 }

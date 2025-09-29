@@ -85,6 +85,7 @@ void CPU::loadOpcodeTable() {
     opcodeTable["LD"]  = Instructions::ld;
     opcodeTable["ADC"] = Instructions::adc;
     opcodeTable["ADD"] = Instructions::add;
+    opcodeTable["DAA"] = Instructions::daa;
 
     opcodeTable["XOR"] = Instructions::xorInst;
     opcodeTable["OR"] = Instructions::orInst;
