@@ -1,16 +1,10 @@
 #pragma once
 
-#include <cstdint>
-#include <unordered_map>
-#include <functional>
-
 #include "CPU/Instructions/Instructions.hpp"
 #include "Bus.hpp"
 #include "CPU/Registers.hpp"
 #include "enum/RegistersEnum.hpp"
 #include "enum/CPUStates.hpp"
-
-using InstructionHandler = std::function<void(InstructionParameters, CPU*)>;
 
 class OpcodeTable;
 
@@ -21,8 +15,6 @@ class InstructionResolver;
 class CPU
 {
 private:
-    std::unordered_map<uint8_t, Instruction> Instructions;
-    std::unordered_map<std::string, InstructionHandler> opcodeTable;
     OpcodeTable* opTable;
 
     Registers* regs;
@@ -32,7 +24,6 @@ private:
     bool IME;
 
     void setupCPU();
-    void loadOpcodeTable();
 
 public:
     CPUStates cpuState;
