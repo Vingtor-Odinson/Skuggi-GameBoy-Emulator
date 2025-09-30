@@ -1,0 +1,45 @@
+#ifndef GBEMU_REGISTERSENUM_H
+#define GBEMU_REGISTERSENUM_H
+
+enum class OperatorMnemonicEnum {
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    H,
+    L,
+    AF,
+    BC,
+    DE,
+    HL,
+    SP,
+    PC,
+    n8,
+    e8,
+    n16,
+    a16,
+    NC,
+    Z,
+    NZ,
+    x00,
+    x08,
+    x10,
+    x18,
+    x20,
+    x28,
+    x30,
+    x38,
+    b0,
+    b1,
+    b2,
+    b3,
+    b4,
+    b5,
+    b6,
+    b7,
+    INVALID
+};
+
+#endif //GBEMU_REGISTERSENUM_H

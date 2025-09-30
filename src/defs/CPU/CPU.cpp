@@ -1,35 +1,25 @@
 #include<CPU/CPU.hpp>
 #include<CPU/Instructions/InstructionResolver.hpp>
 #include "CPU/Instructions/InstructionLoader.hpp"
+#include "CPU/Instructions/OpcodeTable.hpp"
 #include<CPU/Registers.hpp>
 #include<Memoria/Memory.hpp>
-#include<ROM/ROMLoader.hpp>
 
-CPU::CPU(){
-    Instructions = InstructionLoader::LoadInstructions();
-    loadOpcodeTable();
-
-    bus = new Bus();
-    memory = new Memory( bus );
-    romLoader = new ROMLoader();
+CPU::CPU(Bus* bus){
+    opTable = OpcodeTable::getInstance();
+    this->bus = bus;
     instResolver = new InstructionResolver();
     regs = new Registers();
-
-    bus->addDevice(DeviceEnum::Memory, memory);
-    bus->addDevice(DeviceEnum::Cartridge, romLoader);
 }
 
 CPU::~CPU(){
-    delete bus;
-    delete memory;
-    delete romLoader;
     delete instResolver;
     delete regs;
 }
 
 uint8_t CPU::fetchMemory() const {
-    uint8_t value = bus->read(DeviceEnum::Memory, this->regs->PC);//this->memory->read(this->regs->PC);
-    this->regs->PC++;
+    uint8_t value = bus->read(DeviceEnum::Memory, *get16bitRegister(RegistersEnum::PC));
+    *get16bitRegister(RegistersEnum::PC) += 1;
     return value;
 }
 
@@ -40,55 +30,54 @@ uint8_t CPU::fetchMemory( uint16_t& address ) const
     return value;
 }
 
+void CPU::pushToStack(const uint8_t& value) {
+    *get16bitRegister(RegistersEnum::SP) -= 1;
+    write(this->get16bitRegisterValue(RegistersEnum::SP), value);
+}
+
+uint8_t CPU::popStack() {
+    uint8_t value = read(this->get16bitRegisterValue(RegistersEnum::SP));
+    *get16bitRegister(RegistersEnum::SP) += 1;
+    return value;
+}
+
 uint8_t CPU::getOpcode( uint16_t address )
 {
     return bus->read(DeviceEnum::Memory, address);
 }
 
 void CPU::executeInstruction( Instruction Inst )
-{   
+{
+    bool willSetIME = this->shallSetIME;
     std::string mnemonic = Inst.GetMnemonic();
     InstructionParameters* param = new InstructionParameters();
 
     instResolver->ConfigParams( &Inst, *param );
-    opcodeTable[mnemonic](*param, this);
+    opTable->getInstructionImplement(mnemonic)(*param, this);
+
+    if(willSetIME) {
+        this->setIME();
+        this->shallSetIME = false;
+    }
 
     delete param;
 }
 
 void CPU::setupCPU()
 {
-    this->regs->PC = 0x00;
+    *get16bitRegister(RegistersEnum::PC) = 0x00;
 }
 
 Instruction CPU::getInstruction(uint8_t opcode) {
-    return Instructions[opcode];
+    return opTable->getInstruction(opcode);
 }
 
-void CPU::loadOpcodeTable() {
-    opcodeTable["NOP"] = Instructions::nop;
-    opcodeTable["INC"] = Instructions::inc;
-    opcodeTable["DEC"] = Instructions::dec;
-    opcodeTable["LD"]  = Instructions::ld;
-    opcodeTable["OR"] = Instructions::orInst;
-    opcodeTable["ADC"] = Instructions::adc;
-    opcodeTable["ADD"] = Instructions::add;
-}
-
-bool CPU::getFlag(const FlagsEnum& flag) {
+bool CPU::getFlag(const FlagsEnum& flag) const {
     return regs->getFlag(flag);
 }
 
 void CPU::setFlag(const FlagsEnum &flag, const bool &value) {
     regs->setFlag(flag, value);
-}
-
-void CPU::setROM(const std::string &Path) const {
-    romLoader->SetROM(Path);
-}
-
-void CPU::loadROM() const {
-    romLoader->LoadROM();
 }
 
 uint8_t CPU::read(const uint16_t &addr) const {
@@ -99,31 +88,31 @@ void CPU::write(const uint16_t &addr, const uint8_t &val) {
     bus->write(DeviceEnum::Memory, addr, val);
 }
 
-template<>
-uint8_t* CPU::getRegister<uint8_t*>(const RegistersEnum& reg) {
-    switch (reg) {
-        case RegistersEnum::A: return &(regs->A);
-        case RegistersEnum::B: return &(regs->B);
-        case RegistersEnum::C: return &(regs->C);
-        case RegistersEnum::D: return &(regs->D);
-        case RegistersEnum::E: return &(regs->E);
-        case RegistersEnum::F: return &(regs->F);
-        case RegistersEnum::H: return &(regs->H);
-        case RegistersEnum::L: return &(regs->L);
-        default: return nullptr;
+uint8_t* CPU::get8bitRegister(const RegistersEnum& reg) const {
+    return regs->get8bitRegister(reg);
+}
+
+uint16_t* CPU::get16bitRegister(const RegistersEnum& reg) const {
+    return regs->get16bitRegister(reg);
+}
+
+void CPU::set8bitRegister(const RegistersEnum &reg, const uint8_t &value) {
+    regs->set8bitRegister(reg, value);
+}
+
+void CPU::set16bitRegister(const RegistersEnum &reg, const uint16_t &value) {
+    regs->set16bitRegister(reg, value);
+}
+
+uint8_t CPU::get8bitRegisterValue(const RegistersEnum &reg) const {
+    try {
+        return regs->get8bitRegisterValue(reg);
+    } catch (std::exception ex) {
+        throw;
     }
 }
 
-template<>
-uint16_t* CPU::getRegister<uint16_t*>(const RegistersEnum& reg) {
-    switch (reg) {
-        case RegistersEnum::AF: return &(regs->AF);
-        case RegistersEnum::BC: return &(regs->BC);
-        case RegistersEnum::DE: return &(regs->DE);
-        case RegistersEnum::HL: return &(regs->HL);
-        case RegistersEnum::PC: return &(regs->PC);
-        case RegistersEnum::SP: return &(regs->SP);
-        default: return nullptr;
-    }
+uint16_t CPU::get16bitRegisterValue(const RegistersEnum &reg) const {
+    return regs->get16bitRegisterValue(reg);
 }
 

@@ -9,15 +9,15 @@
 #include <stdint.h>
 #include <unordered_map>
 #include <CPU/Instructions/InstructionsParameters.hpp>
-#include "enum/RegistersEnum.hpp"
+#include "enum/OperatorMnemonicEnum.hpp"
 #include "Instructions.hpp"
 
 class InstructionLoader
 {
 private:
     static const std::string fileLocation;
-    static std::unordered_map <std::string, RegistersEnum> registerNameEnumMap;
-    static RegistersEnum getRegisterEnum(const std::string& name);
+    static std::unordered_map <std::string, OperatorMnemonicEnum> registerNameEnumMap;
+    static OperatorMnemonicEnum getRegisterEnum(const std::string& name);
 
 public:
 
