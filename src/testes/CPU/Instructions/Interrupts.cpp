@@ -10,6 +10,7 @@ TEST_CASE("EI and DI instructions working", "[ei], [di]") {
     Instruction inst;
 
     cpu.setIME();
+    cpu.shallSetIME = false;
     opcode = 0xF3; // DI opcode
     inst = cpu.getInstruction(opcode);
     cpu.executeInstruction(inst);
