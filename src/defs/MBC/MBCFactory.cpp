@@ -13,7 +13,7 @@ const std::unordered_map<uint8_t, MBCEnum> MBCFactory::mbcTypes = {
 MBC* MBCFactory::createMBC(const std::vector<uint8_t>& ROMData) {
 
     uint8_t type = ROMData[0x147];
-    auto it = mbcTypes.find(type);
+    auto it = mbcTypes.find(type); //todo: separar em um método pra facilitar a legibilidade
 
     if(it == mbcTypes.end()) {
         throw std::runtime_error("Unknown MBC type.");

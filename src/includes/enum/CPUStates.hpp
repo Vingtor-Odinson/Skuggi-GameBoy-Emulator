@@ -1,8 +1,10 @@
-//
-// Created by glauco on 9/29/25.
-//
-
 #ifndef SKUGGI_CPUSTATES_HPP
 #define SKUGGI_CPUSTATES_HPP
+
+enum class CPUStates
+{
+    RUNNING,
+    HALTED
+};
 
 #endif //SKUGGI_CPUSTATES_HPP

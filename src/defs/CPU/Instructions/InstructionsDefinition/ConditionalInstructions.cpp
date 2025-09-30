@@ -141,4 +141,9 @@ namespace Instructions
         pushPcToStack(cpu);
         cpu->set16bitRegister(RegistersEnum::PC, aimedAddress);
     }
+
+    void halt(const InstructionParameters& param, CPU* cpu)
+    {
+        cpu->cpuState = CPUStates::HALTED;
+    }
 }

@@ -1,13 +1,14 @@
 #include<CPU/CPU.hpp>
 #include<CPU/Instructions/InstructionResolver.hpp>
 #include "CPU/Instructions/InstructionLoader.hpp"
+#include "CPU/Instructions/OpcodeTable.hpp"
 #include<CPU/Registers.hpp>
 #include<Memoria/Memory.hpp>
-#include<ROM/ROMLoader.hpp>
 
 CPU::CPU(Bus* bus){
     Instructions = InstructionLoader::LoadInstructions();
     loadOpcodeTable();
+    opTable = OpcodeTable::getInstance();
 
     this->bus = bus;
     instResolver = new InstructionResolver();
@@ -55,7 +56,7 @@ void CPU::executeInstruction( Instruction Inst )
     InstructionParameters* param = new InstructionParameters();
 
     instResolver->ConfigParams( &Inst, *param );
-    opcodeTable[mnemonic](*param, this);
+    opTable->getInstructionImplement(mnemonic)(*param, this);
 
     if(willSetIME) {
         this->setIME();
@@ -71,7 +72,7 @@ void CPU::setupCPU()
 }
 
 Instruction CPU::getInstruction(uint8_t opcode) {
-    return Instructions[opcode];
+    return opTable->getInstruction(opcode);
 }
 
 void CPU::loadOpcodeTable() {
@@ -86,32 +87,26 @@ void CPU::loadOpcodeTable() {
     opcodeTable["ADC"] = Instructions::adc;
     opcodeTable["ADD"] = Instructions::add;
     opcodeTable["DAA"] = Instructions::daa;
-
     opcodeTable["XOR"] = Instructions::xorInst;
     opcodeTable["OR"] = Instructions::orInst;
     opcodeTable["AND"] = Instructions::andInst;
-
     opcodeTable["CALL"] = Instructions::call;
     opcodeTable["JP"] = Instructions::jp;
     opcodeTable["JR"] = Instructions::jr;
-
     opcodeTable["CCF"] = Instructions::ccf;
     opcodeTable["SCF"] = Instructions::scf;
-
     opcodeTable["RLA"] = Instructions::rla;
     opcodeTable["RRA"] = Instructions::rra;
     opcodeTable["RLCA"] = Instructions::rlca;
     opcodeTable["RRCA"] = Instructions::rrca;
-
     opcodeTable["DI"] = Instructions::di;
     opcodeTable["EI"] = Instructions::ei;
-
     opcodeTable["PUSH"] = Instructions::push;
     opcodeTable["POP"] = Instructions::pop;
-
     opcodeTable["RET"] = Instructions::ret;
     opcodeTable["RETI"] = Instructions::reti;
     opcodeTable["RST"] = Instructions::rst;
+    opcodeTable["HALT"] = Instructions::halt;
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) const {

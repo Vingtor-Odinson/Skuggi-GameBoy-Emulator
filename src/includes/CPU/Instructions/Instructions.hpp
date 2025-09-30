@@ -69,6 +69,8 @@ namespace Instructions{
     void reti(const InstructionParameters& param, CPU* cpu);
 
     void rst(const InstructionParameters& param, CPU* cpu);
+
+    void halt(const InstructionParameters& param, CPU* cpu);
 }
 
 class Operand
