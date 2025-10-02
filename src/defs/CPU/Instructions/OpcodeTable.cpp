@@ -16,7 +16,8 @@ OpcodeTable* OpcodeTable::getInstance()
 
 OpcodeTable::OpcodeTable()
 {
-    Instructions = InstructionLoader::LoadInstructions();
+    Instructions = InstructionLoader::loadInstructions();
+    CbInstructions = InstructionLoader::loadCbInstructions();
     loadOpcodeTable();
 }
 
@@ -27,6 +28,16 @@ InstructionHandler OpcodeTable::getInstructionImplement(const std::string& mnemo
     if (it == opcodeTable.end())
     {
         throw std::runtime_error("The specified Instruction: [" + mnemonic + "] is not implemented.");
+    }
+    return it->second;
+}
+
+Instruction OpcodeTable::getCbInstruction(const uint8_t& opcode)
+{
+    const auto it = CbInstructions.find(opcode);
+    if (it == CbInstructions.end())
+    {
+        throw std::runtime_error("Unknown Instruction.");
     }
     return it->second;
 }

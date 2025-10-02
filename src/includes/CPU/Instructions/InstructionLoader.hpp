@@ -21,8 +21,11 @@ private:
 
 public:
 
-    static std::unordered_map<uint8_t, Instruction> LoadInstructions();
+    static std::unordered_map<uint8_t, Instruction> loadInstructions();
+    static std::unordered_map<uint8_t, Instruction> loadCbInstructions();
 
+private:
+    static std::unordered_map<uint8_t, Instruction> parseInstructionsFile(const std::string& prefix);
 };
 
 #endif //GBEMU_INSTRUCTIONLOADER_HPP
