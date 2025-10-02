@@ -28,11 +28,11 @@
 
 class Bus;
 
-class IORegisters : public MemoryPart //Implementação da primeira parte da memória: O BANK00 que conterá o HEADER do jogo
+class IORegisters : public MemoryPart
 {
 private:
     uint16_t offset = 0xFF00;
-    std::array<uint8_t, 0x7F> registers;
+    std::array<uint8_t, 0x7F> registers = {};
 
 public:
 

@@ -15,6 +15,8 @@ GameBoy::GameBoy() {
 
     bus->addDevice(MEMORY, memory);
     bus->addDevice(CARTRIDGE, romLoader);
+
+    lineDotCounter = 0;
 }
 
 GameBoy::~GameBoy() {
@@ -34,4 +36,14 @@ void GameBoy::loadRom() const {
 
 uint8_t GameBoy::read(const uint16_t &addr) const {
     return bus->read(DeviceEnum::Memory, addr);
+}
+
+void GameBoy::step()
+{
+    uint8_t mCicles = cpu->step();
+    lineDotCounter += mCicles;
+
+    //ppu.step(mCicles);
+    //dma.step(mCicles);
+    //apu.step(mCicles);
 }

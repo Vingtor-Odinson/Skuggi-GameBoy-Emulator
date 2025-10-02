@@ -1,0 +1,4 @@
+#pragma once
+
+#define GAMEBOY_SCREEN_WIDHT 160
+#define GAMEBOY_SCREEN_HEIGHT 144

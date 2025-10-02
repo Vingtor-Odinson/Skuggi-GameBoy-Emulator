@@ -45,6 +45,8 @@ public:
     uint8_t read(const uint16_t& addr) const;
     void write(const uint16_t& addr, const uint8_t& val);
 
+    uint8_t step();
+
     uint8_t* get8bitRegister(const RegistersEnum& reg) const;
     uint16_t* get16bitRegister(const RegistersEnum& reg) const;
 

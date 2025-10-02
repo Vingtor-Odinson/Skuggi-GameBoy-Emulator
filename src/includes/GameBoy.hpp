@@ -20,12 +20,16 @@ private:
     Memory* memory;
     ROMLoader* romLoader;
 
+    uint16_t lineDotCounter;
+
 public:
     GameBoy();
     ~GameBoy();
 
     void setRom(const std::string &Path) const;
     void loadRom() const;
+
+    void step();
 
     uint8_t read(const uint16_t&) const;
 

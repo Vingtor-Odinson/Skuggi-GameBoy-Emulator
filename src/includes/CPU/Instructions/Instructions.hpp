@@ -120,7 +120,7 @@ class Instruction
 
         std::string GetMnemonic() {return mnemonic;}
         uint8_t GetNeededBytesQtd() {return bytes;}
-        uint8_t GetCiclesNumber() {return cicles;}
+        uint8_t getCiclesNumber() {return cicles;}
         uint8_t GetOperandsNumber() {return operandsNumber;}
         bool IsImmediate(){return immediate;}
 

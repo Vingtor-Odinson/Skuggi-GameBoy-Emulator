@@ -116,3 +116,11 @@ uint16_t CPU::get16bitRegisterValue(const RegistersEnum &reg) const {
     return regs->get16bitRegisterValue(reg);
 }
 
+uint8_t CPU::step()
+{
+    const uint8_t opcode = fetchMemory();
+    Instruction inst = opTable->getInstruction(opcode);
+    executeInstruction(inst);
+    return inst.getCiclesNumber();
+}
+
