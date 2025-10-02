@@ -36,7 +36,8 @@ public:
     void pushToStack(const uint8_t& value);
     uint8_t popStack();
 
-    Instruction getInstruction(uint8_t opcode);
+    Instruction getInstruction(const uint8_t&);
+    Instruction getCbInstruction(const uint8_t&);
     void executeInstruction(Instruction Inst);
 
     void setFlag(const FlagsEnum&, const bool&);

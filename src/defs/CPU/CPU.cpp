@@ -68,8 +68,12 @@ void CPU::setupCPU()
     *get16bitRegister(RegistersEnum::PC) = 0x00;
 }
 
-Instruction CPU::getInstruction(uint8_t opcode) {
+Instruction CPU::getInstruction(const uint8_t& opcode) {
     return opTable->getInstruction(opcode);
+}
+
+Instruction CPU::getCbInstruction(const uint8_t& opcode) {
+    return opTable->getCbInstruction(opcode);
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) const {

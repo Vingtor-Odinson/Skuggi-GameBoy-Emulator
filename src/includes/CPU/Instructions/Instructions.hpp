@@ -50,11 +50,19 @@ namespace Instructions{
 
     void rla (const InstructionParameters&, CPU*);
 
+    void rl (const InstructionParameters&, CPU*);
+
     void rlca (const InstructionParameters&, CPU*);
+
+    void rlc (const InstructionParameters&, CPU*);
 
     void rra (const InstructionParameters&, CPU*);
 
+    void rr (const InstructionParameters&, CPU*);
+
     void rrca (const InstructionParameters&, CPU*);
+
+    void rrc (const InstructionParameters&, CPU*);
 
     void ei(const InstructionParameters& param, CPU* cpu);
 
