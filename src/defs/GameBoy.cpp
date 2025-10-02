@@ -1,5 +1,6 @@
 #include "GameBoy.hpp"
 #include "CPU/CPU.hpp"
+#include "PPU/PPU.hpp"
 #include "Memoria/Memory.hpp"
 #include "ROM/ROMLoader.hpp"
 #include "CPU/Bus.hpp"
@@ -10,6 +11,7 @@
 GameBoy::GameBoy() {
     bus = new Bus();
     cpu = new CPU(bus);
+    ppu = new PPU(bus);
     memory = new Memory(bus);
     romLoader = new ROMLoader(bus);
 
@@ -43,7 +45,7 @@ void GameBoy::step()
     uint8_t mCicles = cpu->step();
     lineDotCounter += mCicles;
 
-    //ppu.step(mCicles);
+    ppu->step(mCicles);
     //dma.step(mCicles);
     //apu.step(mCicles);
 }

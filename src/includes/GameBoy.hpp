@@ -5,6 +5,8 @@
 
 class CPU;
 
+class PPU;
+
 class Memory;
 
 class Bus;
@@ -16,6 +18,7 @@ class GameBoy {
 private:
     //Trocar isso pra smartpointer assim que possível
     CPU* cpu;
+    PPU* ppu;
     Bus* bus;
     Memory* memory;
     ROMLoader* romLoader;
