@@ -1,11 +1,43 @@
+#include <stdexcept>
+
 #include "CPU/CPU.hpp"
 #include "enum/FlagsEnum.hpp"
 
 #define C FlagsEnum::C
 
+uint8_t getRegByte(const RegistersEnum& reg, CPU* cpu)
+{
+    if (reg == RegistersEnum::HL)
+    {
+        const auto addrHL = cpu->get16bitRegisterValue(RegistersEnum::HL);
+        return cpu->read(addrHL);
+    }
+    if (const auto regByte = cpu->get8bitRegisterValue(reg))
+    {
+        return regByte;
+    }
+
+    throw std::runtime_error("Invalid register");
+}
+
+void setRegByte(const uint8_t& regByte, const RegistersEnum& reg, CPU* cpu)
+{
+    if (reg == RegistersEnum::HL)
+    {
+        const auto addrHL = cpu->get16bitRegisterValue(RegistersEnum::HL);
+        cpu->write(addrHL, regByte);
+        return;
+    }
+    try {
+        cpu->set8bitRegister(reg, regByte);
+    } catch (const std::exception& e) {
+        throw std::runtime_error("Invalid register");
+    }
+}
+
 uint8_t rotateLeft(const RegistersEnum& reg, CPU* cpu)
 {
-    auto regByte = cpu->get8bitRegisterValue(reg);
+    uint8_t regByte = getRegByte(reg, cpu);
 
     const uint8_t msBitA = (regByte & 0b10000000) >> 7;
     const uint8_t cBit = cpu->getFlag(C);
@@ -14,13 +46,14 @@ uint8_t rotateLeft(const RegistersEnum& reg, CPU* cpu)
     regByte &= 0b01111111;
     regByte = regByte << 1;
     regByte += cBit;
-    cpu->set8bitRegister(reg, regByte);
+
+    setRegByte(regByte, reg, cpu);
     return regByte;
 }
 
 uint8_t rotateLeftNoC(const RegistersEnum& reg, CPU* cpu)
 {
-    auto regByte = cpu->get8bitRegisterValue(reg);
+    uint8_t regByte = getRegByte(reg, cpu);
 
     const uint8_t msBitA = (regByte & 0b10000000) >> 7;
     cpu->setFlag(C, msBitA);
@@ -28,13 +61,13 @@ uint8_t rotateLeftNoC(const RegistersEnum& reg, CPU* cpu)
     regByte &= 0b01111111;
     regByte = regByte << 1;
     regByte += msBitA;
-    cpu->set8bitRegister(reg, regByte);
+    setRegByte(regByte, reg, cpu);
     return regByte;
 }
 
 uint8_t rotateRight(const RegistersEnum& reg, CPU* cpu)
 {
-    auto regByte = cpu->get8bitRegisterValue(reg);
+    uint8_t regByte = getRegByte(reg, cpu);
 
     const uint8_t cBit = cpu->getFlag(C) << 7;
     cpu->setFlag(C, regByte & 0x01);
@@ -42,13 +75,13 @@ uint8_t rotateRight(const RegistersEnum& reg, CPU* cpu)
     regByte &= 0b11111110;
     regByte = regByte >> 1;
     regByte += cBit;
-    cpu->set8bitRegister(reg, regByte);
+    setRegByte(regByte, reg, cpu);
     return regByte;
 }
 
 uint8_t rotateRightNoC(const RegistersEnum& reg, CPU* cpu)
 {
-    auto regByte = cpu->get8bitRegisterValue(reg);
+    uint8_t regByte = getRegByte(reg, cpu);
 
     const uint8_t msBit = regByte & 0x01;
     const uint8_t cBit = msBit << 7;
@@ -57,7 +90,7 @@ uint8_t rotateRightNoC(const RegistersEnum& reg, CPU* cpu)
     regByte &= 0b11111110;
     regByte = regByte >> 1;
     regByte += cBit;
-    cpu->set8bitRegister(reg, regByte);
+    setRegByte(regByte, reg, cpu);
     return regByte;
 }
 
