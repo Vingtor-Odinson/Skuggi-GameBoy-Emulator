@@ -66,6 +66,10 @@ namespace Instructions{
 
     void rrc (const InstructionParameters&, CPU*);
 
+    void swap (const InstructionParameters&, CPU*);
+
+    void set (const InstructionParameters&, CPU*);
+
     void sra (const InstructionParameters&, CPU*);
 
     void srl (const InstructionParameters&, CPU*);

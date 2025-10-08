@@ -2,8 +2,7 @@
 
 #include "CPU/CPU.hpp"
 #include "enum/FlagsEnum.hpp"
-
-#define C FlagsEnum::C
+#include "Utils/Conversors/OpMnemonicToNumber.hpp"
 
 uint8_t getRegByte(const RegistersEnum& reg, CPU* cpu)
 {
@@ -40,8 +39,8 @@ uint8_t rotateLeft(const RegistersEnum& reg, CPU* cpu)
     uint8_t regByte = getRegByte(reg, cpu);
 
     const uint8_t msBitA = (regByte & 0b10000000) >> 7;
-    const uint8_t cBit = cpu->getFlag(C);
-    cpu->setFlag(C, msBitA);
+    const uint8_t cBit = cpu->getFlag(FlagsEnum::C);
+    cpu->setFlag(FlagsEnum::C, msBitA);
 
     regByte &= 0b01111111;
     regByte = regByte << 1;
@@ -56,7 +55,7 @@ uint8_t rotateLeftNoC(const RegistersEnum& reg, CPU* cpu)
     uint8_t regByte = getRegByte(reg, cpu);
 
     const uint8_t msBitA = (regByte & 0b10000000) >> 7;
-    cpu->setFlag(C, msBitA);
+    cpu->setFlag(FlagsEnum::C, msBitA);
 
     regByte &= 0b01111111;
     regByte = regByte << 1;
@@ -69,8 +68,8 @@ uint8_t rotateRight(const RegistersEnum& reg, CPU* cpu)
 {
     uint8_t regByte = getRegByte(reg, cpu);
 
-    const uint8_t cBit = cpu->getFlag(C) << 7;
-    cpu->setFlag(C, regByte & 0x01);
+    const uint8_t cBit = cpu->getFlag(FlagsEnum::C) << 7;
+    cpu->setFlag(FlagsEnum::C, regByte & 0x01);
 
     regByte &= 0b11111110;
     regByte = regByte >> 1;
@@ -85,7 +84,7 @@ uint8_t rotateRightNoC(const RegistersEnum& reg, CPU* cpu)
 
     const uint8_t msBit = regByte & 0x01;
     const uint8_t cBit = msBit << 7;
-    cpu->setFlag(C, msBit);
+    cpu->setFlag(FlagsEnum::C, msBit);
 
     regByte &= 0b11111110;
     regByte = regByte >> 1;
@@ -119,7 +118,7 @@ namespace Instructions {
     {
         uint8_t regByte = getRegByte(params.AimedReg, cpu);
 
-        cpu->setFlag(C, (regByte & 0x80) >> 7); //Sets the C flag as the ms bit
+        cpu->setFlag(FlagsEnum::C, (regByte & 0x80) >> 7); //Sets the FlagsEnum::C flag as the ms bit
         regByte = ((regByte & 0x7F) << 1); //Shifts the rest of the byte
         setRegByte(regByte, params.AimedReg, cpu);
         cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
@@ -148,7 +147,7 @@ namespace Instructions {
     {
         uint8_t regByte = getRegByte(params.AimedReg, cpu);
 
-        cpu->setFlag(C, (regByte & 0x01));
+        cpu->setFlag(FlagsEnum::C, (regByte & 0x01));
         regByte = (regByte & 0x80) + ((regByte & 0xFE) >> 1);
         setRegByte(regByte, params.AimedReg, cpu);
         cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
@@ -158,9 +157,34 @@ namespace Instructions {
     {
         uint8_t regByte = getRegByte(params.AimedReg, cpu);
 
-        cpu->setFlag(C, (regByte & 0x01));
+        cpu->setFlag(FlagsEnum::C, (regByte & 0x01));
         regByte = (regByte & 0xFE) >> 1;
         setRegByte(regByte, params.AimedReg, cpu);
         cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+    }
+
+    void swap (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        uint8_t upperPart = regByte & 0xF0;
+        uint8_t lowerPart = regByte & 0x0F;
+
+        regByte = (lowerPart << 4) | (upperPart >> 4);
+        setRegByte(regByte, params.AimedReg, cpu);
+
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+        cpu->setFlag(FlagsEnum::N, false);
+        cpu->setFlag(FlagsEnum::H, false);
+        cpu->setFlag(FlagsEnum::C, false);
+    }
+
+    void set (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.OriginReg, cpu);
+
+        uint8_t bitIndex = OpMnemonicToNumber::convert(params.firstOpMnemonic);
+        regByte = regByte | (0x01 << bitIndex);
+        setRegByte(regByte, params.OriginReg, cpu);
     }
 }

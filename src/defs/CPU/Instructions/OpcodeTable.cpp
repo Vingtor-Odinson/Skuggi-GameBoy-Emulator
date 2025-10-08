@@ -83,6 +83,8 @@ void OpcodeTable::loadOpcodeTable() {
     opcodeTable["RLC"] = Instructions::rlc;
     opcodeTable["RRCA"] = Instructions::rrca;
     opcodeTable["RRC"] = Instructions::rrc;
+    opcodeTable["SWAP"] = Instructions::swap;
+    opcodeTable["SET"] = Instructions::set;
     opcodeTable["DI"] = Instructions::di;
     opcodeTable["EI"] = Instructions::ei;
     opcodeTable["PUSH"] = Instructions::push;

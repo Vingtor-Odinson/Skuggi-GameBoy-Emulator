@@ -7,7 +7,7 @@
 
 class OpMnemonicToReg{
 private:
-    std::unordered_map<OperatorMnemonicEnum, RegistersEnum> mnemonicToRegMap = {
+    static inline std::unordered_map<OperatorMnemonicEnum, RegistersEnum> mnemonicToRegMap = {
             {OperatorMnemonicEnum::A, RegistersEnum::A},
             {OperatorMnemonicEnum::B, RegistersEnum::B},
             {OperatorMnemonicEnum::C, RegistersEnum::C},
@@ -25,7 +25,7 @@ private:
     };
 
 public:
-    RegistersEnum convert(const OperatorMnemonicEnum& mnemonic) {
+    static RegistersEnum convert(const OperatorMnemonicEnum& mnemonic) {
         auto it = mnemonicToRegMap.find(mnemonic);
         if(it != mnemonicToRegMap.end()) {
             return it->second;
