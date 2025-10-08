@@ -5127,7 +5127,7 @@
 			],
 			"operands": [
 				{
-					"name": "a8",
+					"name": "n8",
 					"bytes": 1,
 					"immediate": false
 				},
@@ -5445,7 +5445,7 @@
 					"immediate": true
 				},
 				{
-					"name": "a8",
+					"name": "n8",
 					"bytes": 1,
 					"immediate": false
 				}

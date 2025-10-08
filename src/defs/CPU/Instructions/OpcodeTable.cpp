@@ -61,6 +61,7 @@ void OpcodeTable::loadOpcodeTable() {
     opcodeTable["CP"] = Instructions::cp;
     opcodeTable["CPL"] = Instructions::cpl;
     opcodeTable["LD"]  = Instructions::ld;
+    opcodeTable["LDH"]  = Instructions::ldh;
     opcodeTable["ADC"] = Instructions::adc;
     opcodeTable["ADD"] = Instructions::add;
     opcodeTable["DAA"] = Instructions::daa;

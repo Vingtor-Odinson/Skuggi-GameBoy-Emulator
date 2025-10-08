@@ -1,12 +1,4 @@
 #include <CPU/CPU.hpp>
-#include <Memoria/Memory.hpp>
-#include <CPU/Instructions/Instructions.hpp>
-#include <CPU/Registers.hpp>
-#include <CPU/Instructions/InstructionResolver.hpp>
-#include <nlohmann/json.hpp>
-#include "enum/RegistersEnum.hpp"
-
-using json = nlohmann::json;
 
 void checkSumFlags8bits(const uint8_t& oldValue, const uint8_t& newValue, CPU* cpu) {
 
