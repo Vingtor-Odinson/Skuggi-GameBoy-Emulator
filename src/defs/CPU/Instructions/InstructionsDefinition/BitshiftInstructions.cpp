@@ -188,6 +188,15 @@ namespace Instructions {
         setRegByte(regByte, params.OriginReg, cpu);
     }
 
+    void res (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.OriginReg, cpu);
+
+        uint8_t bitIndex = OpMnemonicToNumber::convert(params.firstOpMnemonic);
+        regByte = regByte & ~(0x01 << bitIndex);
+        setRegByte(regByte, params.OriginReg, cpu);
+    }
+
     void bit (const InstructionParameters& params, CPU* cpu)
     {
         uint8_t regByte = getRegByte(params.OriginReg, cpu);

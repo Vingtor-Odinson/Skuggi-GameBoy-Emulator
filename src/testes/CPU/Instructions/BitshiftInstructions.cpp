@@ -353,3 +353,29 @@ TEST_CASE("BIT u3, [HL]] instruction working", "[bit]") {
 
     REQUIRE(cpu.getFlag(FlagsEnum::Z));
 }
+
+TEST_CASE("RES u3, r8 instruction working", "[res]") {
+    uint8_t opcode = 0xB9; //RES 4, C
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.set8bitRegister(RegistersEnum::C, 0xFF);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::C) == 0x7F);
+}
+
+TEST_CASE("RES u3, [HL] instruction working", "[res]") {
+    uint8_t opcode = 0x9E; //RES 3, [HL]
+    uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.write(addrHL, 0xFF);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.read(addrHL) == 0xF7);
+}
