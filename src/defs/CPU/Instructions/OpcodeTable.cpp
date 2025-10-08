@@ -85,6 +85,7 @@ void OpcodeTable::loadOpcodeTable() {
     opcodeTable["RRC"] = Instructions::rrc;
     opcodeTable["SWAP"] = Instructions::swap;
     opcodeTable["SET"] = Instructions::set;
+    opcodeTable["BIT"] = Instructions::bit;
     opcodeTable["DI"] = Instructions::di;
     opcodeTable["EI"] = Instructions::ei;
     opcodeTable["PUSH"] = Instructions::push;

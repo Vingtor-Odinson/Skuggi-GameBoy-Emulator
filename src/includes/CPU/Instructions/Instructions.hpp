@@ -70,6 +70,8 @@ namespace Instructions{
 
     void set (const InstructionParameters&, CPU*);
 
+    void bit (const InstructionParameters&, CPU*);
+
     void sra (const InstructionParameters&, CPU*);
 
     void srl (const InstructionParameters&, CPU*);
