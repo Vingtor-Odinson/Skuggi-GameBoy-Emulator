@@ -73,8 +73,11 @@ void OpcodeTable::loadOpcodeTable() {
     opcodeTable["CCF"] = Instructions::ccf;
     opcodeTable["SCF"] = Instructions::scf;
     opcodeTable["RLA"] = Instructions::rla;
+    opcodeTable["SLA"] = Instructions::sla;
     opcodeTable["RL"] = Instructions::rl;
     opcodeTable["RRA"] = Instructions::rra;
+    opcodeTable["SRA"] = Instructions::sra;
+    opcodeTable["SRL"] = Instructions::srl;
     opcodeTable["RR"] = Instructions::rr;
     opcodeTable["RLCA"] = Instructions::rlca;
     opcodeTable["RLC"] = Instructions::rlc;

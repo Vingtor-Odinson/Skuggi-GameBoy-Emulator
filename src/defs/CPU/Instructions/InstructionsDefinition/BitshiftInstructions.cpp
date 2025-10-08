@@ -115,6 +115,16 @@ namespace Instructions {
         cpu->setFlag(FlagsEnum::Z, resultByte == 0x00);
     }
 
+    void sla(const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        cpu->setFlag(C, (regByte & 0x80) >> 7); //Sets the C flag as the ms bit
+        regByte = ((regByte & 0x7F) << 1); //Shifts the rest of the byte
+        setRegByte(regByte, params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+    }
+
     void rra (const InstructionParameters& params, CPU* cpu) {
         rotateRight(RegistersEnum::A, cpu);
     }
@@ -132,5 +142,25 @@ namespace Instructions {
     void rrc (const InstructionParameters& params, CPU* cpu) {
         const uint8_t result = rotateRightNoC(params.AimedReg, cpu);
         cpu->setFlag(FlagsEnum::Z, result == 0x00);
+    }
+
+    void sra (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        cpu->setFlag(C, (regByte & 0x01));
+        regByte = (regByte & 0x80) + ((regByte & 0xFE) >> 1);
+        setRegByte(regByte, params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+    }
+
+    void srl (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        cpu->setFlag(C, (regByte & 0x01));
+        regByte = (regByte & 0xFE) >> 1;
+        setRegByte(regByte, params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
     }
 }

@@ -112,6 +112,22 @@ TEST_CASE("RLC [HL] instruction working", "[rlc]") {
     REQUIRE(cpu.read(addrHL) == 0b01101010);
 }
 
+TEST_CASE("SLA r8 instruction working", "[sla]") {
+    uint8_t opcode = 0x22; //SLA D
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::D, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::D) == 0b01101010);
+}
+
 TEST_CASE("RRA instruction working", "[rra]") {
     uint8_t opcode = 0x1F;
     CPUMock mock = CPUMock();
@@ -220,4 +236,36 @@ TEST_CASE("RRC [HL] instruction working", "[rrc]") {
     REQUIRE(!cpu.getFlag(FlagsEnum::C));
     REQUIRE(!cpu.getFlag(FlagsEnum::Z));
     REQUIRE(cpu.read(addrHL) == 0b00011010);
+}
+
+TEST_CASE("SRA r8 instruction working", "[sra]") {
+    uint8_t opcode = 0x2B; //SLA E
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::E, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::E) == 0b00011010);
+}
+
+TEST_CASE("SRL r8 instruction working", "[srl]") {
+    uint8_t opcode = 0x2B; //SLA E
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::E, 0b10110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::E) == 0b11011010);
 }
