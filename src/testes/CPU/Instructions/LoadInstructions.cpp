@@ -61,3 +61,21 @@ TEST_CASE("LDH A, C instruction working properly", "[ldh]")
 
     REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == opcode);
 }
+
+TEST_CASE("LD HL, SP + e8 instruction working", "[ld]")
+{
+    const uint8_t opcode = 0xF8;
+    const uint16_t addrPC = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    const Instruction inst = cpu.getInstruction(opcode);
+
+    cpu.write(addrPC, -10);
+    cpu.set16bitRegister(RegistersEnum::PC, addrPC);
+    cpu.set16bitRegister(RegistersEnum::SP, 0x1234);
+    cpu.set16bitRegister(RegistersEnum::HL, 0x00);
+
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get16bitRegisterValue(RegistersEnum::HL) == 0x122A);
+}
