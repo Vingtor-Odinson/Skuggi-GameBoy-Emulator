@@ -1,11 +1,16 @@
 #include<Memoria/Memory.hpp>
 #include<Memoria/MemoryParts.hpp>
+#include<CPU/Bus.hpp>
 
 Memory::Memory( Bus* pBus )
 : bus(pBus)
 {
     bank00 = new BANK00( pBus );
     banknn = new BANKNN( pBus );
+    wram1 = new WRAM(0xC000);
+    wram2 = new WRAM(0xD000);
+    hram = new HRAM();
+    oam = new OAM();
     ioRegs = new IORegisters();
     vram = new VRAM();
 }
@@ -14,14 +19,24 @@ Memory::~Memory()
 {
     delete bank00;
     delete banknn;
+    delete wram1;
+    delete wram2;
+    delete hram;
+    delete oam;
     delete ioRegs;
     delete vram;
 }
 
 MemoryPart* Memory::GetMemoryPart( uint16_t address )
 {
-    if(address >= 0xFF00 && address < 0xFF80) {
+    if(address >= 0xFF00 && address < 0xFF80)
+    {
         return ioRegs;
+    }
+
+    if ( address >= 0xFE00 && address < 0xFEA0)
+    {
+        return oam;
     }
 
     uint8_t region = address >> 12;
@@ -43,7 +58,10 @@ MemoryPart* Memory::GetMemoryPart( uint16_t address )
     case 0x8:
     case 0x9:
         return this->vram;
-        
+    case 0xC:
+        return this->wram1;
+    case 0xD:
+        return this->wram2;
     default:
         break;
     }

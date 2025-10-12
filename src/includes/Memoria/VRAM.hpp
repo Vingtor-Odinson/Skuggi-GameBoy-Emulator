@@ -7,7 +7,7 @@ class VRAM : public MemoryPart //Implementação da primeira parte da memória: 
 {   
     public:
 
-        uint32_t memoryOffset = 0x8000; //O offset para que possamos lidar com acesso externo a memória (Normalmente o último bit anterior + 1)
+        uint16_t memoryOffset = 0x8000; //O offset para que possamos lidar com acesso externo a memória (Normalmente o último bit anterior + 1)
         static constexpr uint16_t memorySize = 0x2000;
         std::array<uint8_t, memorySize> memory;
 

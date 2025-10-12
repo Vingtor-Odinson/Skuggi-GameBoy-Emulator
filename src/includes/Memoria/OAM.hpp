@@ -5,7 +5,7 @@
 class OAM : public MemoryPart
 {
 public:
-    uint32_t memoryOffset = 0xFE00;
+    uint16_t memoryOffset = 0xFE00;
     static constexpr uint16_t memorySize = 0xA0;
     std::array<uint8_t, memorySize> memory;
 
