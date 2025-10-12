@@ -1,0 +1,8 @@
+//
+// Created by glauco on 10/11/25.
+//
+
+#ifndef SKUGGI_MONOCHROMETORGB_HPP
+#define SKUGGI_MONOCHROMETORGB_HPP
+
+#endif //SKUGGI_MONOCHROMETORGB_HPP
