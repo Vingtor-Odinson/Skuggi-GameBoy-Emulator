@@ -1,8 +1,10 @@
-//
-// Created by glauco on 10/11/25.
-//
+#pragma once
+#include <cstdint>
 
-#ifndef SKUGGI_OAM_OBJECT_HPP
-#define SKUGGI_OAM_OBJECT_HPP
-
-#endif //SKUGGI_OAM_OBJECT_HPP
+struct OAMObject
+{
+    uint8_t yPosition;
+    uint8_t xPosition;
+    uint8_t tileIndex;
+    uint8_t attributes;
+};

@@ -40,6 +40,11 @@ public:
     {
         return cpu;
     }
+
+    [[nodiscard]] PPU* getPPU() const
+    {
+        return ppu;
+    }
 };
 
 #endif //SKUGGI_GAMEBOY_HPP

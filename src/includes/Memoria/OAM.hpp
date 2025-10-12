@@ -1,8 +1,15 @@
-//
-// Created by glauco on 10/11/25.
-//
+#pragma once
+#include<array>
+#include "MemoryParts.hpp"
 
-#ifndef SKUGGI_OAM_HPP
-#define SKUGGI_OAM_HPP
+class OAM : public MemoryPart
+{
+public:
+    uint32_t memoryOffset = 0xFE00;
+    static constexpr uint16_t memorySize = 0xA0;
+    std::array<uint8_t, memorySize> memory;
 
-#endif //SKUGGI_OAM_HPP
+    OAM();
+    uint8_t read(uint16_t address) override;
+    void write(uint16_t address, uint8_t value) override;
+};

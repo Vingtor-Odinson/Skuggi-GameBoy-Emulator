@@ -5,7 +5,7 @@ VRAM::VRAM() {
     memory.fill(0);
 }
 
-void VRAM::Write( uint16_t address, uint8_t value )
+void VRAM::write( uint16_t address, uint8_t value )
 {
     //This address is coming from the memory and has a offset, that's the reason behind the "minus" operation here
     if( address >= memoryOffset && address < (memoryOffset + memorySize) ) {
@@ -17,7 +17,7 @@ void VRAM::Write( uint16_t address, uint8_t value )
 
 }
 
-uint8_t VRAM::Read(uint16_t address)
+uint8_t VRAM::read(uint16_t address)
 {   
     //This address is coming from the memory and has a offset, that's the reason behind the "minus" operation here
     if( address < memoryOffset || address >= (memoryOffset + memorySize) ) {

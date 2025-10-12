@@ -59,7 +59,7 @@ uint8_t Memory::read(const uint16_t& address)
 
     if(part)
     {
-        return part->Read(address);
+        return part->read(address);
     }
 
     return 0x0;
@@ -76,6 +76,6 @@ void Memory::write(const uint16_t& address,const uint8_t& value )
 
     if(part)
     {
-        part->Write(address, value);
+        part->write(address, value);
     }
 }
