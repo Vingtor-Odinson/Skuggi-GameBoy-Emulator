@@ -1,6 +1,7 @@
 #include<Memoria/Memory.hpp>
 #include<Memoria/MemoryParts.hpp>
 #include<CPU/Bus.hpp>
+#include"ROM/BootRom/DMGBootRom.hpp"
 
 Memory::Memory( Bus* pBus )
 : bus(pBus)
@@ -67,8 +68,18 @@ MemoryPart* Memory::GetMemoryPart( uint16_t address )
     }
 }
 
+bool loadFromBootRom(Bus* bus)
+{
+    return bus->read(0xFF50);
+}
+
 uint8_t Memory::read(const uint16_t& address)
 {
+    if (loadFromBootRom(bus) && address < 0x100)
+    {
+        return DMGBootRom::data.at(address);
+    }
+
     if(address == 0xFFFF) {
         return interruptEnableReg;
     }
