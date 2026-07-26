@@ -1,12 +1,4 @@
 #include <CPU/CPU.hpp>
-#include <Memoria/Memory.hpp>
-#include <CPU/Instructions/Instructions.hpp>
-#include <CPU/Registers.hpp>
-#include <CPU/Instructions/InstructionResolver.hpp>
-#include <nlohmann/json.hpp>
-#include "enum/RegistersEnum.hpp"
-
-using json = nlohmann::json;
 
 void checkSumFlags8bits(const uint8_t& oldValue, const uint8_t& newValue, CPU* cpu) {
 
@@ -25,12 +17,7 @@ void checkSumFlags8bits(const uint8_t& oldValue, const uint8_t& newValue, CPU* c
         cpu->setFlag(FlagsEnum::H, false);
     }
 
-    if(newValue < oldValue) {
-        cpu->setFlag(FlagsEnum::C, true);
-    }
-    else {
-        cpu->setFlag(FlagsEnum::C, false);
-    }
+    cpu->setFlag(FlagsEnum::C, newValue < oldValue);
 }
 
 void checkSumFlags8bits(const uint16_t& oldValue, const uint16_t& newValue, CPU* cpu) {
@@ -61,12 +48,7 @@ void checkSumFlags16bits(const uint16_t& oldValue, const uint16_t& newValue, CPU
         cpu->setFlag(FlagsEnum::H, false);
     }
 
-    if(newValue < oldValue) {
-        cpu->setFlag(FlagsEnum::C, true);
-    }
-    else {
-        cpu->setFlag(FlagsEnum::C, false);
-    }
+    cpu->setFlag(FlagsEnum::C, newValue < oldValue);
 }
 
 void checkAndFlags(const uint8_t& value, CPU* cpu) {
@@ -256,6 +238,15 @@ namespace Instructions{
                     *dest16Reg += params.AimShouldIncrement ? 1 : 0;
                     *dest16Reg -= params.AimShouldDecrement ? 1 : 0;
                 }
+            }
+
+            else if (params.AimedReg == RegistersEnum::HL && params.OriginReg == RegistersEnum::SP)
+            {
+                int8_t e8 = static_cast<int8_t>(cpu->fetchMemory());
+                uint16_t spOldValue = cpu->get16bitRegisterValue(RegistersEnum::SP);
+                uint16_t spNewValue = cpu->get16bitRegisterValue(RegistersEnum::SP) + e8;
+                checkSumFlags8bits(spOldValue, spNewValue, cpu);
+                cpu->set16bitRegister(RegistersEnum::HL, spNewValue);
             }
 
             else if( auto or16Reg = cpu->get16bitRegister(params.OriginReg) ) {

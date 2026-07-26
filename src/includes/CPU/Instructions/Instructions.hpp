@@ -30,7 +30,9 @@ namespace Instructions{
 
     void cpl(const InstructionParameters& param, CPU* cpu);
 
-    void ld( const InstructionParameters& param, CPU* cpu ); // TODO: implementar as variantes que dependem da região de registros do sistema
+    void ld( const InstructionParameters& param, CPU* cpu );
+
+    void ldh (const InstructionParameters& param, CPU* cpu);
 
     void orInst( const InstructionParameters&, CPU* );
 
@@ -50,11 +52,33 @@ namespace Instructions{
 
     void rla (const InstructionParameters&, CPU*);
 
+    void rl (const InstructionParameters&, CPU*);
+
     void rlca (const InstructionParameters&, CPU*);
+
+    void rlc (const InstructionParameters&, CPU*);
+
+    void sla (const InstructionParameters&, CPU*);
 
     void rra (const InstructionParameters&, CPU*);
 
+    void rr (const InstructionParameters&, CPU*);
+
     void rrca (const InstructionParameters&, CPU*);
+
+    void rrc (const InstructionParameters&, CPU*);
+
+    void swap (const InstructionParameters&, CPU*);
+
+    void set (const InstructionParameters&, CPU*);
+
+    void res (const InstructionParameters&, CPU*);
+
+    void bit (const InstructionParameters&, CPU*);
+
+    void sra (const InstructionParameters&, CPU*);
+
+    void srl (const InstructionParameters&, CPU*);
 
     void ei(const InstructionParameters& param, CPU* cpu);
 
@@ -120,7 +144,7 @@ class Instruction
 
         std::string GetMnemonic() {return mnemonic;}
         uint8_t GetNeededBytesQtd() {return bytes;}
-        uint8_t GetCiclesNumber() {return cicles;}
+        uint8_t getCiclesNumber() {return cicles;}
         uint8_t GetOperandsNumber() {return operandsNumber;}
         bool IsImmediate(){return immediate;}
 

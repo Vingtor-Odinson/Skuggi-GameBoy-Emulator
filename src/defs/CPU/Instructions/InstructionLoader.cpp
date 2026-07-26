@@ -55,7 +55,17 @@ OperatorMnemonicEnum InstructionLoader::getRegisterEnum(const std::string& name)
     return (iterator != registerNameEnumMap.end()) ? iterator->second : OperatorMnemonicEnum::INVALID;
 };
 
-std::unordered_map<uint8_t, Instruction> InstructionLoader::LoadInstructions()
+std::unordered_map<uint8_t, Instruction> InstructionLoader::loadInstructions()
+{
+    return parseInstructionsFile("unprefixed");
+}
+
+std::unordered_map<uint8_t, Instruction> InstructionLoader::loadCbInstructions()
+{
+    return parseInstructionsFile("cbprefixed");
+}
+
+std::unordered_map<uint8_t, Instruction> InstructionLoader::parseInstructionsFile(const std::string& prefix)
 {
     ////////////////////////////// Carrega a Lista de instruções do json ////////////////////////////
 
@@ -72,7 +82,7 @@ std::unordered_map<uint8_t, Instruction> InstructionLoader::LoadInstructions()
 
     json jsonData = json::parse(file);
 
-    for (auto& [key, value] : jsonData["unprefixed"].items())
+    for (auto& [key, value] : jsonData[prefix].items())
     {
         Instruction instruction;
 

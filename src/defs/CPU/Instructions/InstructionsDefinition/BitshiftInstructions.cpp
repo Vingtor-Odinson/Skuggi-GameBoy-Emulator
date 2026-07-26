@@ -1,57 +1,211 @@
+#include <stdexcept>
+
 #include "CPU/CPU.hpp"
 #include "enum/FlagsEnum.hpp"
+#include "Utils/Conversors/OpMnemonicToNumber.hpp"
 
-#define C FlagsEnum::C
+uint8_t getRegByte(const RegistersEnum& reg, CPU* cpu)
+{
+    if (reg == RegistersEnum::HL)
+    {
+        const auto addrHL = cpu->get16bitRegisterValue(RegistersEnum::HL);
+        return cpu->read(addrHL);
+    }
+    if (const auto regByte = cpu->get8bitRegisterValue(reg))
+    {
+        return regByte;
+    }
+
+    throw std::runtime_error("Invalid register");
+}
+
+void setRegByte(const uint8_t& regByte, const RegistersEnum& reg, CPU* cpu)
+{
+    if (reg == RegistersEnum::HL)
+    {
+        const auto addrHL = cpu->get16bitRegisterValue(RegistersEnum::HL);
+        cpu->write(addrHL, regByte);
+        return;
+    }
+    try {
+        cpu->set8bitRegister(reg, regByte);
+    } catch (const std::exception& e) {
+        throw std::runtime_error("Invalid register");
+    }
+}
+
+uint8_t rotateLeft(const RegistersEnum& reg, CPU* cpu)
+{
+    uint8_t regByte = getRegByte(reg, cpu);
+
+    const uint8_t msBitA = (regByte & 0b10000000) >> 7;
+    const uint8_t cBit = cpu->getFlag(FlagsEnum::C);
+    cpu->setFlag(FlagsEnum::C, msBitA);
+
+    regByte &= 0b01111111;
+    regByte = regByte << 1;
+    regByte += cBit;
+
+    setRegByte(regByte, reg, cpu);
+    return regByte;
+}
+
+uint8_t rotateLeftNoC(const RegistersEnum& reg, CPU* cpu)
+{
+    uint8_t regByte = getRegByte(reg, cpu);
+
+    const uint8_t msBitA = (regByte & 0b10000000) >> 7;
+    cpu->setFlag(FlagsEnum::C, msBitA);
+
+    regByte &= 0b01111111;
+    regByte = regByte << 1;
+    regByte += msBitA;
+    setRegByte(regByte, reg, cpu);
+    return regByte;
+}
+
+uint8_t rotateRight(const RegistersEnum& reg, CPU* cpu)
+{
+    uint8_t regByte = getRegByte(reg, cpu);
+
+    const uint8_t cBit = cpu->getFlag(FlagsEnum::C) << 7;
+    cpu->setFlag(FlagsEnum::C, regByte & 0x01);
+
+    regByte &= 0b11111110;
+    regByte = regByte >> 1;
+    regByte += cBit;
+    setRegByte(regByte, reg, cpu);
+    return regByte;
+}
+
+uint8_t rotateRightNoC(const RegistersEnum& reg, CPU* cpu)
+{
+    uint8_t regByte = getRegByte(reg, cpu);
+
+    const uint8_t msBit = regByte & 0x01;
+    const uint8_t cBit = msBit << 7;
+    cpu->setFlag(FlagsEnum::C, msBit);
+
+    regByte &= 0b11111110;
+    regByte = regByte >> 1;
+    regByte += cBit;
+    setRegByte(regByte, reg, cpu);
+    return regByte;
+}
 
 namespace Instructions {
 
     void rla (const InstructionParameters& params, CPU* cpu) {
-        auto valueA = cpu->get8bitRegisterValue(RegistersEnum::A);
+        rotateLeft(RegistersEnum::A, cpu);
+    }
 
-        uint8_t msBitA = (valueA & 0b10000000) >> 7;
-        uint8_t cBit = cpu->getFlag(C);
-        cpu->setFlag(C, msBitA);
-
-        valueA &= 0b01111111;
-        valueA = valueA << 1;
-        valueA += cBit;
-        cpu->set8bitRegister(RegistersEnum::A, valueA);
+    void rl (const InstructionParameters& params, CPU* cpu)
+    {
+        const uint8_t resultByte = rotateLeft(params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, resultByte == 0x00);
     }
 
     void rlca (const InstructionParameters& params, CPU* cpu) {
-        auto valueA = cpu->get8bitRegisterValue(RegistersEnum::A);
+        rotateLeftNoC(RegistersEnum::A, cpu);
+    }
 
-        uint8_t msBitA = (valueA & 0b10000000) >> 7;
-        cpu->setFlag(C, msBitA);
+    void rlc (const InstructionParameters& params, CPU* cpu) {
+        const uint8_t resultByte = rotateLeftNoC(params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, resultByte == 0x00);
+    }
 
-        valueA &= 0b01111111;
-        valueA = valueA << 1;
-        valueA += msBitA;
-        cpu->set8bitRegister(RegistersEnum::A, valueA);
+    void sla(const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        cpu->setFlag(FlagsEnum::C, (regByte & 0x80) >> 7); //Sets the FlagsEnum::C flag as the ms bit
+        regByte = ((regByte & 0x7F) << 1); //Shifts the rest of the byte
+        setRegByte(regByte, params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
     }
 
     void rra (const InstructionParameters& params, CPU* cpu) {
-        auto valueA = cpu->get8bitRegisterValue(RegistersEnum::A);
+        rotateRight(RegistersEnum::A, cpu);
+    }
 
-        uint8_t cBit = cpu->getFlag(C) << 7;
-        cpu->setFlag(C, valueA & 0x01);
-
-        valueA &= 0b11111110;
-        valueA = valueA >> 1;
-        valueA += cBit;
-        cpu->set8bitRegister(RegistersEnum::A, valueA);
+    void rr (const InstructionParameters& params, CPU* cpu)
+    {
+        const uint8_t resultByte = rotateRight(params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, resultByte == 0x00);
     }
 
     void rrca (const InstructionParameters& params, CPU* cpu) {
-        auto valueA = cpu->get8bitRegisterValue(RegistersEnum::A);
+        rotateRightNoC(RegistersEnum::A, cpu);
+    }
 
-        uint8_t msBit = valueA & 0x01;
-        uint8_t cBit = msBit << 7;
-        cpu->setFlag(C, msBit);
+    void rrc (const InstructionParameters& params, CPU* cpu) {
+        const uint8_t result = rotateRightNoC(params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, result == 0x00);
+    }
 
-        valueA &= 0b11111110;
-        valueA = valueA >> 1;
-        valueA += cBit;
-        cpu->set8bitRegister(RegistersEnum::A, valueA);
+    void sra (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        cpu->setFlag(FlagsEnum::C, (regByte & 0x01));
+        regByte = (regByte & 0x80) + ((regByte & 0xFE) >> 1);
+        setRegByte(regByte, params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+    }
+
+    void srl (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        cpu->setFlag(FlagsEnum::C, (regByte & 0x01));
+        regByte = (regByte & 0xFE) >> 1;
+        setRegByte(regByte, params.AimedReg, cpu);
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+    }
+
+    void swap (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.AimedReg, cpu);
+
+        uint8_t upperPart = regByte & 0xF0;
+        uint8_t lowerPart = regByte & 0x0F;
+
+        regByte = (lowerPart << 4) | (upperPart >> 4);
+        setRegByte(regByte, params.AimedReg, cpu);
+
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+        cpu->setFlag(FlagsEnum::N, false);
+        cpu->setFlag(FlagsEnum::H, false);
+        cpu->setFlag(FlagsEnum::C, false);
+    }
+
+    void set (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.OriginReg, cpu);
+
+        uint8_t bitIndex = OpMnemonicToNumber::convert(params.firstOpMnemonic);
+        regByte = regByte | (0x01 << bitIndex);
+        setRegByte(regByte, params.OriginReg, cpu);
+    }
+
+    void res (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.OriginReg, cpu);
+
+        uint8_t bitIndex = OpMnemonicToNumber::convert(params.firstOpMnemonic);
+        regByte = regByte & ~(0x01 << bitIndex);
+        setRegByte(regByte, params.OriginReg, cpu);
+    }
+
+    void bit (const InstructionParameters& params, CPU* cpu)
+    {
+        uint8_t regByte = getRegByte(params.OriginReg, cpu);
+
+        uint8_t bitIndex = OpMnemonicToNumber::convert(params.firstOpMnemonic);
+        regByte = (regByte & (0x01 << bitIndex)) >> bitIndex;
+
+        cpu->setFlag(FlagsEnum::Z, regByte == 0x00);
+        cpu->setFlag(FlagsEnum::N, false);
+        cpu->setFlag(FlagsEnum::H, true);
     }
 }

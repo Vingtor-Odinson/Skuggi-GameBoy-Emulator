@@ -28,15 +28,15 @@
 
 class Bus;
 
-class IORegisters : public MemoryPart //Implementação da primeira parte da memória: O BANK00 que conterá o HEADER do jogo
+class IORegisters : public MemoryPart
 {
 private:
     uint16_t offset = 0xFF00;
-    std::array<uint8_t, 0x7F> registers;
+    std::array<uint8_t, 0x7F> registers = {};
 
 public:
 
-    uint8_t Read(uint16_t address) override;
-    void Write(uint16_t address, uint8_t value) override;
+    uint8_t read(uint16_t address) override;
+    void write(uint16_t address, uint8_t value) override;
 };
 #endif //SKUGGI_IOREGISTERS_HPP

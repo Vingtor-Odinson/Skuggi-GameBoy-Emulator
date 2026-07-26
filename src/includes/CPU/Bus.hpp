@@ -12,6 +12,8 @@ class Bus {
 
 public:
     void addDevice(const DeviceEnum&, Device*);
+    void write(const uint16_t&, const uint8_t&);
+    uint8_t read(const uint16_t&);
     void write(const DeviceEnum& device, const uint16_t&, const uint8_t&);
     uint8_t read(const DeviceEnum& device, const uint16_t&);
 };

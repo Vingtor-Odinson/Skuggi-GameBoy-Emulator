@@ -141,6 +141,15 @@ int main(int, char**)
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+    //Configurations for the GameWindow
+    GLuint gbTexture;
+    glGenTextures(1, &gbTexture);
+    glBindTexture(GL_TEXTURE_2D, gbTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 160, 144, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+
     // Main loop
     bool done = false;
 #ifdef __EMSCRIPTEN__
@@ -186,6 +195,7 @@ int main(int, char**)
         ImGui::NewFrame();
 
         SkuggiWindows::RenderRegistersWindow(gb.getCPU());
+        SkuggiWindows::RenderGameWindow(gb.getPPU(), gbTexture);
 
         // Rendering
         ImGui::Render();

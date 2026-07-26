@@ -5,6 +5,8 @@
 
 class CPU;
 
+class PPU;
+
 class Memory;
 
 class Bus;
@@ -16,9 +18,12 @@ class GameBoy {
 private:
     //Trocar isso pra smartpointer assim que possível
     CPU* cpu;
+    PPU* ppu;
     Bus* bus;
     Memory* memory;
     ROMLoader* romLoader;
+
+    uint16_t lineDotCounter;
 
 public:
     GameBoy();
@@ -27,11 +32,18 @@ public:
     void setRom(const std::string &Path) const;
     void loadRom() const;
 
+    void step();
+
     uint8_t read(const uint16_t&) const;
 
     [[nodiscard]] CPU* getCPU() const
     {
         return cpu;
+    }
+
+    [[nodiscard]] PPU* getPPU() const
+    {
+        return ppu;
     }
 };
 

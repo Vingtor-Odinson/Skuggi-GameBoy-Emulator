@@ -9,11 +9,11 @@ BANKNN::BANKNN( Bus* pBus )
     bus = pBus;
 }
 
-void BANKNN::Write( uint16_t address, uint8_t value ){
+void BANKNN::write( uint16_t address, uint8_t value ){
     bus->write(DeviceEnum::Cartridge, address, value);
 }
 
-uint8_t BANKNN::Read( uint16_t address )
+uint8_t BANKNN::read( uint16_t address )
 {
     return bus->read(DeviceEnum::Cartridge, address);
 }

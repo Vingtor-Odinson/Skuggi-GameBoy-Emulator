@@ -16,7 +16,8 @@ OpcodeTable* OpcodeTable::getInstance()
 
 OpcodeTable::OpcodeTable()
 {
-    Instructions = InstructionLoader::LoadInstructions();
+    Instructions = InstructionLoader::loadInstructions();
+    CbInstructions = InstructionLoader::loadCbInstructions();
     loadOpcodeTable();
 }
 
@@ -27,6 +28,16 @@ InstructionHandler OpcodeTable::getInstructionImplement(const std::string& mnemo
     if (it == opcodeTable.end())
     {
         throw std::runtime_error("The specified Instruction: [" + mnemonic + "] is not implemented.");
+    }
+    return it->second;
+}
+
+Instruction OpcodeTable::getCbInstruction(const uint8_t& opcode)
+{
+    const auto it = CbInstructions.find(opcode);
+    if (it == CbInstructions.end())
+    {
+        throw std::runtime_error("Unknown Instruction.");
     }
     return it->second;
 }
@@ -50,6 +61,7 @@ void OpcodeTable::loadOpcodeTable() {
     opcodeTable["CP"] = Instructions::cp;
     opcodeTable["CPL"] = Instructions::cpl;
     opcodeTable["LD"]  = Instructions::ld;
+    opcodeTable["LDH"]  = Instructions::ldh;
     opcodeTable["ADC"] = Instructions::adc;
     opcodeTable["ADD"] = Instructions::add;
     opcodeTable["DAA"] = Instructions::daa;
@@ -62,9 +74,20 @@ void OpcodeTable::loadOpcodeTable() {
     opcodeTable["CCF"] = Instructions::ccf;
     opcodeTable["SCF"] = Instructions::scf;
     opcodeTable["RLA"] = Instructions::rla;
+    opcodeTable["SLA"] = Instructions::sla;
+    opcodeTable["RL"] = Instructions::rl;
     opcodeTable["RRA"] = Instructions::rra;
+    opcodeTable["SRA"] = Instructions::sra;
+    opcodeTable["SRL"] = Instructions::srl;
+    opcodeTable["RR"] = Instructions::rr;
     opcodeTable["RLCA"] = Instructions::rlca;
+    opcodeTable["RLC"] = Instructions::rlc;
     opcodeTable["RRCA"] = Instructions::rrca;
+    opcodeTable["RRC"] = Instructions::rrc;
+    opcodeTable["SWAP"] = Instructions::swap;
+    opcodeTable["SET"] = Instructions::set;
+    opcodeTable["RES"] = Instructions::res;
+    opcodeTable["BIT"] = Instructions::bit;
     opcodeTable["DI"] = Instructions::di;
     opcodeTable["EI"] = Instructions::ei;
     opcodeTable["PUSH"] = Instructions::push;

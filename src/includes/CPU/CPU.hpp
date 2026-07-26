@@ -36,7 +36,8 @@ public:
     void pushToStack(const uint8_t& value);
     uint8_t popStack();
 
-    Instruction getInstruction(uint8_t opcode);
+    Instruction getInstruction(const uint8_t&);
+    Instruction getCbInstruction(const uint8_t&);
     void executeInstruction(Instruction Inst);
 
     void setFlag(const FlagsEnum&, const bool&);
@@ -44,6 +45,8 @@ public:
 
     uint8_t read(const uint16_t& addr) const;
     void write(const uint16_t& addr, const uint8_t& val);
+
+    uint8_t step();
 
     uint8_t* get8bitRegister(const RegistersEnum& reg) const;
     uint16_t* get16bitRegister(const RegistersEnum& reg) const;

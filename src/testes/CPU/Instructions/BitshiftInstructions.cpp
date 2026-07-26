@@ -16,6 +16,54 @@ TEST_CASE("RLA instruction working", "[rla]") {
     REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0b01101011);
 }
 
+TEST_CASE("RL r8 instruction working", "[rl]") {
+    const uint8_t opcode = 0x10; // RL B
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    const Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.set8bitRegister(RegistersEnum::B, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::B) == 0b01101011);
+
+    cpu.setFlag(FlagsEnum::C, false);
+    cpu.set8bitRegister(RegistersEnum::B, 0b10000000);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::B) == 0b00000000);
+}
+
+TEST_CASE("RL [HL] instruction working", "[rl]") {
+    const uint8_t opcode = 0x16; // RL [HL]
+    const uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    const Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.write(addrHL, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.read(addrHL) == 0b01101011);
+
+    cpu.setFlag(FlagsEnum::C, false);
+    cpu.write(addrHL, 0b10000000);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.read(addrHL) == 0b00000000);
+}
+
 TEST_CASE("RLCA instruction working", "[rlca]") {
     uint8_t opcode = 0x07;
     CPUMock mock = CPUMock();
@@ -28,6 +76,56 @@ TEST_CASE("RLCA instruction working", "[rlca]") {
 
     REQUIRE(!cpu.getFlag(FlagsEnum::C));
     REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0b01101010);
+}
+
+TEST_CASE("RLC r8 instruction working", "[rlc]") {
+    uint8_t opcode = 0x00; //RLC B
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::B, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::B) == 0b01101010);
+}
+
+TEST_CASE("RLC [HL] instruction working", "[rlc]") {
+    uint8_t opcode = 0x06; //RLC [HL]
+    uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.write(addrHL, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.read(addrHL) == 0b01101010);
+}
+
+TEST_CASE("SLA r8 instruction working", "[sla]") {
+    uint8_t opcode = 0x22; //SLA D
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::D, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::D) == 0b01101010);
 }
 
 TEST_CASE("RRA instruction working", "[rra]") {
@@ -44,11 +142,59 @@ TEST_CASE("RRA instruction working", "[rra]") {
     REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0b10011010);
 }
 
-TEST_CASE("RRCA instruction working", "[rrca]") {
-    uint8_t opcode = 0x0F;
+TEST_CASE("RR r8 instruction working", "[rr]") {
+    const uint8_t opcode = 0x18;
     CPUMock mock = CPUMock();
     CPU cpu = *mock.getMockedCPU();
-    Instruction inst = cpu.getInstruction(opcode);
+    const Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.set8bitRegister(RegistersEnum::B, 0b00110100);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::B) == 0b10011010);
+
+    cpu.setFlag(FlagsEnum::C, false);
+    cpu.set8bitRegister(RegistersEnum::B, 0b00000001);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::B) == 0b00000000);
+}
+
+TEST_CASE("RR [HL] instruction working", "[rr]") {
+    const uint8_t opcode = 0x1E;
+    const uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    const Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.write(addrHL, 0b00110100);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.read(addrHL) == 0b10011010);
+
+    cpu.setFlag(FlagsEnum::C, false);
+    cpu.write(addrHL, 0b00000001);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.read(addrHL) == 0b00000000);
+}
+
+TEST_CASE("RRCA instruction working", "[rrca]") {
+    const uint8_t opcode = 0x0F;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    const Instruction inst = cpu.getInstruction(opcode);
 
     cpu.setFlag(FlagsEnum::C, true);
     cpu.set8bitRegister(RegistersEnum::A, 0b00110100);
@@ -56,4 +202,180 @@ TEST_CASE("RRCA instruction working", "[rrca]") {
 
     REQUIRE(!cpu.getFlag(FlagsEnum::C));
     REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::A) == 0b00011010);
+}
+
+TEST_CASE("RRC r8 instruction working", "[rrc]") {
+    const uint8_t opcode = 0x08; //RRC B
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    const Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::B, 0b00110100);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::B) == 0b00011010);
+}
+
+TEST_CASE("RRC [HL] instruction working", "[rrc]") {
+    const uint8_t opcode = 0x0E; //RRC E
+    const uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    const Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.write(addrHL, 0b00110100);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.read(addrHL) == 0b00011010);
+}
+
+TEST_CASE("SRA r8 instruction working", "[sra]") {
+    uint8_t opcode = 0x2B; //SLA E
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::E, 0b00110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::E) == 0b00011010);
+}
+
+TEST_CASE("SRL r8 instruction working", "[srl]") {
+    uint8_t opcode = 0x2B; //SLA E
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::E, 0b10110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::E) == 0b11011010);
+}
+
+TEST_CASE("SWAP r8 instruction working", "[swap]") {
+    uint8_t opcode = 0x31; //SLA E
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::C, true);
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.setFlag(FlagsEnum::H, true);
+    cpu.setFlag(FlagsEnum::N, true);
+    cpu.set8bitRegister(RegistersEnum::C, 0b10110101);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::C));
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+    REQUIRE(!cpu.getFlag(FlagsEnum::H));
+    REQUIRE(!cpu.getFlag(FlagsEnum::N));
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::C) == 0b01011011);
+}
+
+TEST_CASE("SET u3, r8 instruction working", "[set]") {
+    uint8_t opcode = 0xE1; //SET 4, C
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.set8bitRegister(RegistersEnum::C, 0xEF);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::C) == 0xFF);
+}
+
+TEST_CASE("SET u3, [HL] instruction working", "[set]") {
+    uint8_t opcode = 0xE6; //SET 4, C
+    uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.write(addrHL, 0xEF);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.read(addrHL) == 0xFF);
+}
+
+TEST_CASE("BIT u3, r8 instruction working", "[bit]") {
+    uint8_t opcode = 0x5A; //BIT 3, D
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.set8bitRegister(RegistersEnum::D, 0x08);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+
+    cpu.set8bitRegister(RegistersEnum::D, 0xF0);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::Z));
+}
+
+TEST_CASE("BIT u3, [HL]] instruction working", "[bit]") {
+    uint8_t opcode = 0x7E; //BIT 7, [HL]
+    uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.setFlag(FlagsEnum::Z, true);
+    cpu.write(addrHL, 0x80);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(!cpu.getFlag(FlagsEnum::Z));
+
+    cpu.write(addrHL, 0x0F);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.getFlag(FlagsEnum::Z));
+}
+
+TEST_CASE("RES u3, r8 instruction working", "[res]") {
+    uint8_t opcode = 0xB9; //RES 4, C
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+
+    cpu.set8bitRegister(RegistersEnum::C, 0xFF);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.get8bitRegisterValue(RegistersEnum::C) == 0x7F);
+}
+
+TEST_CASE("RES u3, [HL] instruction working", "[res]") {
+    uint8_t opcode = 0x9E; //RES 3, [HL]
+    uint16_t addrHL = 0x8500;
+    CPUMock mock = CPUMock();
+    CPU cpu = *mock.getMockedCPU();
+    Instruction inst = cpu.getCbInstruction(opcode);
+    cpu.set16bitRegister(RegistersEnum::HL, addrHL);
+
+    cpu.write(addrHL, 0xFF);
+    cpu.executeInstruction(inst);
+
+    REQUIRE(cpu.read(addrHL) == 0xF7);
 }

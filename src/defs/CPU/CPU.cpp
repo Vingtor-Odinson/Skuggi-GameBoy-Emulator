@@ -68,8 +68,12 @@ void CPU::setupCPU()
     *get16bitRegister(RegistersEnum::PC) = 0x00;
 }
 
-Instruction CPU::getInstruction(uint8_t opcode) {
+Instruction CPU::getInstruction(const uint8_t& opcode) {
     return opTable->getInstruction(opcode);
+}
+
+Instruction CPU::getCbInstruction(const uint8_t& opcode) {
+    return opTable->getCbInstruction(opcode);
 }
 
 bool CPU::getFlag(const FlagsEnum& flag) const {
@@ -114,5 +118,13 @@ uint8_t CPU::get8bitRegisterValue(const RegistersEnum &reg) const {
 
 uint16_t CPU::get16bitRegisterValue(const RegistersEnum &reg) const {
     return regs->get16bitRegisterValue(reg);
+}
+
+uint8_t CPU::step()
+{
+    const uint8_t opcode = fetchMemory();
+    Instruction inst = (opcode == 0xCB) ? opTable->getCbInstruction(opcode) : opTable->getInstruction(opcode);
+    executeInstruction(inst);
+    return inst.getCiclesNumber();
 }
 
