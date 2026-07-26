@@ -10,7 +10,35 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(IMGUI_INCLUDE_DIR "/home/glauco/Dev/imgui")
 set(IMGUI_BACKENDS_INCLUDE_DIR "/home/glauco/Dev/imgui/backends")
 
-find_package(SDL3 REQUIRED)
+#Uses FetchContent to deal with SDL and json dependencies
+
+message(STATUS "Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+message(STATUS "Compiler path: ${CMAKE_CXX_COMPILER}")
+message(STATUS "Compiler version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+include(FetchContent)
+FetchContent_Declare(
+        SDL3
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+        GIT_TAG release-3.4.10
+)
+
+FetchContent_Declare(
+        json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.12.0
+)
+
+FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG v3.15.1
+)
+
+FetchContent_MakeAvailable(SDL3)
+FetchContent_MakeAvailable(json)
+FetchContent_MakeAvailable(Catch2)
+
 find_package(OpenGL REQUIRED)
 
 # Coletar todos os arquivos .cpp recursivamente de src e subpastas
@@ -25,9 +53,9 @@ list(FILTER SOURCES EXCLUDE REGEX ".*/testes/.*")
 add_executable(Skuggi ${SOURCES})
 
 # Defina os diretórios de inclusão para os arquivos .hpp
-target_include_directories(Skuggi PRIVATE ${CMAKE_SOURCE_DIR}/src/includes ${IMGUI_INCLUDE_DIR} ${IMGUI_BACKENDS_INCLUDE_DIR} ${SDL3_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS})
+target_include_directories(Skuggi PRIVATE ${CMAKE_SOURCE_DIR}/src/includes ${IMGUI_INCLUDE_DIR} ${IMGUI_BACKENDS_INCLUDE_DIR} ${OPENGL_INCLUDE_DIRS})
 
-target_link_libraries(Skuggi ${SDL3_LIBRARIES} ${OPENGL_LIBRARIES})
+target_link_libraries(Skuggi SDL3::SDL3 ${OPENGL_LIBRARIES})
 # Default build type if not specified
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type specified, defaulting to Debug")
@@ -54,7 +82,6 @@ endif()
 
 
 ###########################################3Catch2 tests
-find_package(Catch2 3 REQUIRED)
 # These tests can use the Catch2-provided main
 
 file(GLOB_RECURSE CORE_SOURCES ${CMAKE_SOURCE_DIR}/src/defs/*.cpp)
@@ -66,12 +93,12 @@ add_executable(SkuggiTests ${TEST_SOURCES} ${CORE_SOURCES})
 
 target_link_libraries(SkuggiTests PRIVATE
         Catch2::Catch2WithMain
-        ${SDL3_LIBRARIES}
+        SDL3::SDL3
         ${OPENGL_LIBRARIES}
 )
 
 target_include_directories(SkuggiTests PRIVATE ${CMAKE_SOURCE_DIR}/src/includes)
-target_include_directories(SkuggiTests PRIVATE ${CMAKE_SOURCE_DIR}/src/testes ${IMGUI_INCLUDE_DIR} ${IMGUI_BACKENDS_INCLUDE_DIR} ${SDL3_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS})
+target_include_directories(SkuggiTests PRIVATE ${CMAKE_SOURCE_DIR}/src/testes ${IMGUI_INCLUDE_DIR} ${IMGUI_BACKENDS_INCLUDE_DIR} ${OPENGL_INCLUDE_DIRS})
 
 set_target_properties(SkuggiTests PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/Tests"
